@@ -1,0 +1,32 @@
+name: Génération des sites
+on:
+  repository_dispatch:
+    types: [cms-build]
+  workflow_dispatch:
+    inputs:
+      site:
+        description: "Identifiant du site à régénérer (vide : générations en attente)"
+        required: false
+  schedule:
+    - cron: "*/15 * * * *"
+concurrency:
+  group: cms-build
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-save basic-ftp@5
+      - name: Générer et déposer
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SITE: ${{ github.event.inputs.site || github.event.client_payload.site }}
+        run: node build/build.js

@@ -1,0 +1,586 @@
+{
+ "site": {
+  "nom": "École du Design des Mutations",
+  "accroche_titre": "Bienvenue à",
+  "titre": "L'École du Design des Mutations",
+  "slogan": "Communication, numérique et\nintelligence collaborative",
+  "email": "info@ecole-edm.fr",
+  "linkedin": "https://www.linkedin.com/company/ecole-du-design-des-mutations/",
+  "rncp": "Diplôme national MASTER - Information, communication (RNCP38208), niveau 7, délivré par le Conservatoire national des arts et métiers (Cnam). Début des parcours certifiants : 01/01/2024 ; échéance de l'enregistrement : 31/12/2028."
+ },
+ "accueil": {
+  "alternance_titre": "L'alternance, alliance de la connaissance et de l'expérience professionnelle",
+  "alternance_texte": "L'École du Design des Mutations est **spécialiste des masters en alternance**.\n\nEn collaboration avec le [CNAM](https://www.cnam.fr) et le laboratoire [Dicen](https://www.dicen-idf.org), notre équipe allie enseignants-chercheurs et professionnels de terrain. Nous développons une pédagogie active qui favorise l'autonomie, la collaboration, la créativité et l'innovation.\n\nSoutenus par notre réseau d'entreprises, nos alternants et alternantes accèdent ainsi à des postes stratégiques.\n\n*Nos masters sont certifiés par le Conservatoire National des Arts et Métiers, sous le titre [RNCP 38208 de niveau 7 : MASTER Information-Communication](https://www.francecompetences.fr/recherche/rncp/38208/) [Date de début des parcours certifiants 01-01-2024 / Date d'échéance de l'enregistrement 31-12-2028].*",
+  "programmes_titre": "Fondamentaux solides, compétences d'avenir",
+  "programmes_texte": "Nos programmes sont conçus en **dialogue** permanent avec les acteurs du terrain. Par la pratique du **design collaboratif**, nous élaborons des formations qui répondent aux besoins d'aujourd'hui et anticipent ceux de demain. Une démarche vivante, itérative, au service de votre employabilité.",
+  "etapes": [
+   "Choisir sa spécialisation",
+   "Postuler en ligne",
+   "Trouver son entreprise",
+   "Démarrer son alternance"
+  ],
+  "pourquoi_titre": "Pourquoi l'EDM ?",
+  "pourquoi_texte": "L'École du Design des Mutations est née de la volonté de créer un espace pour **explorer de nouvelles perspectives sociétales** dans le domaine de l'information-communication. Elle s'appuie notamment sur les travaux du laboratoire [Dicen-IdF](https://www.dicen-idf.org).\n\nNous nous inscrivons comme un **levier de création collective**, dans des domaines aussi divers que la pédagogie, la recherche scientifique, des services publics ou les pratiques de consommation.\n\nL'association se propose d'intervenir dans des programmes de **formation continue**, de formation en **alternance** et de **recherche collaborative** avec des organisations. Dans le domaine de l'alternance, elle a développé un partenariat officiel avec les Masters dirigés par les professeurs Manuel Zacklad et Sylvie Alemanno.",
+  "vie_titre": "La vie au sein des masters",
+  "vie_texte": "Situés en plein cœur de Paris, nos Masters offrent bien plus qu'une formation : c'est une expérience collective.\nDès la rentrée, organisée en mode participatif, vous intégrez une promotion soudée dans une ambiance conviviale et bienveillante.\nL'équipe pédagogique reste accessible tout au long de l'année, attentive à chaque parcours. Soirées de promotion, voyages, temps forts partagés : la vie d'un Master s'expérimente autant en dehors des salles de cours que dedans.",
+  "handicap_titre": "Handicap et aménagements de formation",
+  "handicap_texte": "L'EDM accompagne les apprenants qui rencontrent un obstacle lié à une situation de handicap, un trouble de santé ou une difficulté durable. L'objectif est de **faciliter l'accès à la formation, aux ressources et aux évaluations**, sans modifier les exigences du diplôme.\n\nVous pouvez nous contacter avant la rentrée, en début d'année ou à tout moment du parcours, notamment avant une évaluation. La demande peut être formulée directement à l'EDM, au CFA SACEF ou à la mission Handi'Cnam.",
+  "sections": [
+   {
+    "type": "fixe",
+    "id": "duo"
+   },
+   {
+    "type": "fixe",
+    "id": "alternance"
+   },
+   {
+    "type": "fixe",
+    "id": "temoignage"
+   },
+   {
+    "type": "fixe",
+    "id": "programmes"
+   },
+   {
+    "type": "fixe",
+    "id": "etapes"
+   },
+   {
+    "type": "fixe",
+    "id": "pourquoi"
+   },
+   {
+    "type": "fixe",
+    "id": "vie"
+   },
+   {
+    "type": "fixe",
+    "id": "handicap"
+   },
+   {
+    "type": "fixe",
+    "id": "contact"
+   }
+  ],
+  "alternance_image": "img/promo-cime.jpg",
+  "pourquoi_image": "img/cours.jpg",
+  "vie_galerie": [
+   "img/vie-1.jpg",
+   "img/vie-2.jpg",
+   "img/rentree.jpg",
+   "img/promo-cime.jpg",
+   "img/cnam.jpg",
+   "img/cours.jpg"
+  ],
+  "periode1": "Mars - juin",
+  "periode2": "Octobre",
+  "etapes_images": [
+   "img/etape1.jpg",
+   "img/etape2.jpg",
+   "img/etape3.jpg",
+   "img/etape4.jpg"
+  ]
+ },
+ "reunions": [
+  {
+   "date": "début de l'été",
+   "horaire": "dates à venir",
+   "lieu": ""
+  }
+ ],
+ "temoignages": [
+  {
+   "nom": "Clara Hoffman",
+   "programme": "M2 Transition Numérique Responsable",
+   "citation": "Si vous cherchez un master pour vous lancer dans le management de projet avec des outils de collaboration innovants, je vous recommande vivement ce master",
+   "lien": "https://www.linkedin.com/company/ecole-du-design-des-mutations/"
+  },
+  {
+   "nom": "Francisco Da Costa",
+   "programme": "M1 Communication, Innovation, Médiation, Études (CIME)",
+   "citation": "Le fait que ce soit un nouveau master avec des enseignements dans l'air du temps a motivé mon choix, le thème du design collaboratif me touche grâce à mon expérience de stage mais aussi à ma participation à la Convention citoyenne étudiante de 2022",
+   "lien": "https://www.linkedin.com/company/ecole-du-design-des-mutations/"
+  },
+  {
+   "nom": "Manuel Zacklad",
+   "programme": "responsable de programme",
+   "citation": "Le partenariat avec l'EDM est une chance pour nos étudiants : ils y trouvent un terrain d'expérimentation ancré dans les réalités des mutations numériques et sociétales, en parfaite résonance avec les masters CIME (Communication, Innovation, Médiations et Études) et Transition Numérique Responsable & Codesign.",
+   "lien": ""
+  }
+ ],
+ "masters": [
+  {
+   "slug": "tnr",
+   "sigle": "TNR&C",
+   "surtitre": "Co-design des transitions",
+   "titre": "Transition numérique responsable & codesign",
+   "accroche": "Accompagnez les entreprises dans la réussite de leur transformation digitale responsable",
+   "resume": "Former des professionnels qui transforment les organisations par le co-design : c'est l'ambition du Master TNR&C. La conception collaborative y est centrale, qu'il s'agisse de concevoir de nouveaux services numériques, d'animer des ateliers participatifs ou de piloter des projets agiles. Sémiotique des interfaces, technologies participatives, UX research et management en contexte numérique complètent une formation ancrée dans une démarche responsable et durable.",
+   "image": "img/cours.jpg",
+   "intro": "Les organisations traversent des mutations numériques profondes qui redéfinissent les modes de travail, de collaboration et de conception des services. Face à cette complexité, le professionnel de demain sera avant tout un chef d'orchestre : capable de mobiliser les parties prenantes, de comprendre les besoins usagers et d'anticiper les évolutions technologiques par une approche prospective. C'est cette vision du design des transitions, collaborative, outillée et ancrée dans le réel, que l'EDM place au cœur de sa pédagogie.",
+   "description": "Ce master forme aux métiers de l'accompagnement de la transition numérique par le co-design dans les organisations et à la recherche dans ce domaine, en mettant l'accent sur les services d'information et de communication et la gestion de projet et en s'inscrivant dans les piliers du développement durable, notamment social et socio-économique.\n\nLa formation aux démarches de conception collaborative est au cœur de notre vision du design de nouveaux services internes et externes exploitant les opportunités du digital, mais aussi d'un processus de conception responsable qui implique la participation des usagers et des parties prenantes.\n\nDurant la formation, les auditeurs sont engagés dans la réalisation de projets et peuvent tirer parti de l'éclairage des intervenants professionnels et des enseignants-chercheurs du laboratoire Dicen-IdF (EA 7339) dont les recherches sont orientées sur cette problématique.\n\nLe M1 et le M2 sont composés d'une partie fondamentale et d'une partie appliquée. La partie appliquée du M2 correspond au certificat de spécialisation « Design d'expérience utilisateur intégrée et de services ». La partie appliquée du M1 correspond au certificat de spécialisation « Co-design ». Vous pouvez les suivre indépendamment de la partie fondamentale.",
+   "competences": [
+    "Codesign et facilitation collaborative",
+    "Gestion de projets de transformation numérique",
+    "Conception de services responsables",
+    "Compréhension des usages et des besoins utilisateurs",
+    "Conduite du changement en organisation",
+    "Recherche et analyse en info-communication"
+   ],
+   "duree": "2 ans",
+   "rythme": "1er semestre : 3 jours entreprise / 2 jours école\n2e semestre : 3 semaines entreprise / 1 semaine école",
+   "campus": "Paris (CNAM, métro Arts et Métiers)",
+   "prerequis": "Bac+3",
+   "rentree": "12 octobre 2026",
+   "soutenances": "Semestre 1 : 15 mars (M1) et 22 mars (M2) ; Semestre 2 : 22 juin (M1) et 21 juin (M2)",
+   "responsables": "Professeure Sylvie Alemanno & Professeur Manuel Zacklad",
+   "carrieres": [
+    {
+     "titre": "Doctorat en sciences de l'information et de la communication",
+     "mission": "La première étape pour devenir maître·sse de conférences ou diriger des recherches. Grâce au codesign et à l'ancrage terrain de l'alternance, explorez la recherche participative ou la recherche-intervention en organisation.",
+     "postes": ""
+    },
+    {
+     "titre": "Responsable stratégie informationnelle et communication numérique",
+     "mission": "Définir des stratégies digitales responsables, organiser les flux d'information et piloter la communication numérique des organisations.",
+     "postes": "Responsable stratégie digitale, Responsable communication numérique, Responsable éditorial numérique, Knowledge Manager"
+    },
+    {
+     "titre": "Chef de projet en transformation numérique",
+     "mission": "Piloter des projets qui transforment concrètement les pratiques d'information et de communication des organisations, en intégrant des enjeux sociaux et responsables.",
+     "postes": "Chef·fe de projet transformation numérique, Chargé·e de mission transition digitale, Responsable modernisation des services"
+    },
+    {
+     "titre": "Consultant en conception collaborative et conduite du changement",
+     "mission": "Accompagner les équipes, animer des ateliers de co-design et faire émerger des solutions numériques co-construites avec les usagers et les parties prenantes.",
+     "postes": "Consultant·e en co-design, Consultant·e en conduite du changement, Facilitateur·rice en innovation collaborative"
+    },
+    {
+     "titre": "Designer de services d'information et d'expérience utilisateur",
+     "mission": "Concevoir des services numériques utiles, accessibles et responsables en travaillant l'architecture de l'information et l'expérience des utilisateurs.",
+     "postes": "UX Designer, UX Researcher, Architecte de l'information, Service Designer"
+    },
+    {
+     "titre": "Chargé·e d'études en info-communication numérique",
+     "mission": "Analyser les usages, comprendre les transformations numériques et produire des recommandations stratégiques fondées sur la recherche.",
+     "postes": "Chargé·e d'études, Ingénieur·e d'études, Consultant·e en évaluation de dispositifs numériques"
+    }
+   ],
+   "indicateurs": [
+    {
+     "valeur": "100%",
+     "libelle": "Taux de satisfaction apprentis en période d'essai"
+    },
+    {
+     "valeur": "100%",
+     "libelle": "Taux de satisfaction maîtres d'apprentissage"
+    }
+   ],
+   "indicateurs_note": "Taux de réussite à l'examen : disponible en 2027. Taux d'insertion et de poursuite d'études : disponibles en 2028. Source : CFA SACEF, session 2025-2027.",
+   "blocs": [],
+   "annee1": "MAÎTRISER LES FONDAMENTAUX DE L'INFO-COMMUNICATION\n\n- Théories de la communication\n- Organisation des connaissances\n- Sémiotique\n- Coopération et organisation\n- Anglais professionnel\n\nAPPRENDRE À CO-CRÉER\n\n- Médiation par le prototypage pour la co-création\n- Conception et facilitation d'ateliers collaboratifs\n- Création d'un dispositif d'innovation participative\n- Mission ou stage tutoré en entreprise\n- etc.",
+   "annee2": "APPROFONDIR LA COMMUNICATION NUMÉRIQUE\n\n- Technologies participatives et économies de la convivialité\n- Communication et éditorialisation\n- Théories de l'activité collective et enjeux du collaboratif\n- Management, travail et organisation en contexte numérique\n- Sémiotique avancée et design numérique\n\nCONDUIRE DES PROJETS AGILES ET CRÉATIFS\n\n- Conduite de projet agile pour le design d'expérience et de service\n- Atelier immersif\n- Mémoire d'étude et de recherche\n- etc.",
+   "prog_image": "img/prog-tnr.jpg",
+   "chemin": "mastertnr"
+  },
+  {
+   "slug": "cime",
+   "sigle": "CIME",
+   "surtitre": "Info-communication",
+   "titre": "Communication, innovation, médiation, études",
+   "accroche": "Collaboration, IA et créativité : soyez au cœur des mutations de la communication",
+   "resume": "Le Master CIME forme des professionnels de la communication capables d'évoluer dans des environnements créatifs et stratégiques variés. Parmi ce qui rend ce programme unique : une intégration poussée de l'intelligence artificielle (génération de texte, image, son) combinée aux démarches d'intelligence collective, pour développer des compétences rares en conception de contenus, planning stratégique et design prospectif.",
+   "image": "img/promo-cime.jpg",
+   "intro": "Les métiers de l'info-communication sont en constante mutation. Face à l'IA et aux nouvelles attentes des organisations, le communicant de demain sera avant tout un médiateur, un stratège, un innovateur. Former à ces nouvelles postures, c'est l'ambition de l'École du Design des Mutations.",
+   "description": "En partenariat avec le CFA SACEF et le CNAM, ce Master en alternance forme des professionnels capables d'évoluer dans des environnements variés : agences de communication, entreprises et grands groupes, cabinets de conseil, institutions culturelles et organisations publiques.\n\nDurant la formation, les auditeurs sont engagés dans la réalisation de projets et peuvent tirer parti de l'éclairage des intervenants professionnels et des enseignants-chercheurs du laboratoire Dicen-IdF (EA 7339) dont les recherches sont orientées sur cette problématique.",
+   "competences": [
+    "Stratégie et planification",
+    "Compréhension des organisations et de leurs enjeux",
+    "Création de contenu et rédaction adaptée",
+    "Création assistée par IA",
+    "Gestion de projets innovants",
+    "Démarches collaboratives"
+   ],
+   "duree": "2 ans",
+   "rythme": "1er semestre : 3 jours entreprise / 2 jours école\n2e semestre : 3 semaines entreprise / 1 semaine école",
+   "campus": "Paris (CNAM, métro Arts et Métiers)",
+   "prerequis": "Bac+3",
+   "rentree": "12 octobre 2026",
+   "soutenances": "Semestre 1 : 15 mars (M1) et 22 mars (M2) ; Semestre 2 : 22 juin (M1) et 21 juin (M2)",
+   "responsables": "Professeure Sylvie Alemanno & Professeur Manuel Zacklad",
+   "carrieres": [
+    {
+     "titre": "Doctorat en sciences de l'information et de la communication",
+     "mission": "La première étape pour devenir maître·sse de conférences ou diriger des recherches.",
+     "postes": ""
+    },
+    {
+     "titre": "Concepteur-rédacteur augmenté par IA",
+     "mission": "Création de campagnes de communication et de contenus éditoriaux en exploitant l'IA pour la génération de textes et l'optimisation du storytelling.",
+     "postes": ""
+    },
+    {
+     "titre": "Planneur stratégique",
+     "mission": "Analyse des tendances, veille stratégique et construction de recommandations créatives et innovantes pour les marques.",
+     "postes": ""
+    },
+    {
+     "titre": "Consultant en stratégie digitale et innovation",
+     "mission": "Accompagnement des entreprises et agences dans la transformation digitale en intégrant les nouvelles technologies de communication.",
+     "postes": ""
+    },
+    {
+     "titre": "Analyste en communication et études d'usage",
+     "mission": "Exploitation des outils d'intelligence artificielle pour mener des études d'opinion, des analyses de comportements et des tendances digitales.",
+     "postes": ""
+    },
+    {
+     "titre": "Designer en prospective et stratégies narratives",
+     "mission": "Construction de scénarios de communication futurs pour anticiper les évolutions du marché et des comportements.",
+     "postes": ""
+    }
+   ],
+   "indicateurs": [
+    {
+     "valeur": "92%",
+     "libelle": "Taux de satisfaction apprentis en période d'essai"
+    },
+    {
+     "valeur": "94%",
+     "libelle": "Taux de satisfaction maîtres d'apprentissage"
+    }
+   ],
+   "indicateurs_note": "Taux de réussite à l'examen : disponible en 2027. Taux d'insertion et de poursuite d'études : disponibles en 2028. Source : CFA SACEF, master CIME, session 2025-2027.",
+   "blocs": [
+    {
+     "code": "RNCP38208BC01",
+     "titre": "Valoriser ses compétences numériques dans un portfolio professionnel",
+     "modules": "CCE238 - Portfolio créatif (6 ECTS)",
+     "evaluation": "Conception et mise en ligne d'un portfolio créatif professionnel."
+    },
+    {
+     "code": "RNCP38208BC02",
+     "titre": "Conduire une recherche appliquée en information-communication",
+     "modules": "CCE200 - Théories de la communication (4 ECTS)\nCCE203 - Fondamentaux de l'organisation des connaissances (4 ECTS)\nCCE205 - Anthropologie des connaissances (4 ECTS)\nCCE206 - Coopération et organisation (4 ECTS)\nCCE204 - Sémiotique des interfaces (4 ECTS)\nUA3205 - Mémoire entretien (10 ECTS)",
+     "evaluation": "Dossier de synthèse transposant les enseignements au contexte professionnel et entretien d'un professionnel."
+    },
+    {
+     "code": "RNCP38208BC03",
+     "titre": "Analyser sa pratique professionnelle pour communiquer en contexte international",
+     "modules": "PUGB01 - Anglais (4 ECTS)\nUA3206 - Stage ou mission professionnelle (8 ECTS)",
+     "evaluation": "Rapport et soutenance sur les missions confiées ; production écrite et orale en anglais."
+    },
+    {
+     "code": "RNCP38208BC04",
+     "titre": "Créativité : pratique de l'IA et intelligence collective",
+     "modules": "CCE239 - Démarches créatives (4 ECTS)\nCCE245 - Usages de l'IA pour la génération de texte (4 ECTS)\nCCE246 - Usages de l'IA pour la génération d'images et de sons (4 ECTS)",
+     "evaluation": "Études de cas appliquées à des contextes professionnels complexes."
+    },
+    {
+     "code": "RNCP38208BC05",
+     "titre": "Concevoir des stratégies numériques collaboratives",
+     "modules": "CCE212 - Théories de l'activité collective (4 ECTS)\nCCE210 - Technologies participatives (4 ECTS)\nCCE211 - Communication et éditorialisation (4 ECTS)\nCCE217 - Sémiotique avancée et design numérique (4 ECTS)\nCCE216 - Management en contexte numérique (4 ECTS)",
+     "evaluation": "Dossier de synthèse et préconisations argumentées."
+    },
+    {
+     "code": "RNCP38208BC06",
+     "titre": "Piloter une étude en information-communication avec des méthodes scientifiques",
+     "modules": "UA3201 - Mémoire d'études et de recherche M2 (12 ECTS)",
+     "evaluation": "Étude appliquée à un projet réel, soutenue devant un jury."
+    },
+    {
+     "code": "RNCP38208BC07",
+     "titre": "Études d'usages quali/quanti et design prospectif",
+     "modules": "CCE235 - Design prospectif (6 ECTS)\nCCE236 - Études quantitatives digitales (6 ECTS)\nCCE229 - Études qualitatives (6 ECTS)",
+     "evaluation": "Conduite d'un projet intégrant diagnostic, études d'usages et design prospectif."
+    },
+    {
+     "code": "RNCP38208BC08",
+     "titre": "Enquêter et modéliser les dispositifs numériques de terrain",
+     "modules": "UA3204 - Stage ou mission professionnelle de M2 (10 ECTS)",
+     "evaluation": "Analyse d'un projet réel de communication conduit ou supervisé par l'étudiant."
+    }
+   ],
+   "annee1": "MAÎTRISER LES FONDAMENTAUX DE L'INFO-COMMUNICATION\n\n- Théories de la communication\n- Organisation des connaissances\n- Sémiotique\n- Coopération et organisation\n- Anglais professionnel\n\nDÉVELOPPER SA CRÉATIVITÉ\n\n- Démarches créatives et collectives\n- Usages de l'IA\n- Portfolio créatif\n- Atelier immersif\n- etc.",
+   "annee2": "APPROFONDIR LA COMMUNICATION NUMÉRIQUE\n\n- Technologies participatives et économies de la convivialité\n- Communication et éditorialisation\n- Théories de l'activité collective\n- Management, travail et organisation en contexte numérique\n- Sémiotique avancée et design numérique\n\nCONDUIRE DES ÉTUDES COMPLEXES\n\n- Design prospectif\n- Études quantitatives digitales & qualitatives\n- Atelier immersif\n- Mémoire d'étude et de recherche\n- etc.",
+   "prog_image": "img/prog-cime.jpg",
+   "chemin": "mastercime"
+  }
+ ],
+ "communs": {
+  "atouts": [
+   {
+    "titre": "Partenariat avec le CNAM",
+    "texte": "Nos masters bénéficient de l'expertise des enseignants-chercheurs du CNAM, institution qui forme 50 000 élèves chaque année.\n\nLes cours ont lieu au CNAM, en plein centre de Paris (métro Arts et Métiers)."
+   },
+   {
+    "titre": "Innovation pédagogique",
+    "texte": "Nous adoptons une méthode intégrée, alliant théorie et pratique, appuyée par la recherche et le contact avec les employeurs.\n\nNous proposons des cas pratiques et une approche horizontale et participative."
+   },
+   {
+    "titre": "Encadrement & convivialité",
+    "texte": "Afin d'offrir un encadrement personnalisé et de bonnes conditions d'apprentissage, nous formons de petites classes d'environ 25 étudiants.\n\nNous organisons une intégration de rentrée ainsi que des événements en cours d'année pour renforcer les liens."
+   }
+  ],
+  "gratuite_titre": "Une formation gratuite pour les apprentis",
+  "gratuite_texte": "La formation est gratuite pour l'apprenti en contrat d'apprentissage ; les frais pédagogiques sont pris en charge selon les règles applicables au contrat. C'est un dispositif qui bénéficie à l'alternant comme à l'entreprise, autant au niveau financier qu'en matière de développement de compétences.\n\nDe plus, pendant toute la durée de son alternance, l'étudiant touche une rémunération, qui varie notamment selon l'âge et l'année du contrat."
+ },
+ "pages": [
+  {
+   "slug": "ecole",
+   "titre": "L'école",
+   "menu": "L'école",
+   "chapo_titre": "Notre mission",
+   "chapo": "Former des étudiants et des professionnels capables de comprendre les enjeux liés aux mutations en cours (écologiques, économiques, sociales et numériques) et de co-construire des solutions en mobilisant l'intelligence collective et le design collaboratif.",
+   "sections": [
+    {
+     "type": "sommaire",
+     "id": "sommaire",
+     "items": [
+      {
+       "libelle": "Pédagogie",
+       "cible": "page-ecole--pedagogie"
+      },
+      {
+       "libelle": "Équipe",
+       "cible": "page-ecole--equipe"
+      },
+      {
+       "libelle": "Intervenants",
+       "cible": "page-ecole--intervenants"
+      },
+      {
+       "libelle": "Engagements",
+       "cible": "page-ecole--engagements"
+      },
+      {
+       "libelle": "Performance",
+       "cible": "page-ecole--indicateurs"
+      }
+     ]
+    },
+    {
+     "type": "texte",
+     "id": "pedagogie",
+     "titre": "Notre approche pédagogique",
+     "texte": "Nos masters en alternance permettent le développement robuste de compétences en phase avec les mutations et les exigences récentes du monde du travail. Issues de la pédagogie active, nos formations sont centrées sur les apprenants, les activités (**apprendre en pratiquant**) et les interactions (**apprentissages par les pairs**). Elles positionnent les pédagogues comme des facilitateurs au service d'un processus d'apprenance à la fois individuel et collectif."
+    },
+    {
+     "type": "cartes",
+     "id": "competences",
+     "titre": "Ce que nous développons",
+     "items": [
+      {
+       "titre": "Compétences opérationnelles",
+       "texte": "- Développer des compétences hybrides : analytiques, relationnelles, techniques et critiques\n- Études de cas et mises en pratique"
+      },
+      {
+       "titre": "Collaboration & apprentissages croisés",
+       "texte": "- Techniques de codesign et de codéveloppement\n- Croisement des savoirs académiques, des pratiques de terrain et des dynamiques collectives"
+      },
+      {
+       "titre": "Créativité",
+       "texte": "- Design thinking et intelligence collective\n- Maîtrise avancée des outils IA"
+      },
+      {
+       "titre": "Expression & participation",
+       "texte": "- Pédagogie horizontale et participative\n- Présentations orales et exercices de prise de parole"
+      },
+      {
+       "titre": "Proactivité",
+       "texte": "- Outiller la conception de dispositifs concrets pour soutenir l'accompagnement à la transition\n- Regard critique qui interroge le sens des transformations"
+      },
+      {
+       "titre": "Réflexivité & esprit critique",
+       "texte": "- Approche raisonnée et émancipatrice du numérique\n- Former à des postures réflexives et éthiques, essentielles dans les métiers du design, de la communication, de l'animation collaborative ou du pilotage de projets de transformation"
+      }
+     ]
+    },
+    {
+     "type": "equipe",
+     "id": "equipe",
+     "titre": "Équipe pédagogique",
+     "items": [
+      {
+       "nom": "Thierry Curiale",
+       "role": "Stratégie et partenariats",
+       "email": "",
+       "photo": "img/equipe-thierry.jpg"
+      },
+      {
+       "nom": "Taha Jaidi",
+       "role": "Directeur pédagogique",
+       "email": "",
+       "photo": "img/equipe-taha.jpg"
+      },
+      {
+       "nom": "Aline Gérard",
+       "role": "Coordinatrice pédagogique",
+       "email": "",
+       "photo": "img/equipe-aline.jpg"
+      },
+      {
+       "nom": "Marianne Lorthiois",
+       "role": "Chargée de mission",
+       "email": "",
+       "photo": "img/equipe-marianne.jpg"
+      },
+      {
+       "nom": "Sarah Aouici",
+       "role": "Chargée de communication",
+       "email": "",
+       "photo": "img/equipe-sarah.jpg"
+      }
+     ]
+    },
+    {
+     "type": "equipe",
+     "id": "conseil",
+     "titre": "Conseil scientifique",
+     "items": [
+      {
+       "nom": "Manuel Zacklad",
+       "role": "Responsable du conseil scientifique, Responsable de Master, Laboratoire Dicen",
+       "email": "",
+       "photo": "img/equipe-manuel.jpg"
+      },
+      {
+       "nom": "Sylvie Parrini-Alemanno",
+       "role": "Responsable de master, Professeure des Universités, Laboratoire Dicen",
+       "email": "",
+       "photo": "img/equipe-sylvie.jpg"
+      },
+      {
+       "nom": "François Silva",
+       "role": "Professeur émérite IGS, Laboratoire Dicen",
+       "email": "",
+       "photo": "img/equipe-francois.jpg"
+      }
+     ]
+    },
+    {
+     "type": "equipe",
+     "id": "referents",
+     "titre": "Mobilité internationale & Handicap",
+     "items": [
+      {
+       "nom": "Christine Mercier Thiebault",
+       "role": "Référente handicap",
+       "email": "c.thiebaut@cfasacef.fr",
+       "photo": ""
+      },
+      {
+       "nom": "Virginie Gallet",
+       "role": "Référente mobilité internationale",
+       "email": "v.gallet@cfasacef.fr",
+       "photo": ""
+      }
+     ]
+    },
+    {
+     "type": "cartes",
+     "id": "intervenants",
+     "titre": "Intervenants",
+     "items": [
+      {
+       "titre": "Master 1",
+       "texte": "- **Alain Forgeot**, fondamentaux marketing et projets\n- **Béatrice Arruabarrena**, entretien semi-directif et analyse de contenu\n- **Béatrice Peluau**, méthodologie : citation et rédaction\n- **Chloé Champion**, outils de création graphique\n- **Claire Scopsi**, panorama des accès à la connaissance, fake news et vérification d'images\n- **Jérôme Guibourgé**, sémiologie\n- **Julia Jacob**, cultures numériques et imaginaires de l'IA\n- **Julien Demeuzois**, portfolio et personal branding\n- **Justine Charenton**, stratégie de marque\n- **Lilian Leccia**, planning stratégique\n- **Manuel Zacklad**, épistémologie\n- **Muriel Frisch**, dispositifs d'organisation des connaissances\n- **Myriam Lewkowicz**, travail coopératif assisté par ordinateur\n- **Naïk Guezel**, entrepreneuriat social et solidaire\n- **Naouel Zoghlami**, anglais professionnel\n- **Meriem Gueche**, anglais professionnel\n- **Pierre Lévy**, culture du design\n- **Rachel Zacklad**, entretien semi-directif et analyse de contenu\n- **Sarah Quintero Mateus**, planning stratégique\n- **Stéphan-Eloïse Gras**, culture numérique / IA\n- **Stéphanie Hémon**, ethnographie\n- **Sylvie Alemanno**, culture et communication organisationnelle\n- **Taha Jaidi**, fabrique des récits\n- **Thierry Curiale**, design de service\n- **Valentin Lefebvre**, planning stratégique"
+      },
+      {
+       "titre": "Master 2",
+       "texte": "- **Anaïs Guillemané-Mootoosamy**, planning stratégique\n- **Benoit Petitprêtre**, marketing et comportement utilisateurs\n- **Béatrice Arruabarrena**, anthropologie de la communication\n- **Chloé Champion**, design et vidéo\n- **Etienne Armand Amato**, prospective numérique\n- **Jérôme Guibourgé**, sémiologie avancée\n- **Justine Charenton**, planning stratégique\n- **Léa Plier**, études qualitatives\n- **Manuel Zacklad**, STC - coopération et information / mémoire\n- **Marc-Eric Bobiller Chaumon**, acceptabilité des nouvelles technologies\n- **Maryse Carmes**, sociopolitique des données\n- **Michel Lallement**, sociologie du travail\n- **Naïk Guezel**, communication responsable\n- **Philippe Coll**, optimisation pour les moteurs génératifs (GEO)\n- **Pierre Lévy**, perspectives du design\n- **Stéphan-Eloïse Gras**, géopolitique numérique\n- **Stéphanie Hémon**, design et vidéo\n- **Sylvain Lenfle**, gestion de projet\n- **Sylvie Alemanno**, culture et communication organisationnelle, intégration\n- **Taha Jaidi**, fabrique des récits\n- **Victor Counillon**, comptabilité et transition\n- **Yannick Bellemin-Laponnaz**, retex directeur de programme gendarmerie"
+      }
+     ]
+    },
+    {
+     "type": "cartes",
+     "id": "engagements",
+     "titre": "Nos engagements",
+     "items": [
+      {
+       "titre": "Accompagnement personnalisé",
+       "texte": "L'École du Design des Mutations veille à ce que chaque étudiant bénéficie d'un suivi adapté à son parcours et à ses objectifs. Tuteurs pédagogiques, référents en alternance et équipe enseignante sont mobilisés tout au long de la formation pour accompagner la progression de chacune et chacun."
+      },
+      {
+       "titre": "Diversité et inclusion",
+       "texte": "L'École du Design des Mutations accueille des étudiantes et des étudiants de tous horizons : parcours académiques et professionnels variés, origines sociales et géographiques diverses, reconversions. Cette pluralité est une richesse pour une pédagogie fondée sur l'intelligence collective et le codesign. L'école veille à l'égalité des chances dès le recrutement, à un climat d'études respectueux et bienveillant, et à la lutte contre toute forme de discrimination. L'alternance, gratuite et rémunérée pour l'apprenti, rend par ailleurs le master accessible indépendamment des ressources familiales."
+      },
+      {
+       "titre": "Accessibilité et handicap",
+       "texte": "L'EDM s'inscrit dans le cadre des dispositifs d'accessibilité du CNAM, qui dispose d'une mission Handi-CNAM dédiée à l'accompagnement des étudiants en situation de handicap. Des aménagements peuvent être mis en place sur demande, en lien avec le référent handicap, afin de garantir à chacun des conditions d'études adaptées.\n\n[À propos de la mission Handi-CNAM](https://handi.cnam.fr)\n\nRéférente Handicap : **Christine Mercier Thiebault**"
+      }
+     ]
+    },
+    {
+     "type": "texte",
+     "id": "indicateurs",
+     "titre": "Nos résultats et indicateurs de performance",
+     "texte": "**Comprendre et suivre les résultats de nos formations**\n\nÀ l'École du Design des Mutations (EDM), nous organisons le suivi des parcours, de la satisfaction et de l'insertion professionnelle, avec nos partenaires. Notre démarche qualité prévoit une actualisation des indicateurs dès que les données peuvent être établies et vérifiées, pour guider l'amélioration continue.\n\nCe suivi concerne nos deux parcours de Master proposés en partenariat avec le Conservatoire national des arts et métiers (CNAM) et le CFA SACEF :\n\n- Communication, Innovation, Médiations, Études (CIME)\n- Transition numérique responsable et co-design (TN)\n\nCes deux parcours préparent au diplôme national de Master Information, communication (RNCP38208), certification de niveau 7.\n\n## 1. Satisfaction des apprenants et des entreprises\n\nLes résultats publiés par le CFA SACEF pour la session 2025-2027 sont :\n\n- Satisfaction des apprentis en période d'essai : CIME 92 %, TN 100 %.\n- Satisfaction des maîtres d'apprentissage : CIME 94 %, TN 100 %.\n\nCes taux proviennent directement du CFA partenaire ; l'EDM ne les recalcule pas. Le questionnaire, les effectifs et la période exacte de collecte doivent être documentés auprès du CFA.\n\n*Source : CFA SACEF, chiffres clés des formations CIME et TN, session 2025-2027. Les effectifs des répondants ne sont pas précisés dans les résultats publics consultés.*\n\n## 2. Réussite et devenir des diplômés\n\nLe suivi des résultats s'inscrit dans la durée, de l'entrée en formation jusqu'au devenir professionnel des diplômés.\n\nPour la session 2025-2027, le CFA SACEF annonce les disponibilités suivantes : taux d'obtention en 2027, taux d'insertion professionnelle et de poursuite d'études en 2028.\n\nLes modalités de collecte sont progressivement consolidées avec les partenaires pédagogiques et administratifs, promotion par promotion.\n\n## 3. Suivi des parcours et de l'apprentissage\n\nEn complément des résultats de certification et d'insertion, l'EDM prévoit un suivi pédagogique et administratif des parcours. Conformément à l'article L.6111-8 du Code du travail, six indicateurs doivent pouvoir être suivis :\n\n- Taux d'obtention des diplômes/titres préparés.\n- Taux de poursuite d'études.\n- Taux d'interruption de formation en cours de parcours.\n- Taux d'insertion professionnelle des sortants.\n- Valeur ajoutée de l'établissement, suivant une méthodologie statistique adaptée.\n- Taux de rupture des contrats d'apprentissage conclus.\n\nLes interruptions de formation et les ruptures contractuelles font l'objet d'un suivi distinct. En effet, la rupture d'un contrat d'apprentissage ne signifie pas nécessairement l'abandon du parcours de formation.\n\nLes indicateurs sont actualisés à mesure que les résultats peuvent être établis et vérifiés avec les partenaires concernés.\n\n## 4. Repères nationaux : insertion professionnelle des diplômés de Master\n\nAfin de situer nos formations dans leur environnement académique et professionnel, nous présentons également les données nationales publiées par le ministère de l'Enseignement supérieur.\n\nLe dispositif InserSup, développé par le Service des systèmes d'information et des études statistiques (SIES), permet de suivre l'insertion professionnelle des diplômés de l'enseignement supérieur à différentes échéances.\n\nTaux d'emploi salarié en France, mention Information, communication (code SISE 2500125). Ordre : 6 / 12 / 18 / 24 / 30 mois :\n\n- Promotion 2022 : 54,5 % / 67,1 % / 67,1 % / 69,5 % / 68,4 %.\n- Promotion 2023 : 50,0 % / 60,5 % / 61,9 % / 68,0 % / 66,2 %.\n- Promotion 2024 : 47,6 % / 60,1 % / 61,4 % / non disponible / non disponible.\n\n*Source : ministère de l'Enseignement supérieur, SIES, InserSup (mise à jour du 29 juillet 2026), mention Information, communication, code SISE 2500125.*\n\nCes statistiques concernent une population nationale de diplômés de la mention étudiée. Elles ne correspondent pas spécifiquement aux résultats de l'EDM ou du CNAM. Elles mesurent l'emploi salarié en France et ne représentent pas l'intégralité des situations professionnelles, notamment l'activité indépendante ou certains emplois à l'étranger. Le champ statistique et les méthodes d'InserSup doivent être pris en compte avant toute comparaison avec les résultats d'enquêtes propres à nos formations.\n\n[Consulter les données InserSup sur le portail ministériel](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-insersup/)\n\n## 5. Méthodologie de nos indicateurs\n\nLes résultats propres aux formations reposent sur le suivi administratif et pédagogique, les résultats officiels des certifications et les enquêtes réalisées auprès des apprenants, des diplômés et de leurs partenaires professionnels.\n\n- **Réussite au diplôme :** le taux d'obtention est établi à partir du nombre de candidats ayant obtenu leur diplôme rapporté au nombre de candidats présentés à la certification.\n- **Poursuite d'études :** le taux de poursuite d'études correspond à la proportion de répondants déclarant avoir intégré une nouvelle formation à l'issue de leur parcours.\n- **Interruption de formation :** cet indicateur mesure la proportion d'apprenants ayant interrompu leur formation avant son terme, sur une période d'observation définie.\n- **Rupture des contrats d'apprentissage :** cet indicateur porte sur la proportion des contrats d'apprentissage rompus avant leur échéance, indépendamment de la poursuite éventuelle de la formation.\n- **Insertion professionnelle :** le suivi de l'insertion s'appuie sur la situation des diplômés après leur formation. Le taux d'insertion calculé à partir d'une enquête correspond à la proportion de répondants en emploi parmi les répondants actifs, c'est-à-dire en emploi ou en recherche d'emploi.\n- **Valeur ajoutée :** la valeur ajoutée d'un établissement nécessite une méthodologie de comparaison adaptée, tenant compte notamment des caractéristiques de la population observée. Elle ne peut être assimilée à une simple différence entre un taux local et une moyenne nationale.\n- **Actualisation et transparence :** chaque résultat publié est associé à une promotion, une période d'observation, une source et une méthode de calcul identifiables.\n\nLes résultats propres à l'EDM et les statistiques nationales de référence sont présentés séparément afin d'en faciliter la lecture et l'interprétation.\n\n## 6. Enquêtes et résultats propres à l'EDM (en cours de constitution)\n\nPour les promotions EDM CIME et TN 2026-2028, les indicateurs locaux sont progressivement constitués : inscrits, passage M1→M2, présentation et obtention du diplôme, interruptions de formation, ruptures de contrats, satisfaction des apprenants, des maîtres d'apprentissage et des entreprises, taux de réponse aux enquêtes. Aucun taux de certification ni d'insertion propre à ces promotions ne peut encore être publié comme résultat acquis.\n\nUne enquête de devenir professionnel est prévue après la diplomation (premier point de suivi envisagé à 6 mois) : situation d'emploi ou de poursuite d'études, type de contrat, métier, adéquation emploi/compétences et délai d'accès au premier emploi. Le questionnaire, les effectifs, les dates et la méthode seront précisés lors de la mise en œuvre. Pour les enquêtes de satisfaction propres à l'EDM, la méthode envisagée est : réponses « satisfait » ou « très satisfait » / total des réponses exploitables. Cette convention n'est pas attribuée aux taux déjà publiés par le CFA sans confirmation de sa méthode.\n\n## 7. Actualisation\n\nChaque indicateur publiable sera accompagné de sa source, de sa promotion, de sa période, de sa définition, des effectifs connus et de la date effective d'actualisation. Les données d'enquête et les chiffres InserSup ne sont pas directement interchangeables, car leurs dénominateurs et leurs champs diffèrent.\n\n## Sources et références\n\n- [France compétences, Master Information, communication, RNCP38208](https://www.francecompetences.fr/recherche/rncp/38208/)\n- [CFA SACEF, Master CIME](https://cfasacef.fr/formations-en-alternance/master-communication-innovation-mediations-etudes/)\n- [CFA SACEF, Master Transition numérique responsable et co-design](https://cfasacef.fr/formations-en-alternance/master-communication-transition-numerique-responsable-et-co-design/)\n- [Ministère de l'Enseignement supérieur, InserSup](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-insersup/)\n- [Code du travail, article L.6111-8](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037386112/)\n\n*Dernière mise à jour : 5 novembre 2026*"
+    }
+   ],
+   "chemin": "ecole"
+  },
+  {
+   "slug": "vie-des-masters",
+   "titre": "Vivre le master",
+   "chapo": "À l'EDM, la pédagogie est avant tout une aventure collective. Les étudiants ne sont pas seulement formés : ils participent activement à la vie du groupe, s'organisent, se soutiennent et apprennent ensemble, dans les salles de cours comme en dehors.",
+   "sections": [
+    {
+     "type": "tuiles",
+     "id": "tuiles-vie",
+     "items": [
+      {
+       "etiquette": "Suivi & coaching",
+       "titre": "Bénéficier d'un accompagnement personnalisé",
+       "texte": "UN SUIVI TOUT AU LONG DU PARCOURS\n\nL'équipe de l'EDM est disponible pour répondre aux questions des étudiants, les orienter et les soutenir à chaque étape de la formation. En cas de difficulté, un interlocuteur est toujours identifié pour trouver des solutions adaptées.\n\nPRÉPARER SON INSERTION PROFESSIONNELLE\n\nDes ateliers sont proposés pour accompagner les étudiants dans leur développement professionnel : coaching CV et lettre de motivation, travail sur le personal branding et la présence en ligne. L'objectif est d'aborder le marché du travail avec confiance et méthode.",
+       "image": "img/vie-coaching.jpg",
+       "couleur": "navy"
+      },
+      {
+       "etiquette": "Événements",
+       "titre": "Soirées et voyage",
+       "texte": "SOIRÉES ET VIE DE PROMOTION\n\nLes étudiants organisent plusieurs soirées au fil de l'année, financées par l'école. Parmi elles, une soirée commune M1-M2 pensée pour créer du lien entre promotions et faire vivre la communauté EDM dans la durée.\n\nVOYAGE PÉDAGOGIQUE\n\nEn première année, un voyage pédagogique emmène les étudiants à la découverte de lieux inspirants : écoles de design, studios de création, structures innovantes. Une parenthèse hors les murs pour nourrir la curiosité et renforcer la cohésion du groupe.\n\nRéférente Mobilité Internationale : Virginie Gallet, v.gallet@cfasacef.fr",
+       "image": "img/vie-evenements.jpg",
+       "couleur": "coral"
+      },
+      {
+       "etiquette": "Enseignement",
+       "titre": "Une pédagogie active et collaborative",
+       "texte": "UNE PÉDAGOGIE PAR LE FAIRE\n\nLes enseignements privilégient l'action collective : travaux de groupe, exercices de prise de parole, mises en situation. La salle de classe est pensée comme un espace d'échange et de co-construction, où chacun contribue autant qu'il reçoit.\n\nLE CODESIGN AU CŒUR DE LA FORMATION\n\nLes étudiants expérimentent directement les démarches collaboratives qu'ils sont amenés à pratiquer en entreprise. Ateliers d'intelligence collective, facilitation, prototypage collectif : la formation se vit autant qu'elle s'apprend.",
+       "image": "img/vie-enseignement.jpg",
+       "couleur": "slate"
+      },
+      {
+       "etiquette": "Autogestion",
+       "titre": "S'approprier le master",
+       "texte": "DES MISSIONS POUR DÉVELOPPER SES COMPÉTENCES\n\nStratégie réseaux sociaux, création de contenus, production vidéo, événementiel, facilitation d'ateliers, animation de communauté : les missions en sous-groupes sont de véritables terrains d'entraînement, en lien direct avec les métiers visés. Chaque étudiant choisit sa mission selon ses affinités et peut y approfondir une compétence existante ou en explorer une nouvelle.\n\nS'APPROPRIER LE MASTER\n\nDélégués, responsables de session, membres d'un sous-groupe : chaque étudiant joue un rôle actif dans la vie du master. C'est une formation qui se façonne collectivement : les événements, les contenus, l'ambiance de promotion sont entre les mains de ceux qui la vivent.",
+       "image": "img/vie-autogestion.jpg",
+       "couleur": "blue"
+      }
+     ]
+    },
+    {
+     "type": "linkedin",
+     "id": "linkedin-vie",
+     "titre": "La vie du master racontée par les étudiants",
+     "texte": "Les dernières publications de nos étudiants et de l'école sur LinkedIn.",
+     "widget": "https://widgets.sociablekit.com/linkedin-page-posts/iframe/25719780",
+     "pages": [
+      {
+       "libelle": "Page de l'EDM",
+       "cible": "https://www.linkedin.com/company/ecole-du-design-des-mutations/"
+      }
+     ],
+     "posts": []
+    }
+   ],
+   "menu": "Vie des masters",
+   "chemin": "vie-masters"
+  }
+ ],
+ "seeded": [
+  "ecole",
+  "vie-des-masters"
+ ]
+}
