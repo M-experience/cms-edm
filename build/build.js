@@ -74,8 +74,10 @@ async function deploy(site,dir){
  const {FTP_SERVER,FTP_USERNAME,FTP_PASSWORD}=process.env;
  if(!site.dossier_ftp){return 'généré, non déposé : aucun dossier d\'hébergement configuré';}
  if(!FTP_SERVER||!FTP_USERNAME||!FTP_PASSWORD){return 'généré, non déposé : identifiants FTP absents des secrets GitHub';}
- const ftp=require('basic-ftp');const c=new ftp.Client(60000);
- try{await c.access({host:FTP_SERVER,user:FTP_USERNAME,password:FTP_PASSWORD,secure:true,secureOptions:{rejectUnauthorized:false}});
+ const ftp=require('basic-ftp');let c=new ftp.Client(60000);
+ try{const host=FTP_SERVER.replace(/^ftps?:\/\//,'').replace(/\/.*$/,'').trim();
+  try{await c.access({host,user:FTP_USERNAME,password:FTP_PASSWORD,secure:true,secureOptions:{rejectUnauthorized:false}});}
+  catch(e){console.log('FTPS indisponible ('+e.message+'), connexion FTP simple');c.close();c=new ftp.Client(60000);await c.access({host,user:FTP_USERNAME,password:FTP_PASSWORD,secure:false});}
   await c.ensureDir(site.dossier_ftp);await c.uploadFromDir(dir);return 'déposé dans '+site.dossier_ftp;}
  finally{c.close();}
 }
