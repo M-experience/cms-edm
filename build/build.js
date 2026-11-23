@@ -4,7 +4,7 @@ const fs=require('fs'),path=require('path');
 const R=require('../render/render.js');
 const URL_=process.env.SUPABASE_URL||'https://gtletlvgbjqqjnmhjdfd.supabase.co';
 const KEY=process.env.SUPABASE_SERVICE_KEY;
-if(!KEY){console.error('SUPABASE_SERVICE_KEY manquant');process.exit(1);}
+if(!KEY){console.log('SUPABASE_SERVICE_KEY absent des secrets GitHub : génération ignorée.');process.exit(0);}
 const H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
 const api=async(p,opt={})=>{const r=await fetch(URL_+'/rest/v1/'+p,{...opt,headers:{...H,...(opt.headers||{})}});if(!r.ok)throw new Error(p+' : '+r.status+' '+await r.text());return r.status===204?null:r.json();};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
