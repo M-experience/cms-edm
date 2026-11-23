@@ -577,6 +577,313 @@
    ],
    "menu": "Vie des masters",
    "chemin": "vie-masters"
+  },
+  {
+   "slug": "candidater",
+   "chemin": "candidater",
+   "titre": "Intégrer l'EDM",
+   "chapo_titre": "Processus d'admission",
+   "chapo": "Nous sélectionnons les candidats sur des critères transverses tels que l'excellence académique, le projet, l'adéquation de la mission en entreprise avec nos programmes, et les motivations. Nous valorisons la diversité des parcours, la créativité et l'esprit de collaboration.",
+   "sections": [
+    {
+     "type": "sommaire",
+     "id": "sommaire",
+     "items": [
+      {
+       "libelle": "Pré-requis",
+       "cible": "page-candidater--prerequis"
+      },
+      {
+       "libelle": "Spécialisation",
+       "cible": "page-candidater--specialisation"
+      },
+      {
+       "libelle": "Postuler",
+       "cible": "page-candidater--postuler"
+      },
+      {
+       "libelle": "Entreprise",
+       "cible": "page-candidater--entreprise"
+      },
+      {
+       "libelle": "Alternance",
+       "cible": "page-candidater--alternance"
+      }
+     ]
+    },
+    {
+     "type": "texte",
+     "id": "prerequis",
+     "titre": "Pré-requis",
+     "texte": "### Licence Bac+3 (niveau 6)\n\n**Pour l'accès en M1 :** licence en information-communication (d'autres licences ou titres certifiés RNCP en sciences humaines et sociales, en gestion ou en informatique peuvent également permettre l'accès en M1 après accord pédagogique). À défaut VAP 85 ou VES.\n\n**Pour l'accès en M2 :** M1 en information-communication (d'autres M1 ou titres certifiés RNCP en sciences humaines et sociales, en gestion ou en informatique peuvent également permettre l'accès en M2 après accord pédagogique). À défaut VAP 85 ou VES."
+    },
+    {
+     "type": "texte-image",
+     "id": "specialisation",
+     "titre": "1. Choisir sa spécialisation",
+     "image": "img/etape1.jpg",
+     "inverse": "",
+     "texte": "Partageant un tronc commun en information-communication, nos formations proposent deux parcours : [innovation, médiations & études](/mastercime/) ou [transition numérique responsable & codesign](/mastertnr/).\n\n**Niveau de diplôme :** niveau 7 (bac+5)\n**Organisation certifiante :** Conservatoire national des arts et métiers\n**Inscription RNCP 38208 :** [Master - Information, communication](https://www.francecompetences.fr/recherche/rncp/38208)\nDate de début des parcours certifiants : 01-01-2024 - date d'échéance de l'enregistrement : 31-12-2028"
+    },
+    {
+     "type": "texte-image",
+     "id": "postuler",
+     "titre": "2. Postuler en ligne",
+     "image": "img/etape2.jpg",
+     "inverse": "1",
+     "texte": "- Candidature en M1 via la plateforme nationale Mon Master, selon le calendrier national en vigueur.\n- Étude du dossier de candidature par l'équipe pédagogique.\n- Pour les candidatures retenues, envoi d'un questionnaire complémentaire permettant de préciser le projet et le parcours du candidat.\n- Après examen du questionnaire, possibilité de pré-admission, sous réserve de la conclusion d'un contrat d'apprentissage et dans la limite des places disponibles.\n\n**Pour les candidats en formation initiale :** candidature via la plateforme Mon Master.\n\n**Pour les candidats en formation continue :** envoi d'un dossier de candidature (CV, lettre de motivation, copie de diplôme, relevés de notes) à [numerique2.0@cnam.fr](mailto:numerique2.0@cnam.fr), donnant lieu à une première sélection pour audition par les responsables du Master. Les auditions de sélection donnent lieu à acceptation, refus ou mise en liste d'attente des candidats.\n\n- [Mon Master - Communication, Innovation, Médiations, Études](https://monmaster.gouv.fr/formation/0753471R/1604785BPUWE/detail)\n- [Mon Master - Transition numérique responsable & codesign](https://monmaster.gouv.fr/formation/0753471R/1604785B3812/detail)\n\nLe calendrier d'admission suit chaque année le [calendrier national Mon Master](https://www.enseignementsup-recherche.gouv.fr/fr/mon-master-le-calendrier-de-la-procedure-pour-l-annee-universitaire-2026-2027-100230) et le calendrier de rentrée de la formation."
+    },
+    {
+     "type": "fixe",
+     "id": "reunions"
+    },
+    {
+     "type": "texte-image",
+     "id": "entreprise",
+     "titre": "3. Trouver son entreprise",
+     "image": "img/etape3.jpg",
+     "inverse": "",
+     "texte": "Si vous êtes pré-sélectionné·e, il vous faudra trouver une entreprise pour votre alternance, en concordance avec nos programmes. Agences de communication, culture, industrie, communication interne ou externe, gestion du changement d'infrastructure numérique... les possibilités sont nombreuses.\n\nLa **validation de l'adéquation entre la mission et la formation** sera nécessaire pour confirmer votre sélection.\n\n**Rythme premier semestre :** 3 jours entreprise / 2 jours école\n**Rythme deuxième semestre :** 3 semaines entreprise / 1 semaine école"
+    },
+    {
+     "type": "texte-image",
+     "id": "alternance",
+     "titre": "4. Démarrer son alternance",
+     "image": "img/etape4.jpg",
+     "inverse": "1",
+     "texte": "- **Finalisation du contrat** avec notre partenaire [CFA Sacef](https://cfasacef.fr/)\n- **Journée d'information pré-rentrée :** tout savoir sur le fonctionnement du Master, les règles à suivre, les points de contact et les modalités administratives\n- **Journées d'intégration :** faire connaissance, débattre des enjeux de la communication et de la transition numérique, nommer ses délégués, commencer à travailler en sous-groupes missions pour s'approprier le master\n- **Rapports d'activités** (2 par an) et entretiens de suivi\n- **Dates de rendus et soutenances :** semestre 1 - 15 mars (M1) et 22 mars (M2) ; semestre 2 - 22 juin (M1) et 21 juin (M2)"
+    },
+    {
+     "type": "cartes",
+     "id": "engagements",
+     "titre": "Nos engagements",
+     "items": [
+      {
+       "titre": "Accompagnement personnalisé",
+       "texte": "L'École du Design des Mutations veille à ce que chaque étudiant bénéficie d'un suivi adapté à son parcours et à ses objectifs. Tuteurs pédagogiques, référents en alternance et équipe enseignante sont mobilisés tout au long de la formation pour accompagner la progression de chacune et chacun."
+      },
+      {
+       "titre": "Diversité et inclusion",
+       "texte": "L'École du Design des Mutations accueille des étudiantes et des étudiants de tous horizons : parcours académiques et professionnels variés, origines sociales et géographiques diverses, reconversions. Cette pluralité est une richesse pour une pédagogie fondée sur l'intelligence collective et le codesign. L'école veille à l'égalité des chances dès le recrutement, à un climat d'études respectueux et bienveillant, et à la lutte contre toute forme de discrimination. L'alternance, gratuite et rémunérée pour l'apprenti, rend par ailleurs le master accessible indépendamment des ressources familiales."
+      },
+      {
+       "titre": "Accessibilité et handicap",
+       "texte": "L'EDM s'inscrit dans le cadre des dispositifs d'accessibilité du CNAM, qui dispose d'une mission Handi-CNAM dédiée à l'accompagnement des étudiants en situation de handicap. Des aménagements peuvent être mis en place sur demande, en lien avec le référent handicap, afin de garantir à chacun des conditions d'études adaptées.\n\n[À propos de la mission Handi-CNAM](https://handi.cnam.fr)\n\nRéférente Handicap : **Christine Mercier Thiebault**"
+      }
+     ]
+    },
+    {
+     "type": "bandeau",
+     "id": "vie",
+     "titre": "Découvrir la vie des masters",
+     "texte": "Suivi et coaching, enseignements, événements, autogestion : la vie des promotions au quotidien.",
+     "lien": {
+      "libelle": "Vie des masters",
+      "cible": "page-vie-des-masters"
+     }
+    }
+   ]
+  },
+  {
+   "slug": "contact",
+   "chemin": "contact",
+   "titre": "Contact",
+   "chapo_titre": "",
+   "chapo": "Une question sur nos masters, l'alternance ou un partenariat ? Écrivez-nous.",
+   "sections": [
+    {
+     "type": "fixe",
+     "id": "contact"
+    },
+    {
+     "type": "cartes",
+     "id": "coordonnees",
+     "titre": "Nos coordonnées",
+     "items": [
+      {
+       "titre": "E-mail",
+       "texte": "[info@ecole-edm.fr](mailto:info@ecole-edm.fr)"
+      },
+      {
+       "titre": "Adresse",
+       "texte": "Retrouvez-nous au 2 rue Conté, 75003 Paris"
+      },
+      {
+       "titre": "Horaires",
+       "texte": "Du lundi au vendredi, de 9h à 17h"
+      },
+      {
+       "titre": "Adresse postale",
+       "texte": "Pour nous écrire :\nAssociation Ecole des Transitions\n229 rue Saint-Honoré, 75001 Paris"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "mentions-legales",
+   "chemin": "mentions-legales",
+   "titre": "Mentions légales",
+   "chapo_titre": "",
+   "chapo": "",
+   "sections": [
+    {
+     "type": "texte",
+     "id": "editeur",
+     "titre": "Éditeur du site",
+     "texte": "Le site www.ecole-edm.fr est édité par l'Association Ecole des Transitions, association loi 1901 sans but lucratif, dont l'École du Design des Mutations (EDM) est la marque.\n\nSiège social : 229 rue Saint-Honoré, 75001 Paris\nN° RNA : W751275749\nN° de déclaration d'activité (NDA) : 11757169475. Cet enregistrement ne vaut pas agrément de l'État.\nSIREN : 933 015 471 - SIRET (siège) : 933 015 471 00016\nE-mail : [contact@ecole-edm.fr](mailto:contact@ecole-edm.fr)"
+    },
+    {
+     "type": "texte",
+     "id": "direction",
+     "titre": "Directrice de la publication",
+     "texte": "Mme Blanche Bissemo, présidente de l'association."
+    },
+    {
+     "type": "texte",
+     "id": "hebergement",
+     "titre": "Hébergement",
+     "texte": "Le site est hébergé par Hostinger International Ltd, 61 Lordou Vironos Street, 6023 Larnaca, Chypre ([www.hostinger.fr](https://www.hostinger.fr))."
+    },
+    {
+     "type": "texte",
+     "id": "propriete",
+     "titre": "Propriété intellectuelle",
+     "texte": "L'ensemble des contenus de ce site (textes, images, logos, éléments graphiques) est protégé par le droit de la propriété intellectuelle. Toute reproduction ou représentation, totale ou partielle, sans autorisation préalable de l'Association Ecole des Transitions est interdite."
+    },
+    {
+     "type": "texte",
+     "id": "donnees",
+     "titre": "Données personnelles",
+     "texte": "Les données personnelles collectées sur ce site (formulaire de contact) sont traitées par l'Association Ecole des Transitions. Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition et de limitation du traitement de vos données, que vous pouvez exercer en écrivant à [contact@ecole-edm.fr](mailto:contact@ecole-edm.fr). Vous pouvez également introduire une réclamation auprès de la CNIL ([www.cnil.fr](https://www.cnil.fr)). Pour en savoir plus, consultez notre [politique de confidentialité](/politique-de-confidentialite/)."
+    },
+    {
+     "type": "texte",
+     "id": "cookies",
+     "titre": "Cookies",
+     "texte": "Ce site ne dépose aucun cookie publicitaire ni de mesure d'audience."
+    }
+   ]
+  },
+  {
+   "slug": "conditions-utilisation",
+   "chemin": "conditions-utilisation",
+   "titre": "Conditions d'utilisation",
+   "chapo_titre": "",
+   "chapo": "Dernière mise à jour : novembre 2026",
+   "sections": [
+    {
+     "type": "texte",
+     "id": "objet",
+     "titre": "1. Objet du site",
+     "texte": "Le site www.ecole-edm.fr est édité par l'Association Ecole des Transitions sous la marque École du Design des Mutations (EDM). Il présente l'établissement, ses activités pédagogiques, ses formations, ses partenariats et les modalités de candidature. L'EDM propose notamment des formations de niveau master en communication, innovation, design collaboratif et transition numérique responsable, en partenariat avec le Conservatoire national des arts et métiers (Cnam)."
+    },
+    {
+     "type": "texte",
+     "id": "acces",
+     "titre": "2. Accès au site",
+     "texte": "Le site est accessible gratuitement à tout utilisateur disposant d'un accès à Internet. L'EDM s'efforce d'en assurer la disponibilité sans pouvoir la garantir en permanence, et peut en suspendre l'accès pour des raisons techniques ou de maintenance."
+    },
+    {
+     "type": "texte",
+     "id": "formations",
+     "titre": "3. Informations relatives aux formations",
+     "texte": "Les informations sur les programmes, les modalités pédagogiques, les calendriers, les conditions d'admission et les débouchés sont fournies à titre indicatif et peuvent évoluer. Les conditions définitives d'admission, d'inscription et de délivrance des diplômes sont celles fixées par les établissements habilités et les conventions applicables."
+    },
+    {
+     "type": "texte",
+     "id": "candidatures",
+     "titre": "4. Candidatures",
+     "texte": "Une demande de renseignements ou une candidature peut nécessiter la communication de données personnelles. L'envoi d'une candidature ne vaut pas admission ; les modalités de sélection, d'inscription et de contractualisation sont précisées dans les documents remis aux candidats."
+    },
+    {
+     "type": "texte",
+     "id": "propriete",
+     "titre": "5. Propriété intellectuelle",
+     "texte": "Les contenus du site (textes, éléments graphiques, photographies, documents pédagogiques) sont protégés par le droit de la propriété intellectuelle. Sauf autorisation préalable ou exception légale, leur reproduction, modification ou exploitation commerciale est interdite. Les marques et logos des partenaires restent la propriété de leurs titulaires."
+    },
+    {
+     "type": "texte",
+     "id": "donnees",
+     "titre": "6. Données personnelles",
+     "texte": "Les données transmises via le site servent à répondre aux demandes de renseignements, à gérer les candidatures et à assurer les échanges administratifs et pédagogiques. Les modalités de traitement, les durées de conservation et les droits des personnes concernées sont détaillés dans la [politique de confidentialité](/politique-de-confidentialite/)."
+    },
+    {
+     "type": "texte",
+     "id": "liens",
+     "titre": "7. Liens externes",
+     "texte": "Le site peut renvoyer vers des sites d'établissements partenaires ou de tiers, dont l'EDM n'est pas responsable du contenu, du fonctionnement ni des pratiques de confidentialité."
+    },
+    {
+     "type": "texte",
+     "id": "responsabilite",
+     "titre": "8. Responsabilité",
+     "texte": "L'EDM s'efforce de fournir des informations exactes et à jour, mais des erreurs ou omissions restent possibles. Pour toute information déterminante concernant les formations, les candidatures ou les inscriptions, contactez-nous à [contact@ecole-edm.fr](mailto:contact@ecole-edm.fr)."
+    },
+    {
+     "type": "texte",
+     "id": "modification",
+     "titre": "9. Modification des conditions",
+     "texte": "L'EDM peut modifier les présentes conditions pour tenir compte de l'évolution du site, de ses activités ou de la réglementation applicable."
+    },
+    {
+     "type": "texte",
+     "id": "droit",
+     "titre": "10. Droit applicable",
+     "texte": "Les présentes conditions sont soumises au droit français. Tout litige relatif à leur interprétation ou à leur application relève des juridictions compétentes."
+    }
+   ]
+  },
+  {
+   "slug": "politique-de-confidentialite",
+   "chemin": "politique-de-confidentialite",
+   "titre": "Politique de confidentialité",
+   "chapo_titre": "",
+   "chapo": "Dernière mise à jour : novembre 2026",
+   "sections": [
+    {
+     "type": "texte",
+     "id": "responsable",
+     "titre": "1. Responsable du traitement",
+     "texte": "L'Association Ecole des Transitions (marque École du Design des Mutations - EDM), 229 rue Saint-Honoré, 75001 Paris, est responsable des traitements de données personnelles réalisés via le site www.ecole-edm.fr. Contact : [contact@ecole-edm.fr](mailto:contact@ecole-edm.fr)."
+    },
+    {
+     "type": "texte",
+     "id": "donnees",
+     "titre": "2. Données collectées",
+     "texte": "Le site collecte uniquement les données que vous saisissez dans le formulaire de contact : prénom, nom, adresse e-mail, profil (étudiant·e, recruteur, intervenant·e, autre) et contenu de votre message. Le site ne dépose aucun cookie publicitaire ni de mesure d'audience.\n\nLes candidatures aux masters ne sont pas déposées sur ce site : elles s'effectuent via la plateforme nationale Mon Master ou auprès du Cnam, qui sont responsables de leurs propres traitements."
+    },
+    {
+     "type": "texte",
+     "id": "finalite",
+     "titre": "3. Finalité et base légale",
+     "texte": "Ces données servent exclusivement à répondre à votre demande et à assurer le suivi de nos échanges. Ce traitement repose sur l'intérêt légitime de l'association à répondre aux sollicitations qu'elle reçoit."
+    },
+    {
+     "type": "texte",
+     "id": "destinataires",
+     "titre": "4. Destinataires",
+     "texte": "Les données sont accessibles aux seuls membres de l'équipe de l'EDM chargés de traiter votre demande. Si votre demande le nécessite, elles peuvent être transmises à nos établissements partenaires (Cnam, CFA Sacef). Elles ne sont jamais vendues ni cédées à des fins commerciales.\n\nLe site est hébergé par Hostinger International Ltd (Chypre, Union européenne). Les messages envoyés par le formulaire de contact sont enregistrés dans une base de données Supabase hébergée dans l'Union européenne (Paris). Ces prestataires agissent en qualité de sous-traitants ; lorsqu'un transfert hors de l'Union européenne peut intervenir, il est encadré par une décision d'adéquation de la Commission européenne ou par des garanties appropriées (clauses contractuelles types)."
+    },
+    {
+     "type": "texte",
+     "id": "conservation",
+     "titre": "5. Durée de conservation",
+     "texte": "Les données issues du formulaire de contact sont conservées le temps nécessaire au traitement de votre demande, et au plus trois ans après notre dernier échange."
+    },
+    {
+     "type": "texte",
+     "id": "droits",
+     "titre": "6. Vos droits",
+     "texte": "Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation et d'opposition au traitement de vos données, ainsi que d'un droit à la portabilité. Vous pouvez les exercer en écrivant à [contact@ecole-edm.fr](mailto:contact@ecole-edm.fr) ou à l'adresse postale ci-dessus. Vous pouvez également introduire une réclamation auprès de la CNIL ([www.cnil.fr](https://www.cnil.fr))."
+    },
+    {
+     "type": "texte",
+     "id": "tiers",
+     "titre": "7. Services tiers",
+     "texte": "Le site utilise des polices de caractères chargées depuis Google Fonts et comporte des liens vers LinkedIn et la plateforme Mon Master. Ces services peuvent collecter des données techniques (comme l'adresse IP) selon leurs propres politiques de confidentialité."
+    }
+   ]
   }
  ],
  "seeded": [

@@ -2,7 +2,7 @@ let ORIGIN_PAGES=[];
 /* ============ utilitaires ============ */
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const inl=x=>esc(x).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g,'$1<em>$2</em>').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,(m,a,u)=>/^(https?:|mailto:|#)/.test(u)?`<a href="${u}">${a}</a>`:a);
+const inl=x=>esc(x).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g,'$1<em>$2</em>').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,(m,a,u)=>/^(https?:|mailto:|#|\/)/.test(u)?`<a href="${u}">${a}</a>`:a);
 function md(t){return String(t||'').split(/\n\s*\n/).filter(b=>b.trim()).map(b=>{const L=b.trim().split('\n');
  if(L.every(l=>/^\s*[-•]\s+/.test(l)))return '<ul>'+L.map(l=>'<li>'+inl(l.replace(/^\s*[-•]\s+/,''))+'</li>').join('')+'</ul>';
  if(L.every(l=>/^\s*\d+[.)]\s+/.test(l)))return '<ol>'+L.map(l=>'<li>'+inl(l.replace(/^\s*\d+[.)]\s+/,''))+'</li>').join('')+'</ol>';
@@ -61,13 +61,13 @@ function header(C){const S=C.site;return `<header class="top"><div class="wrap">
  ${EDIT?`<span class="ei logo-w"><img class="logo" src="img/logo-edm.png" alt="École du Design des Mutations" style="height:${S.logo_hauteur||34}px">${szb(['site','logo_hauteur'],34)}</span>`:`<a href="${esc(href('accueil'))}"><img class="logo" src="img/logo-edm.png" alt="École du Design des Mutations" style="height:${S.logo_hauteur||34}px"></a>`}
  <nav>${S.menu.map((m,i)=>linkItem(['site','menu'],i,m)).join('')}${addBtn(['site','menu'],{libelle:'Nouveau lien',cible:'accueil'},'+')}</nav>
  <div class="navcta">${S.boutons.map((m,i)=>linkItem(['site','boutons'],i,m)).join('')}${addBtn(['site','boutons'],{libelle:'Bouton',cible:'accueil'},'+')}</div></div></header>`;}
-function footer(C){const L=(c,t)=>`<a href="${esc(href(c))}">${t}</a>`;return `<footer class="foot2"><div class="fwrap">
+function footer(C){const L=(c,t)=>`<a href="${esc(href(c))}">${t}</a>`;const hp=sl=>(C.pages||[]).some(p=>p.slug===sl);const PG=(sl,alt)=>hp(sl)?'page-'+sl:alt;return `<footer class="foot2"><div class="fwrap">
  <div class="flogo"><img src="img/logo-edm.png" alt="École du Design des Mutations"></div>
  <div class="fnav"><h4>Navigation</h4><div class="fcols">
   <div>${L('page-ecole','<b>École</b>')}${L('page-ecole--pedagogie','Approche pédagogique')}${L('page-ecole--equipe','Équipe')}${L('page-ecole--intervenants','Intervenants')}${L('page-ecole--engagements','Engagements')}${L('page-ecole--engagements','<i>Accessibilité et handicap</i>')}${L('page-ecole--indicateurs','Résultats et indicateurs de performance')}</div>
   <div>${L('master-cime','<b>Communication &amp; innovation</b>')}<small><i>Spécialisation</i> Communication, Innovation, Médiation, Études</small>${L('master-tnr','<b>Transition numérique</b>')}<small><i>Spécialisation</i> Transition numérique responsable &amp; codesign</small></div>
-  <div>${L('page-vie-des-masters','<b>Vie des masters</b>')}${L('page-vie-des-masters','Suivi &amp; coaching')}${L('page-vie-des-masters','Enseignement')}${L('page-vie-des-masters','Événements')}${L('page-vie-des-masters','Autogestion')}${L('section-etapes','<b>Candidater</b>')}${L('section-contact','<b>Contact</b>')}</div></div></div>
- <div class="fct"><h4>Contact</h4><p><a class="u" href="mailto:${esc(C.site.email)}"${ed(['site','email'])}>${esc(C.site.email)}</a> <a class="lin" href="${esc(C.site.linkedin)}" aria-label="LinkedIn">in</a></p><p class="copy">©${new Date().getFullYear()} École du Design des Mutations. Tous droits réservés.</p><p class="legal"><a class="u" href="${esc(href('accueil'))}">Mentions légales</a> - <a class="u" href="${esc(href('accueil'))}">Conditions d'utilisation</a> - <a class="u" href="${esc(href('accueil'))}">Confidentialité</a></p></div>
+  <div>${L('page-vie-des-masters','<b>Vie des masters</b>')}${L('page-vie-des-masters','Suivi &amp; coaching')}${L('page-vie-des-masters','Enseignement')}${L('page-vie-des-masters','Événements')}${L('page-vie-des-masters','Autogestion')}${L(PG('candidater','section-etapes'),'<b>Candidater</b>')}${L(PG('contact','section-contact'),'<b>Contact</b>')}</div></div></div>
+ <div class="fct"><h4>Contact</h4><p><a class="u" href="mailto:${esc(C.site.email)}"${ed(['site','email'])}>${esc(C.site.email)}</a> <a class="lin" href="${esc(C.site.linkedin)}" aria-label="LinkedIn">in</a></p><p class="copy">©${new Date().getFullYear()} École du Design des Mutations. Tous droits réservés.</p><p class="legal"><a class="u" href="${esc(href(PG('mentions-legales','accueil')))}">Mentions légales</a> - <a class="u" href="${esc(href(PG('conditions-utilisation','accueil')))}">Conditions d'utilisation</a> - <a class="u" href="${esc(href(PG('politique-de-confidentialite','accueil')))}">Confidentialité</a></p></div>
  </div></footer>`;}
 
 /* --- sections fixes de l'accueil (calquées sur la mise en page Wix) --- */
@@ -220,6 +220,9 @@ function norm(C){if(!C)return C;if(ORIGIN_RAW&&C!==ORIGIN_RAW){fillMissing(C,ORI
  C.communs.liens??={};const K=C.communs.liens;
  K.candidature??={libelle:'Dossier de candidature',cible:'section-etapes'};
  if(!C.accueil.sections){C.accueil.sections=DEFAULT_ORDER.map(id=>({type:'fixe',id}));}K.contact??={libelle:'Contact',cible:'section-contact'};
+ // pages Candidater et Contact : les liens par défaut y renvoient désormais
+ const hasP=sl=>C.pages.some(p=>p.slug===sl);const remap=m=>{if(!m)return;if(m.cible==='section-etapes'&&hasP('candidater'))m.cible='page-candidater';else if(m.cible==='section-contact'&&hasP('contact'))m.cible='page-contact';};
+ S.boutons.forEach(remap);remap(K.candidature);remap(K.contact);
  return C;}
 const LOGOS=['img/logo-cnam.png','img/logo-edm.png'];
 

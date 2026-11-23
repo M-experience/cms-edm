@@ -55,9 +55,9 @@ RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 ${site.domaine?sec.map(d=>`RewriteCond %{HTTP_HOST} ^${d.replace(/\./g,'\\.')}$ [NC]\nRewriteRule ^ https://${site.domaine}%{REQUEST_URI} [L,R=301]`).join('\n'):''}
 # anciennes adresses du site Wix
-RewriteRule ^mentions-l(.*)gales/?$ / [L,R=301]
-RewriteRule ^candidater/?$ /#s-etapes [L,R=301,NE]
-RewriteRule ^contact/?$ /#s-contact [L,R=301,NE]
+RewriteRule ^mentions-l[^e/]+gales/?$ /mentions-legales/ [L,R=301]
+RewriteRule ^politique-de-confidentialit[^e/]+/?$ /politique-de-confidentialite/ [L,R=301]
+RewriteRule ^vie-des-masters/?$ /vie-masters/ [L,R=301]
 <IfModule mod_expires.c>
 ExpiresActive On
 ExpiresByType image/jpeg "access plus 1 month"
