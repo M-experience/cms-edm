@@ -72,7 +72,8 @@ function editBar(pg){
   <span class="est" id="est">${esc(statusLine())}</span><span id="presence" class="presence"></span>
   <button class="abtn" data-charte="1" title="Polices et couleurs du site">Charte</button>
   <button class="abtn" id="eHist">Historique</button>
-  <a class="abtn" href="${esc(previewURL(pg))}" target="_blank" rel="noopener" title="Voir le site en ligne">Site en ligne ↗</a>
+  <a class="abtn pri" href="#/apercu/${esc(SITE.slug)}/${esc(pg)}" title="Voir la page telle qu'elle sera publiée (modifications non enregistrées comprises)">Aperçu</a>
+  ${SITE.domaine?`<a class="abtn" href="${esc(previewURL(pg))}" target="_blank" rel="noopener" title="Adresse publique du site. Tant que le DNS n'est pas modifié, elle affiche encore l'ancien site (Wix).">${esc(SITE.domaine)} ↗</a>`:''}
   <button class="abtn" id="eUndo" ${dirty?'':'disabled'}>Annuler</button>
   <button class="abtn" id="eSave" ${!dirty?'disabled':''}>Enregistrer le brouillon</button>
   ${!canPublish()?`<button class="abtn cor" id="eSubmit">Soumettre à validation</button>`:`<button class="abtn pri" id="ePub">Publier</button>`}
@@ -333,6 +334,7 @@ async function openMessages(id){
 
 /* ============ éditeur : chargement, brouillon, publication ============ */
 async function openSite(slug,pg){
+ if(SITE&&SITE.slug===slug&&CONTENT){if(pg)EDIT_PAGE=pg;return true;}
  if(!SITE||SITE.slug!==slug||!CONTENT){
   const s=SITES.find(x=>x.slug===slug);if(!s){toast('Site introuvable ou accès refusé');location.hash='#/';return false;}
   SITE=s;ROLE=s._role;
@@ -391,12 +393,27 @@ function joinPresence(){
  presenceCh.subscribe(async s=>{if(s==='SUBSCRIBED')await presenceCh.track({email:ME.email,page:EDIT_PAGE});});
 }
 
+/* ============ aperçu (rendu public, sans outils d'édition) ============ */
+let PREVIEW_ROUTE='accueil';
+function renderPreview(){
+ let rt=PREVIEW_ROUTE,anc='';
+ if(rt.startsWith('section-')){anc=rt.slice(8);rt='accueil';}
+ else if(rt.includes('--')){anc=rt.split('--')[1];}
+ PREVIEW_SLUG=SITE.slug;MODE='preview';let html;try{html=renderPage(DRAFT,rt);}finally{MODE='spa';}
+ const back=rt.split('--')[0];
+ $('#app').className='';
+ $('#app').innerHTML=`<div class="pvbar"><b>Aperçu</b><span>${dirty?'brouillon en cours, modifications non enregistrées comprises':(CONTENT&&CONTENT.published&&JSON.stringify(CONTENT.published)===JSON.stringify(DRAFT)?'identique à la version publiée':'brouillon non publié')}</span><span class="sp"></span><span class="help">Les liens fonctionnent comme sur le site publié.</span><a class="abtn pri" href="#/site/${esc(SITE.slug)}/${esc(back)}">← Revenir à l'édition</a></div><div class="site">${html}</div>`;
+ applyCharte(DRAFT);
+ if(anc){setTimeout(()=>{const t=document.getElementById('s-'+anc);if(t)scrollTo({top:t.getBoundingClientRect().top+scrollY-(document.querySelector('.sommaire')?110:60),behavior:'smooth'});},40);}else scrollTo(0,0);
+}
+
 /* ============ rendu général et routage ============ */
 function render(){
  const app=$('#app');
  if(VIEW==='login'){app.className='';app.innerHTML=loginHTML();bindLogin();return;}
  if(VIEW==='newpwd'){app.className='';app.innerHTML=newPasswordHTML();$('#fNew').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.updateUser({password:$('#nPwd').value});$('#lMsg').textContent=error?'Erreur : '+error.message:'Mot de passe enregistré.';if(!error)setTimeout(()=>{location.hash='#/';},800);};return;}
  if(VIEW==='sites'){app.className='';app.innerHTML=sitesHTML();bindSites();return;}
+ if(VIEW==='preview'){renderPreview();return;}
  if(VIEW==='edit'){renderEdit();applyCharte(DRAFT);presenceCh&&presenceCh.track({email:ME.email,page:EDIT_PAGE});return;}
  app.innerHTML='<p style="padding:40px">Chargement...</p>';
 }
@@ -404,6 +421,8 @@ async function route(){
  const h=location.hash||'#/';
  if(h.startsWith('#/motdepasse')&&SESSION){VIEW='newpwd';render();return;}
  if(!SESSION){VIEW='login';render();return;}
+ const pv=h.match(/^#\/apercu\/([a-z0-9-]+)\/(.+)$/);
+ if(pv){if(await openSite(pv[1],EDIT_PAGE)){PREVIEW_ROUTE=decodeURIComponent(pv[2]);VIEW='preview';render();}return;}
  const m=h.match(/^#\/site\/([a-z0-9-]+)(?:\/(.+))?$/);
  if(m){if(dirty&&SITE&&SITE.slug!==m[1]&&!confirmLeave())return;if(await openSite(m[1],decodeURIComponent(m[2]||'accueil'))){VIEW='edit';section=EDIT_PAGE;render();}return;}
  if(VIEW==='edit'&&dirty){if(!confirmLeave()){history.replaceState(null,'','#/site/'+SITE.slug+'/'+EDIT_PAGE);return;}}

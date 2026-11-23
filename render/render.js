@@ -45,7 +45,8 @@ function routePath(c){const C=CURRENT_C;if(!c||c==='accueil')return '/';
  if(c.startsWith('master-')){const sl=c.slice(7);const m=C&&C.masters.find(x=>x.slug===sl);return '/'+((m&&m.chemin)||('master'+sl))+'/';}
  if(c.startsWith('page-')){const [sl,anc]=c.slice(5).split('--');const p=C&&C.pages.find(x=>x.slug===sl);return '/'+((p&&p.chemin)||sl)+'/'+(anc?'#s-'+anc:'');}
  return '/';}
-const href=c=>/^(https?:|mailto:|tel:)/.test(c||'')?c:(MODE==='static'?routePath(c):'#'+(c||'accueil'));
+let PREVIEW_SLUG='';
+const href=c=>/^(https?:|mailto:|tel:)/.test(c||'')?c:(MODE==='static'?routePath(c):MODE==='preview'?'#/apercu/'+PREVIEW_SLUG+'/'+(c||'accueil'):'#'+(c||'accueil'));
 const asset=u=>(u&&/^img\//.test(u))?ASSET_BASE+u:u;
 const szb=(p,def)=>EDIT?`<span class="szb" contenteditable="false"><button data-size="-1" data-sp="${J(p)}" data-sdef="${def}" title="Réduire">−</button><button data-size="1" data-sp="${J(p)}" data-sdef="${def}" title="Agrandir">+</button></span>`:'';
 const lkBtn=p=>EDIT?`<button class="lk" data-link="${J(p)}" title="Changer la destination du lien">🔗</button>`:'';
