@@ -160,12 +160,13 @@ function pageCustom(C,pg){
  const pi=C.pages.indexOf(pg);
  return header(C)+`<section class="mhero"><div class="wrap"><h1${ed(['pages',pi,'titre'])}>${esc(pg.titre)}</h1>${pg.chapo_titre||EDIT?`<h2 class="ctitle"${ed(['pages',pi,'chapo_titre'])}>${esc(pg.chapo_titre||'')}</h2>`:''}<p class="rncp chapo"${ed(['pages',pi,'chapo'],1)}>${esc(pg.chapo)}</p></div></section>`+renderSections(C,pg.sections,['pages',pi,'sections'])+footer(C);
 }
+const DECO_DEF=[{src:'img/arrow-right.svg',x:60,y:-138,w:100,rot:8,flip:'1'},{src:'img/arrow-right.svg',x:576,y:-64,w:87,rot:0,flip:''}];
 function pageAccueil(C){
  const secs=sectionsOf(C);
  const hero=`<section class="hero"><div class="wrap">
   <p class="pre"${ed(['site','accroche_titre'])}>${esc(C.site.accroche_titre)}</p><h1${ed(['site','titre'])}>${esc(C.site.titre)}</h1>
   <div class="row"><p class="slogan"${ed(['site','slogan'],1)}>${esc(C.site.slogan).replace(/\n/g,'<br>')}</p>
-  <img class="arL" src="img/arrow-right.svg" alt=""><img class="arR" src="img/arrow-right.svg" alt="">
+  ${(C.site.deco||DECO_DEF).map((d,i)=>`<img class="deco${EDIT?' deco-ed':''}" src="${esc(d.src)}" alt="" draggable="false" style="left:${+d.x||0}px;bottom:${+d.y||0}px;width:${+d.w||90}px;transform:${d.flip?'scaleX(-1) ':''}rotate(${+d.rot||0}deg)"${EDIT?` data-deco="${i}" title="Glisser pour déplacer ; cliquer pour les réglages"`:''}>`).join('')}${EDIT?'<button class="deco-add" data-decoadd="1" contenteditable="false">+ Élément graphique</button>':''}
   <div class="partner"><span${ed(['site','partenaire_texte'])}>${esc(C.site.partenaire_texte)}</span><div class="plogos">${C.site.partenaires.map((pt,i)=>EDIT?`<span class="ei plogo"><img src="${esc(pt.logo)}" alt="${esc(pt.nom)}" style="height:${pt.hauteur||28}px" data-imgp="${J(['site','partenaires',i,'logo'])}" data-logos="1" title="Cliquer pour changer le logo">${lkBtn(['site','partenaires',i])}${itools(['site','partenaires'],i)}${szb(['site','partenaires',i,'hauteur'],28)}</span>`:`<a href="${esc(href(pt.cible))}"><img src="${esc(pt.logo)}" alt="${esc(pt.nom)}" style="height:${pt.hauteur||28}px"></a>`).join('')}${addBtn(['site','partenaires'],{nom:'Partenaire',logo:'img/logo-cnam.png',cible:'https://'},'+ Partenaire')}</div></div></div></div></section>`;
  return header(C)+hero+renderSections(C,secs,['accueil','sections'])+footer(C);
 }

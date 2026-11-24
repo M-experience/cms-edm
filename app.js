@@ -80,6 +80,32 @@ function editBar(pg){
  </div>
  <div class="ehelp">Cliquez sur un texte pour le modifier, sur une image pour la changer. Survolez un élément pour le déplacer ou le supprimer.${pg==='accueil'||pg.startsWith('page-')?' « + Ajouter une section » puise dans la bibliothèque.':''}</div>`;
 }
+/* ============ éléments graphiques déplaçables (accueil) ============ */
+let DECO_SEL=-1;
+function decoArr(){if(!DRAFT.site.deco)DRAFT.site.deco=clone(DECO_DEF);return DRAFT.site.deco;}
+function decoToolbar(){document.querySelectorAll('.deco-tb').forEach(x=>x.remove());document.querySelectorAll('.deco-ed.sel').forEach(x=>x.classList.remove('sel'));
+ const el=document.querySelector(`.deco-ed[data-deco="${DECO_SEL}"]`);if(!el)return;el.classList.add('sel');
+ const d=decoArr()[DECO_SEL],tb=document.createElement('span');tb.className='deco-tb';tb.contentEditable='false';
+ tb.innerHTML=`<button data-dk="rl" title="Pivoter à gauche">↺</button><button data-dk="rr" title="Pivoter à droite">↻</button><button data-dk="sm" title="Réduire">−</button><button data-dk="lg" title="Agrandir">+</button><button data-dk="fl" title="Retourner">⇋</button><button data-imgp='${J(['site','deco',DECO_SEL,'src'])}' title="Changer l'image">🖼</button><button data-dk="dup" title="Dupliquer">⧉</button><button data-dk="del" title="Supprimer">✕</button><button data-dk="ok" title="Terminer">✓</button>`;
+ tb.style.left=(+d.x||0)+'px';tb.style.bottom=((+d.y||0)-40)+'px';el.parentNode.appendChild(tb);}
+function bindDeco(){
+ const wrap=document.querySelector('.hero .wrap');if(!wrap)return;
+ wrap.querySelectorAll('.deco-ed').forEach(el=>{el.onpointerdown=ev=>{ev.preventDefault();const i=+el.dataset.deco,d=decoArr()[i];const sx=ev.clientX,sy=ev.clientY,ox=+d.x||0,oy=+d.y||0;let moved=false;el.setPointerCapture(ev.pointerId);el.classList.add('drag');
+  el.onpointermove=m=>{const dx=m.clientX-sx,dy=m.clientY-sy;if(Math.abs(dx)+Math.abs(dy)>3)moved=true;el.style.left=(ox+dx)+'px';el.style.bottom=(oy-dy)+'px';document.querySelectorAll('.deco-tb').forEach(x=>x.remove());};
+  el.onpointerup=m=>{el.onpointermove=null;el.onpointerup=null;el.classList.remove('drag');if(moved){d.x=Math.round(ox+m.clientX-sx);d.y=Math.round(oy-(m.clientY-sy));dirty=true;editStatus&&editStatus();}DECO_SEL=i;decoToolbar();};};});
+ wrap.onclick=ev=>{const b=ev.target.closest('[data-dk],[data-decoadd]');if(!b)return;ev.preventDefault();ev.stopPropagation();const A=decoArr();
+  if(b.dataset.decoadd){A.push({src:'img/arrow-right.svg',x:300,y:-60,w:90,rot:0,flip:''});DECO_SEL=A.length-1;dirty=true;renderEdit();return;}
+  const d=A[DECO_SEL];if(!d)return;const k=b.dataset.dk;
+  if(k==='rl')d.rot=(+d.rot||0)-10; if(k==='rr')d.rot=(+d.rot||0)+10;
+  if(k==='sm')d.w=Math.max(20,(+d.w||90)-10); if(k==='lg')d.w=Math.min(600,(+d.w||90)+10);
+  if(k==='fl')d.flip=d.flip?'':'1';
+  if(k==='dup'){A.push({...clone(d),x:(+d.x||0)+30,y:(+d.y||0)-30});DECO_SEL=A.length-1;}
+  if(k==='del'){A.splice(DECO_SEL,1);DECO_SEL=-1;}
+  if(k==='ok'){DECO_SEL=-1;decoToolbar();return;}
+  dirty=true;renderEdit();};
+ if(DECO_SEL>=0)decoToolbar();
+ document.addEventListener('pointerdown',ev=>{if(DECO_SEL>=0&&!ev.target.closest('.deco-ed,.deco-tb')){DECO_SEL=-1;decoToolbar();}},{once:true,capture:true});
+}
 function renderEdit(){
  const pg=EDIT_PAGE||'accueil';
  section=pg;
@@ -89,6 +115,7 @@ function renderEdit(){
  $('#app').className='';
  $('#app').innerHTML=editBar(pg)+`<div class="site editing">${html}</div>`;
  scrollTo(0,y);
+ bindDeco();
 }
 function editStatus(){const s=$('#est');if(s)s.textContent=statusLine();const a=$('#eSave');if(a)a.disabled=!dirty;const u=$('#eUndo');if(u)u.disabled=!dirty;}
 const isEditRoute=()=>VIEW==='edit';
