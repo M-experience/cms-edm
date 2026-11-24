@@ -40,7 +40,7 @@ a.abtn{text-decoration:none;display:inline-block}
 /* logo Cms-Edm */
 .brand{display:inline-flex;align-items:center;gap:8px;font:700 18px var(--f-body);color:var(--navy);text-decoration:none}
 .brand .lgmark{width:30px;height:30px;flex:none}
-.brand .bword i{font-style:normal;color:var(--blue)}.brand .bword em{font-style:normal;color:#EC5A64}
+.brand .bword i{font-style:normal;color:var(--blue)}.brand .bword em{font-style:normal;color:#FF5A5F}
 .brand.big{font-size:32px;gap:12px}.brand.big .lgmark{width:56px;height:56px}
 .lhead{display:grid;gap:6px;justify-items:start}
 
