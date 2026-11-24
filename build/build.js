@@ -64,6 +64,13 @@ ${site.domaine?sec.map(d=>`RewriteCond %{HTTP_HOST} ^${d.replace(/\./g,'\\.')}$ 
 RewriteRule ^mentions-l[^e/]+gales/?$ /mentions-legales/ [L,R=301]
 RewriteRule ^politique-de-confidentialit[^e/]+/?$ /politique-de-confidentialite/ [L,R=301]
 RewriteRule ^vie-des-masters/?$ /vie-masters/ [L,R=301]
+# anciennes pages de design-mutation.org (domaine redirigé vers ce site)
+RewriteRule ^master-transition-numerique-responsable-codesign/?$ /mastertnr/ [L,R=301]
+RewriteRule ^master-communication-innovation-mediations-etudes/?$ /mastercime/ [L,R=301]
+RewriteRule ^(about|2281-2)/?$ /ecole/ [L,R=301]
+RewriteRule ^contact-2/?$ /contact/ [L,R=301]
+RewriteRule ^(home-2|services|licence|formation-continue|prospective-metiers-2)/?$ / [L,R=301]
+RewriteRule ^(nabila-ait-samadi|thierry-curiale|naik-guezel|aline-gerard|francois-silva|julie-credou|sylvie-parrini-alemanno|marianne-lorthiois|manuel-zacklad|taha-jaidi)/?$ /ecole/#s-equipe [L,R=301,NE]
 <IfModule mod_expires.c>
 ExpiresActive On
 ExpiresByType image/jpeg "access plus 1 month"
