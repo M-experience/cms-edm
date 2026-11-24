@@ -443,3 +443,6 @@ a.li-page:hover{background:var(--navy);color:#fff}
 .ei.drop-before{box-shadow:-4px 0 0 #ff5a5f}.ei.drop-after{box-shadow:4px 0 0 #ff5a5f}
 .ei.drop-before.vert{box-shadow:0 -4px 0 #ff5a5f}.ei.drop-after.vert{box-shadow:0 4px 0 #ff5a5f}
 body.dnd,body.dnd *{cursor:grabbing!important;user-select:none}
+/* programmes : pas de débordement horizontal sur les écrans moyens */
+.progs>*,.prog-b>*{min-width:0}.ptabs{flex-wrap:wrap}
+@media(max-width:1240px){.prog-b{grid-template-columns:1fr}.prog-img{height:240px}}
