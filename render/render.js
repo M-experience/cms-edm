@@ -33,7 +33,7 @@ let EDIT=false;   // vrai pendant le rendu en mode « édition sur la page »
 const J=p=>esc(JSON.stringify(p));
 const edr=p=>EDIT?` data-e="${J(p)}" data-para="1" data-rich="1" contenteditable="true" spellcheck="true"`:'';
 const ed=(p,para)=>EDIT?` data-e="${J(p)}"${para?' data-para="1"':''} contenteditable="plaintext-only" spellcheck="true"`:'';
-const itools=(p,i)=>EDIT?`<span class="itools" contenteditable="false"><button data-li="up" data-p="${J(p)}" data-i="${i}" title="Monter">↑</button><button data-li="del" data-p="${J(p)}" data-i="${i}" title="Supprimer">✕</button></span>`:'';
+const itools=(p,i)=>EDIT?`<span class="itools" contenteditable="false"><button data-lidrag="1" data-p="${J(p)}" data-i="${i}" title="Glisser pour déplacer">⠿</button><button data-li="up" data-p="${J(p)}" data-i="${i}" title="Monter">↑</button><button data-li="del" data-p="${J(p)}" data-i="${i}" title="Supprimer">✕</button></span>`:'';
 const addBtn=(p,tpl,label='+ Ajouter')=>EDIT?`<button class="eadd" data-add="${J(p)}" data-tpl="${J(tpl)}">${esc(label)}</button>`:'';
 const img=(C,p,def,alt='',extra='')=>`<img src="${esc(get(C,p)||def)}" alt="${esc(alt)}"${EDIT?` data-imgp="${J(p)}" title="Cliquer pour changer l'image"`:''}${extra}>`;
 const txt=(C,p,tag='span',cls='')=>`<${tag}${cls?` class="${cls}"`:''}${ed(p)}>${esc(get(C,p))}</${tag}>`;
@@ -147,11 +147,14 @@ function renderSections(C,secs,sp){
   const label=s.type==='fixe'?FIXED[s.id]?.label:LIB[s.type]?.label;
   let html='';
   if(!s.masque) html=s.type==='fixe'?(FIXED[s.id]?FIXED[s.id].r(C):''):(LIB[s.type]?LIB[s.type].r(s,p):'');
-  if(html) html=`<div id="s-${esc(s.type==='fixe'?s.id:s.id||('bloc'+i))}">${html}</div>`;
+  const lay=s.type!=='fixe'?((s.align?' al-'+s.align:'')+(s.largeur?' w-'+s.largeur:'')):'';
+  if(html) html=`<div id="s-${esc(s.type==='fixe'?s.id:s.id||('bloc'+i))}"${lay?` class="${lay.trim()}"`:''}>${html}</div>`;
   if(!EDIT) return html;
   const d=`data-si="${i}" data-sp="${J(sp)}"`;
-  const tools=`<div class="stools"><span>${esc(label||'Section')}</span><button data-sec="up" ${d} title="Monter">↑</button><button data-sec="down" ${d} title="Descendre">↓</button>${s.type==='fixe'?`<button data-sec="${s.masque?'show':'hide'}" ${d}>${s.masque?'Afficher':'Masquer'}</button>`:`<button data-sec="del" ${d}>Supprimer</button>`}</div>`;
-  return `<div class="esec${s.masque?' masked':''}">${tools}${s.masque?`<div class="maskedbar">Section masquée : ${esc(label)}</div>`:html}</div>`+ins(i+1);
+  const AL={'':'Aligné à gauche',center:'Centré',right:'Aligné à droite'},WL={'':'Largeur normale',etroit:'Étroit',large:'Large'};
+  const lay2=s.type!=='fixe'?`<button data-sec="align" ${d} title="${AL[s.align||'']} : cliquer pour changer">${s.align==='center'?'↔':s.align==='right'?'⇥':'⇤'}</button><button data-sec="width" ${d} title="${WL[s.largeur||'']} : cliquer pour changer">${s.largeur==='etroit'?'▯':s.largeur==='large'?'▭▭':'▭'}</button>`:'';
+  const tools=`<div class="stools"><button class="sdrag" data-secdrag="1" ${d} title="Glisser pour déplacer la section">⠿</button><span>${esc(label||'Section')}</span>${lay2}<button data-sec="up" ${d} title="Monter">↑</button><button data-sec="down" ${d} title="Descendre">↓</button>${s.type==='fixe'?`<button data-sec="${s.masque?'show':'hide'}" ${d}>${s.masque?'Afficher':'Masquer'}</button>`:`<button data-sec="del" ${d}>Supprimer</button>`}</div>`;
+  return `<div class="esec${s.masque?' masked':''}" ${d}>${tools}${s.masque?`<div class="maskedbar">Section masquée : ${esc(label)}</div>`:html}</div>`+ins(i+1);
  }).join('');
  return ins(0)+body+(EDIT&&!secs.length?'<div class="wrap empty-hint" style="margin:40px auto">Cette page est vide : utilisez « + Ajouter une section ici » pour la remplir.</div>':'');
 }

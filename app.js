@@ -80,6 +80,28 @@ function editBar(pg){
  </div>
  <div class="ehelp">Cliquez sur un texte pour le modifier, sur une image pour la changer. Survolez un élément pour le déplacer ou le supprimer.${pg==='accueil'||pg.startsWith('page-')?' « + Ajouter une section » puise dans la bibliothèque.':''}</div>`;
 }
+/* ============ glisser-déposer des sections et des éléments ============ */
+function startDnD(ev,btn){
+ const isSec=!!btn.dataset.secdrag;ev.preventDefault();ev.stopPropagation();
+ const src=btn.closest(isSec?'.esec':'.ei');if(!src)return;
+ const key=isSec?btn.dataset.sp:btn.dataset.p,si=+(isSec?btn.dataset.si:btn.dataset.i);
+ const targets=()=>isSec?[...document.querySelectorAll('.esec')].filter(e=>e.dataset.sp===key):[...document.querySelectorAll('.itools [data-lidrag]')].filter(b=>b.dataset.p===key).map(b=>b.closest('.ei'));
+ const T=targets(),idx=el=>T.indexOf(el);let drop=null;
+ src.classList.add('dragging');document.body.classList.add('dnd');
+ const clear=()=>T.forEach(e=>e.classList.remove('drop-before','drop-after','vert'));
+ const move=m=>{clear();drop=null;const el=document.elementFromPoint(m.clientX,m.clientY);const t=el&&T.find(x=>x.contains(el));if(!t||t===src)return;
+  const r=t.getBoundingClientRect();let before,vert=true;
+  if(isSec)before=m.clientY<r.top+r.height/2;
+  else{const row=T.some(o=>o!==t&&Math.abs(o.getBoundingClientRect().top-r.top)<10);vert=!row;before=row?m.clientX<r.left+r.width/2:m.clientY<r.top+r.height/2;}
+  t.classList.add(before?'drop-before':'drop-after');if(vert)t.classList.add('vert');drop={i:idx(t),before};
+  if(m.clientY<70)scrollBy(0,-20);else if(m.clientY>innerHeight-50)scrollBy(0,20);};
+ const up=()=>{removeEventListener('pointermove',move);removeEventListener('pointerup',up);clear();src.classList.remove('dragging');document.body.classList.remove('dnd');
+  if(!drop)return;let to=drop.i+(drop.before?0:1);if(to>si)to--;if(to===si)return;
+  const arr=isSec?ensureSections(JSON.parse(key)):get(DRAFT,JSON.parse(key));const [x]=arr.splice(si,1);arr.splice(to,0,x);dirty=true;renderEdit();toast(isSec?'Section déplacée':'Élément déplacé');};
+ addEventListener('pointermove',move);addEventListener('pointerup',up);
+}
+document.addEventListener('pointerdown',ev=>{const b=ev.target.closest&&ev.target.closest('[data-secdrag],[data-lidrag]');if(b&&document.querySelector('.site.editing'))startDnD(ev,b);},true);
+
 /* ============ éléments graphiques déplaçables (accueil) ============ */
 let DECO_SEL=-1;
 function decoArr(){if(!DRAFT.site.deco)DRAFT.site.deco=clone(DECO_DEF);return DRAFT.site.deco;}
@@ -208,6 +230,8 @@ function bindEditOnce(){
    if(a==='down'&&i<arr.length-1)[arr[i+1],arr[i]]=[arr[i],arr[i+1]];
    if(a==='hide')arr[i].masque=true; if(a==='show')delete arr[i].masque;
    if(a==='del')arr.splice(i,1);
+   if(a==='align'){const n={'':'center',center:'right',right:''};arr[i].align=n[arr[i].align||''];if(!arr[i].align)delete arr[i].align;}
+   if(a==='width'){const n={'':'etroit',etroit:'large',large:''};arr[i].largeur=n[arr[i].largeur||''];if(!arr[i].largeur)delete arr[i].largeur;}
    dirty=true;renderEdit();return;}
   if(b.dataset.li){e.preventDefault();const arr=get(DRAFT,JSON.parse(b.dataset.p)),i=+b.dataset.i;
    if(b.dataset.li==='del')arr.splice(i,1); if(b.dataset.li==='up'&&i>0)[arr[i-1],arr[i]]=[arr[i],arr[i-1]];
