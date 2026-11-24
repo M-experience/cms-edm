@@ -224,24 +224,24 @@ async function loadTheme(theme){
 /* ============ connexion ============ */
 function loginHTML(msg=''){
  return `<div class="login"><div class="lbox"><img src="themes/edm/img/logo-edm.png" alt="" class="llogo"><h1>Cms-Edm</h1><p class="help">Gestion des sites de l'École du Design des Mutations</p>
-  <div class="ltabs"><button class="on" data-lt="magic">Lien par e-mail</button><button data-lt="pwd">Mot de passe</button></div>
-  <form id="fMagic"><label>Adresse e-mail<input type="email" id="lEmail" required autocomplete="email"></label><button class="abtn pri">Recevoir un lien de connexion</button></form>
-  <form id="fPwd" hidden><label>Adresse e-mail<input type="email" id="pEmail" required autocomplete="email"></label><label>Mot de passe<input type="password" id="pPwd" required minlength="8" autocomplete="current-password"></label>
-   <div class="lrow"><button class="abtn pri">Se connecter</button><button type="button" class="abtn" id="pSignup">Créer mon compte</button><button type="button" class="linkbtn" id="pReset">Mot de passe oublié ?</button></div></form>
+  <form id="fPwd"><label>Adresse e-mail<input type="email" id="pEmail" required autocomplete="email"></label><label>Mot de passe<input type="password" id="pPwd" required autocomplete="current-password"></label>
+   <button class="abtn pri">Se connecter</button></form>
+  <p class="lfirst"><button type="button" class="linkbtn" id="pFirst">Première connexion ou mot de passe oublié ?</button></p>
+  <form id="fFirst" hidden><p class="help">Indiquez votre adresse : vous recevrez un e-mail avec un lien pour choisir votre mot de passe.</p><label>Adresse e-mail<input type="email" id="fEmail" required autocomplete="email"></label><button class="abtn pri">Recevoir le lien</button></form>
   <p class="lmsg" id="lMsg">${esc(msg)}</p>
   <p class="help">L'accès est réservé aux personnes invitées sur au moins un site.</p></div></div>`;
 }
 function bindLogin(){
  const msg=t=>$('#lMsg').textContent=t;
- document.querySelectorAll('[data-lt]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-lt]').forEach(x=>x.classList.toggle('on',x===b));$('#fMagic').hidden=b.dataset.lt!=='magic';$('#fPwd').hidden=b.dataset.lt!=='pwd';});
- const redirect=location.origin+location.pathname;
- $('#fMagic').onsubmit=async e=>{e.preventDefault();msg('Envoi en cours...');const {error}=await sb.auth.signInWithOtp({email:$('#lEmail').value.trim(),options:{emailRedirectTo:redirect}});msg(error?'Erreur : '+error.message:'Un lien de connexion vient d\'être envoyé. Ouvrez-le depuis ce navigateur.');};
- $('#fPwd').onsubmit=async e=>{e.preventDefault();msg('Connexion...');const {error}=await sb.auth.signInWithPassword({email:$('#pEmail').value.trim(),password:$('#pPwd').value});msg(error?'Erreur : '+(error.message==='Invalid login credentials'?'adresse ou mot de passe incorrect':error.message):'');};
- $('#pSignup').onclick=async()=>{const email=$('#pEmail').value.trim(),password=$('#pPwd').value;if(!email||password.length<8){msg('Indiquez une adresse et un mot de passe d\'au moins 8 caractères.');return;}
-  const {error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:redirect}});msg(error?'Erreur : '+error.message:'Compte créé. Confirmez votre adresse avec le lien reçu par e-mail, puis connectez-vous.');};
- $('#pReset').onclick=async()=>{const email=$('#pEmail').value.trim();if(!email){msg('Indiquez votre adresse e-mail.');return;}const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:redirect+'#/motdepasse'});msg(error?'Erreur : '+error.message:'Un lien de réinitialisation vient d\'être envoyé.');};
+ const base=location.origin+location.pathname;
+ $('#fPwd').onsubmit=async e=>{e.preventDefault();msg('Connexion...');const {error}=await sb.auth.signInWithPassword({email:$('#pEmail').value.trim(),password:$('#pPwd').value});msg(error?(error.message==='Invalid login credentials'?'Adresse ou mot de passe incorrect. Première connexion ? Utilisez le lien ci-dessous.':'Erreur : '+error.message):'');};
+ $('#pFirst').onclick=()=>{const f=$('#fFirst');f.hidden=!f.hidden;if(!f.hidden){$('#fEmail').value=$('#pEmail').value;$('#fEmail').focus();}};
+ $('#fFirst').onsubmit=async e=>{e.preventDefault();const email=$('#fEmail').value.trim().toLowerCase();msg('Envoi en cours...');
+  let invited=false;try{const r=await sb.rpc('peut_creer_compte',{p_email:email});invited=!!r.data;}catch(_){}
+  const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:base+'?mdp=1',shouldCreateUser:invited}});
+  msg(error?(/signups? not allowed|not found|otp_disabled/i.test(error.message)?'Cette adresse n\'a pas été invitée. Demandez à un administrateur de vous ajouter.':'Erreur : '+error.message):'E-mail envoyé. Ouvrez le lien qu\'il contient pour choisir votre mot de passe (pensez aux indésirables).');};
 }
-function newPasswordHTML(){return `<div class="login"><div class="lbox"><h1>Nouveau mot de passe</h1><form id="fNew"><label>Mot de passe (8 caractères minimum)<input type="password" id="nPwd" minlength="8" required autocomplete="new-password"></label><button class="abtn pri">Enregistrer</button></form><p class="lmsg" id="lMsg"></p></div></div>`;}
+function newPasswordHTML(){return `<div class="login"><div class="lbox"><h1>Choisissez votre mot de passe</h1><p class="help">Il vous servira pour vos prochaines connexions, avec votre adresse e-mail.</p><form id="fNew"><label>Mot de passe (8 caractères minimum)<input type="password" id="nPwd" minlength="8" required autocomplete="new-password"></label><button class="abtn pri">Enregistrer</button></form><p class="lmsg" id="lMsg"></p></div></div>`;}
 
 /* ============ liste des sites ============ */
 async function loadSites(){
@@ -411,7 +411,7 @@ function renderPreview(){
 function render(){
  const app=$('#app');
  if(VIEW==='login'){app.className='';app.innerHTML=loginHTML();bindLogin();return;}
- if(VIEW==='newpwd'){app.className='';app.innerHTML=newPasswordHTML();$('#fNew').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.updateUser({password:$('#nPwd').value});$('#lMsg').textContent=error?'Erreur : '+error.message:'Mot de passe enregistré.';if(!error)setTimeout(()=>{location.hash='#/';},800);};return;}
+ if(VIEW==='newpwd'){app.className='';app.innerHTML=newPasswordHTML();$('#fNew').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.updateUser({password:$('#nPwd').value});$('#lMsg').textContent=error?'Erreur : '+error.message:'Mot de passe enregistré.';if(!error){history.replaceState(null,'',location.pathname+'#/');setTimeout(()=>{VIEW='';route();},800);}};return;}
  if(VIEW==='sites'){app.className='';app.innerHTML=sitesHTML();bindSites();return;}
  if(VIEW==='preview'){renderPreview();return;}
  if(VIEW==='edit'){renderEdit();applyCharte(DRAFT);presenceCh&&presenceCh.track({email:ME.email,page:EDIT_PAGE});return;}
@@ -419,7 +419,7 @@ function render(){
 }
 async function route(){
  const h=location.hash||'#/';
- if(h.startsWith('#/motdepasse')&&SESSION){VIEW='newpwd';render();return;}
+ if((h.startsWith('#/motdepasse')||new URLSearchParams(location.search).get('mdp')==='1')&&SESSION){VIEW='newpwd';render();return;}
  if(!SESSION){VIEW='login';render();return;}
  const pv=h.match(/^#\/apercu\/([a-z0-9-]+)\/(.+)$/);
  if(pv){if(await openSite(pv[1],EDIT_PAGE)){PREVIEW_ROUTE=decodeURIComponent(pv[2]);VIEW='preview';render();}return;}

@@ -35,3 +35,5 @@ a.abtn{text-decoration:none;display:inline-block}
 .editing .sommaire{top:54px}
 
 .pvbar{position:sticky;top:0;z-index:50;display:flex;gap:12px;align-items:center;padding:10px 18px;background:var(--coral);color:#fff;font-family:var(--f-body);font-size:14px}.pvbar .help{color:#fff;opacity:.85}.pvbar .sp{flex:1}.pvbar .abtn{background:#fff;color:var(--ink);border-color:#fff}
+.lfirst{margin:2px 0 0;text-align:center}
+#fFirst{border-top:1px solid #e3e8f0;padding-top:14px}
