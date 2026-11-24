@@ -63,7 +63,7 @@ function btnObj(m,p,cls){if(!m)return '';
  return `<span class="${cls} elink"><span${ed([...p,'libelle'])}>${esc(m.libelle)}</span>${lkBtn(p)}</span>`;}
 const btnLink=(C,p,cls)=>btnObj(get(C,p),p,cls);
 function header(C){const S=C.site;return `<header class="top"><div class="wrap">
- ${EDIT?`<span class="ei logo-w"><img class="logo" src="img/logo-edm.png" alt="École du Design des Mutations" style="height:${S.logo_hauteur||34}px">${szb(['site','logo_hauteur'],34)}</span>`:`<a href="${esc(href('accueil'))}"><img class="logo" src="img/logo-edm.png" alt="École du Design des Mutations" style="height:${S.logo_hauteur||34}px"></a>`}
+ ${EDIT?`<span class="ei logo-w"><img class="logo" src="img/logo-edm.png" alt="École du Design des Mutations" style="height:${S.logo_hauteur||52}px">${szb(['site','logo_hauteur'],52)}</span>`:`<a href="${esc(href('accueil'))}"><img class="logo" src="img/logo-edm.png" alt="École du Design des Mutations" style="height:${S.logo_hauteur||52}px"></a>`}
  <nav>${S.menu.map((m,i)=>linkItem(['site','menu'],i,m)).join('')}${addBtn(['site','menu'],{libelle:'Nouveau lien',cible:'accueil'},'+')}</nav>
  <div class="navcta">${S.boutons.map((m,i)=>linkItem(['site','boutons'],i,m)).join('')}${addBtn(['site','boutons'],{libelle:'Bouton',cible:'accueil'},'+')}</div></div></header>`;}
 function footer(C){const L=(c,t)=>`<a href="${esc(href(c))}">${t}</a>`;const hp=sl=>(C.pages||[]).some(p=>p.slug===sl);const PG=(sl,alt)=>hp(sl)?'page-'+sl:alt;return `<footer class="foot2"><div class="fwrap">
