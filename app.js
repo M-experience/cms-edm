@@ -396,6 +396,7 @@ async function openMessages(id){
 async function openSite(slug,pg){
  if(SITE&&SITE.slug===slug&&CONTENT){if(pg)EDIT_PAGE=pg;return true;}
  if(!SITE||SITE.slug!==slug||!CONTENT){
+  if(!SITES.length)await loadSites();
   const s=SITES.find(x=>x.slug===slug);if(!s){toast('Site introuvable ou accès refusé');location.hash='#/';return false;}
   SITE=s;ROLE=s._role;
   await loadTheme(s.theme||'edm');
