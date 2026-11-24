@@ -494,3 +494,11 @@ a.mdbtn:hover{filter:brightness(.93)}
 .rtb-menu .s-h2{font-size:17px}.rtb-menu .s-h3{font-size:15px}.rtb-menu .s-h4{font-size:12px;text-transform:uppercase}.rtb-menu .s-pbig{font-weight:500;font-size:15px}.rtb-menu .s-p{font-weight:400}.rtb-menu .s-psmall{font-weight:400;font-size:11px}
 .rtb button:disabled{opacity:.35;cursor:default}.rtb-sep{width:1px;background:rgba(255,255,255,.25);margin:4px 4px}
 .editbar [data-hist]{font-size:16px;padding-left:10px;padding-right:10px}.editbar [data-hist]:disabled{opacity:.4}
+.pxl{font-size:1.5em;line-height:1.4}.pxs{font-size:.72em;line-height:1.5;opacity:.85}
+.rtb-menu .s-pxl{font-size:17px;font-weight:500}.rtb-menu .s-pxs{font-weight:400;font-size:10px}
+.rtb-sz{display:inline-flex;align-items:center;gap:2px}.rtb-zv{color:#fff;font:600 12px var(--f-body);min-width:44px;text-align:center;opacity:.8}
+.rtb.plain [data-cmd]:not([data-cmd=done]),.rtb.plain .rtb-sty,.rtb.plain .rtb-link{display:none!important}
+.rtb:not(.plain) .rtb-sz{display:none}
+.editing [data-busy]{outline:2px solid #7B5CFF!important;outline-offset:3px;position:relative}
+.editing [data-busy]::after{content:attr(data-busy);position:absolute;left:0;top:-24px;background:#7B5CFF;color:#fff;font:600 11px/1 var(--f-body);padding:5px 8px;border-radius:4px;white-space:nowrap;pointer-events:none;z-index:8;text-transform:none;letter-spacing:0;zoom:1}
+.esec.esec-busy{outline:2px dashed rgba(123,92,255,.5)}

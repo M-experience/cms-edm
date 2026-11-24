@@ -8,7 +8,7 @@ function md(t){return String(t||'').split(/\n\s*\n/).filter(b=>b.trim()).map(b=>
  if(L.every(l=>/^\s*[-•]\s+/.test(l)))return '<ul>'+L.map(l=>'<li>'+inl(l.replace(/^\s*[-•]\s+/,''))+'</li>').join('')+'</ul>';
  if(L.every(l=>/^\s*\d+[.)]\s+/.test(l)))return '<ol>'+L.map(l=>'<li>'+inl(l.replace(/^\s*\d+[.)]\s+/,''))+'</li>').join('')+'</ol>';
  if(/^#{1,6}\s/.test(L[0])){const n=L[0].match(/^#+/)[0].length,tg=n===1?'h2':n<=3?'h3':'h4',cl=n===1?'mdh mdh2':n<=3?'mdh':'mdh mdh4';const h='<'+tg+' class="'+cl+'">'+inl(L[0].replace(/^#+\s*/,''))+'</'+tg+'>';return L.length>1?h+'<p>'+L.slice(1).map(inl).join('<br>')+'</p>':h;}
- const sz=L[0].match(/^\{(grand|petit)\}\s*/);if(sz){L[0]=L[0].slice(sz[0].length);return '<p class="p'+(sz[1]==='grand'?'big':'small')+'">'+L.map(inl).join('<br>')+'</p>';}
+ const sz=L[0].match(/^\{(tresgrand|grand|petit|trespetit)\}\s*/);if(sz){L[0]=L[0].slice(sz[0].length);return '<p class="p'+({tresgrand:'xl',grand:'big',petit:'small',trespetit:'xs'})[sz[1]]+'">'+L.map(inl).join('<br>')+'</p>';}
  const q=b.trim();if(L.length===1&&q.length<70&&q===q.toUpperCase()&&/[A-ZÉÈ]/.test(q)&&!/\*\*/.test(q))return '<p class="tsub">'+esc(q)+'</p>';
  return '<p>'+L.map(inl).join('<br>')+'</p>';}).join('');}
 const rich=md,paras=md;
@@ -22,7 +22,7 @@ function toMd(root){const blocks=[];let cur='';const flush=()=>{if(cur.trim())bl
   if(t==='UL'||t==='OL'){flush();blocks.push(lst(n));}
   else if(/^H[1-6]$/.test(t)){flush();const v=il(n).replace(/\n+/g,' ').trim();if(v)blocks.push((t==='H1'||t==='H2'?'# ':t==='H3'?'## ':'#### ')+v);}
   else if(t==='BLOCKQUOTE'){flush();const v=il(n).replace(/\n{2,}/g,'\n').trim();if(v)blocks.push(v.split('\n').map(l=>'> '+l).join('\n'));}
-  else if(/^(P|DIV)$/.test(t)){flush();const v=il(n).replace(/\n{3,}/g,'\n\n').trim();if(v)blocks.push((n.classList.contains('pbig')?'{grand} ':n.classList.contains('psmall')?'{petit} ':'')+v);}
+  else if(/^(P|DIV)$/.test(t)){flush();const v=il(n).replace(/\n{3,}/g,'\n\n').trim();if(v)blocks.push((n.classList.contains('pxl')?'{tresgrand} ':n.classList.contains('pbig')?'{grand} ':n.classList.contains('psmall')?'{petit} ':n.classList.contains('pxs')?'{trespetit} ':'')+v);}
   else cur+=il(n);}
  flush();return blocks.join('\n\n').replace(/\n{3,}/g,'\n\n');}
 const clone=o=>JSON.parse(JSON.stringify(o));
@@ -36,7 +36,8 @@ const IMAGES=['img/equipe-manuel.jpg','img/equipe-sylvie.jpg','img/equipe-franco
 let EDIT=false;   // vrai pendant le rendu en mode « édition sur la page »
 const J=p=>esc(JSON.stringify(p));
 const edr=p=>EDIT?` data-e="${J(p)}" data-para="1" data-rich="1" contenteditable="true" spellcheck="true"`:'';
-const ed=(p,para)=>EDIT?` data-e="${J(p)}"${para?' data-para="1"':''} contenteditable="plaintext-only" spellcheck="true"`:'';
+const tz=p=>{const z=CURRENT_C?.tailles?.[JSON.stringify(p)];return z&&z!=1?` style="zoom:${+z}"`:'';};
+const ed=(p,para)=>tz(p)+(EDIT?` data-e="${J(p)}"${para?' data-para="1"':''} contenteditable="plaintext-only" spellcheck="true"`:'');
 const itools=(p,i)=>EDIT?`<span class="itools" contenteditable="false"><button data-lidrag="1" data-p="${J(p)}" data-i="${i}" title="Glisser pour déplacer">⠿</button><button data-li="up" data-p="${J(p)}" data-i="${i}" title="Monter">↑</button><button data-li="del" data-p="${J(p)}" data-i="${i}" title="Supprimer">✕</button></span>`:'';
 const addBtn=(p,tpl,label='+ Ajouter')=>EDIT?`<button class="eadd" data-add="${J(p)}" data-tpl="${J(tpl)}">${esc(label)}</button>`:'';
 const img=(C,p,def,alt='',extra='')=>`<img src="${esc(get(C,p)||def)}" alt="${esc(alt)}"${EDIT?` data-imgp="${J(p)}" title="Cliquer pour changer l'image"`:''}${extra}>`;
