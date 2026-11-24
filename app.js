@@ -77,6 +77,7 @@ function editBar(pg){
   <a class="abtn pri" href="#/apercu/${esc(SITE.slug)}/${esc(pg)}" title="Voir la page telle qu'elle sera publiée (modifications non enregistrées comprises)">Aperçu</a>
   ${SITE.domaine?`<a class="abtn" href="${esc(previewURL(pg))}" target="_blank" rel="noopener" title="Adresse publique du site. Tant que le DNS n'est pas modifié, elle affiche encore l'ancien site (Wix).">${esc(SITE.domaine)} ↗</a>`:''}
   <button class="abtn" data-hist="undo" title="Annuler la dernière modification (Cmd+Z)">↶</button><button class="abtn" data-hist="redo" title="Rétablir (Cmd+Maj+Z)">↷</button>
+  <button class="abtn" id="eLogout" title="Se déconnecter de Cms-Edm">Se déconnecter</button>
   <button class="abtn" id="eUndo" ${dirty?'':'disabled'} title="Revenir au dernier brouillon enregistré">Tout annuler</button>
   <button class="abtn" id="eSave" ${!dirty?'disabled':''}>Enregistrer le brouillon</button>
   ${!canPublish()?`<button class="abtn cor" id="eSubmit">Soumettre à validation</button>`:`<button class="abtn pri" id="ePub">Publier</button>`}
@@ -295,6 +296,7 @@ function bindEditOnce(){
   if(b.id==='ePub'){openPublish();return;}
   if(b.id==='eHist'){openHistory();return;}
   if(b.id==='eSeo'){openSeo();return;}
+  if(b.id==='eLogout'){askLogout();return;}
   if(b.id==='eUndo'){histReset();DRAFT=norm(clone(CONTENT.draft||CONTENT.published||ORIGIN_RAW));dirty=false;applyCharte(DRAFT);renderEdit();toast('Modifications annulées');return;}
   if(b.dataset.link){e.preventDefault();openLinkChooser(JSON.parse(b.dataset.link));return;}
   if(b.dataset.imgp){openImagePicker(JSON.parse(b.dataset.imgp),b.dataset.logos);return;}
@@ -501,9 +503,18 @@ async function openSite(slug,pg){
 }
 async function saveDraft(statut){
  const {data,error}=await sb.rpc('save_draft',{p_site:SITE.id,p_content:DRAFT,p_status:statut});
- if(error){toast('Enregistrement refusé : '+error.message);return;}
+ if(error){toast('Enregistrement refusé : '+error.message);return false;}
  CONTENT.draft=clone(DRAFT);draftMeta={at:data,by:SESSION.user.id,statut};dirty=false;renderEdit();
- toast(statut==='en_validation'?'Brouillon soumis à validation':'Brouillon enregistré');
+ toast(statut==='en_validation'?'Brouillon soumis à validation':'Brouillon enregistré');return true;
+}
+async function doLogout(){if(presenceCh){sb.removeChannel(presenceCh);presenceCh=null;}dirty=false;await sb.auth.signOut();}
+function askLogout(){
+ if(!dirty){doLogout();return;}
+ $('#modal').innerHTML=`<div class="modal"><div><h3>Se déconnecter</h3><p>Vous avez des modifications non enregistrées sur « ${esc(SITE.nom)} ».</p>
+  <div class="actions"><button class="abtn" id="lgCancel">Rester</button><button class="abtn" id="lgDrop">Quitter sans enregistrer</button><button class="abtn pri" id="lgSave">Enregistrer le brouillon et quitter</button></div></div></div>`;
+ $('#lgCancel').onclick=()=>$('#modal').innerHTML='';
+ $('#lgDrop').onclick=()=>{$('#modal').innerHTML='';doLogout();};
+ $('#lgSave').onclick=async()=>{$('#lgSave').disabled=true;$('#modal').innerHTML='';if(await saveDraft('brouillon'))doLogout();};
 }
 function openPublish(){
  $('#modal').innerHTML=`<div class="modal"><div><h3>Publier « ${esc(SITE.nom)} »</h3>
