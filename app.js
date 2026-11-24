@@ -253,7 +253,7 @@ const SUPABASE_KEY='sb_publishable_1BYm4PUC-4xmylhcinXznA_2u-F5zEp';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,detectSessionInUrl:true}});
 
 /* ============ identité visuelle ============ */
-const LOGO=`<svg class="lgmark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#13395A"/><rect x="14" y="16" width="36" height="7" rx="3.5" fill="#fff"/><rect x="14" y="28.5" width="22" height="7" rx="3.5" fill="#9DB3D6"/><rect x="40" y="26.5" width="4" height="11" rx="2" fill="#FF5A5F"/><rect x="14" y="41" width="30" height="7" rx="3.5" fill="#fff" fill-opacity=".45"/></svg>`;
+const LOGO=`<svg class="lgmark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#FF6B1A"/><rect x="9" y="11" width="46" height="9.5" rx="4.75" fill="#fff"/><rect x="9" y="27.25" width="28" height="9.5" rx="4.75" fill="#13395A"/><rect x="40.5" y="24.5" width="5.5" height="15" rx="2.75" fill="#fff"/><rect x="9" y="43.5" width="38" height="9.5" rx="4.75" fill="#fff" fill-opacity=".7"/></svg>`;
 const brand=(cls='')=>`<span class="brand ${cls}">${LOGO}<span class="bword">cms<i>-</i><em>edm</em></span></span>`;
 
 /* ============ état ============ */
