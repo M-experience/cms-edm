@@ -422,3 +422,4 @@ a.li-page:hover{background:var(--navy);color:#fff}
 .lib button:hover{border-color:var(--coral)}
 .kpis .ei span{display:block}
 @media(max-width:1100px){.admin{grid-template-columns:200px 1fr}.preview{display:none}}
+.li-feed{margin:0 0 22px;border-radius:8px;overflow:hidden;background:#fff}.li-feed iframe{display:block;width:100%;min-height:600px;border:0}
