@@ -52,7 +52,7 @@ async function buildSite(site,content){
  fs.writeFileSync(path.join(out,'404.html'),fix(shell(C,site,{route:'accueil',titre:'Page introuvable',path:''},`<section class="blk"><div class="wrap"><h1>Page introuvable</h1><p>Cette page n'existe pas ou a été déplacée.</p><p><a class="btn" href="/">Retour à l'accueil</a></p></div></section>`,base)));
  fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p=>`<url><loc>${base}${p.path?p.path+'/':''}</loc><lastmod>${new Date().toISOString().slice(0,10)}</lastmod><priority>${!p.path?'1.0':/^master/.test(p.route)?'0.9':/legales|conditions|confidentialite/.test(p.path)?'0.2':'0.7'}</priority></url>`).join('\n')}\n</urlset>\n`);
  fs.writeFileSync(path.join(out,'robots.txt'),preview?'User-agent: *\nDisallow: /\n':`User-agent: *\nAllow: /\nSitemap: ${base}sitemap.xml\n`);
- const sec=(site.domaines_secondaires||[]).filter(Boolean);
+ const sec=[...new Set([...(site.domaines_secondaires||[]),...(site.domaine&&!/^www\./.test(site.domaine)?['www.'+site.domaine]:[])].filter(Boolean))];
  if(preview){fs.writeFileSync(path.join(out,'.htaccess'),`ErrorDocument 404 ${prefix}404.html\nOptions -Indexes\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\n`);return out;}
  fs.writeFileSync(path.join(out,'.htaccess'),`ErrorDocument 404 /404.html
 Options -Indexes
