@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mode d'emploi - Cms-Edm</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="logo-cms-edm.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#13395A;--blue:#5E7CA6;--coral:#FF5A5F;--ink:#1D1D36;--soft:#F3F6FA;--line:#DCE3EC}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 Outfit,system-ui,sans-serif;color:var(--ink);background:var(--soft)}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;padding:12px 22px;background:var(--ink);color:#fff}
+.top a{color:#fff}.top .sp{flex:1}.top .back{border:1px solid rgba(255,255,255,.4);border-radius:6px;padding:6px 12px;text-decoration:none;font-weight:600;font-size:14px}
+.brand{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:18px}.brand svg{width:30px;height:30px}
+.brand i{font-style:normal;color:#9DB3D6}.brand em{font-style:normal;color:var(--coral)}
+.layout{max-width:1080px;margin:0 auto;padding:28px 22px 80px;display:grid;grid-template-columns:220px 1fr;gap:34px}
+nav.toc{position:sticky;top:76px;align-self:start;font-size:14px}
+nav.toc a{display:block;padding:5px 0;color:var(--navy);text-decoration:none}nav.toc a:hover{color:var(--coral)}
+main{background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px 36px}
+h1{color:var(--navy);font-size:30px;margin:0 0 6px}
+h2{color:var(--navy);font-size:22px;margin:38px 0 10px;padding-top:6px;border-top:1px solid var(--line)}
+h3{color:var(--navy);font-size:17px;margin:22px 0 6px}
+.lead{color:var(--blue);margin:0 0 10px}
+table{border-collapse:collapse;width:100%;margin:10px 0;font-size:15px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}th{background:var(--soft);color:var(--navy)}
+kbd,.k{display:inline-block;background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:0 6px;font:600 13px Outfit,sans-serif;color:var(--navy)}
+.tip{background:#FFF4F4;border-left:4px solid var(--coral);padding:10px 14px;border-radius:4px;margin:14px 0}
+li{margin:4px 0}
+@media(max-width:820px){.layout{grid-template-columns:1fr}nav.toc{position:static}main{padding:22px}}
+</style>
+</head>
+<body>
+<div class="top">
+ <span class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#13395A"/><rect x="14" y="16" width="36" height="7" rx="3.5" fill="#fff"/><rect x="14" y="28.5" width="22" height="7" rx="3.5" fill="#9DB3D6"/><rect x="40" y="26.5" width="4" height="11" rx="2" fill="#FF5A5F"/><rect x="14" y="41" width="30" height="7" rx="3.5" fill="#fff" fill-opacity=".45"/></svg>cms<i>-</i><em>edm</em></span>
+ <span>Mode d'emploi</span><span class="sp"></span><a class="back" href="./">← Retour à Cms-Edm</a>
+</div>
+<div class="layout">
+<nav class="toc">
+ <a href="#presentation">Présentation</a>
+ <a href="#connexion">Se connecter</a>
+ <a href="#tableau">Le tableau de bord</a>
+ <a href="#modifier">Modifier une page</a>
+ <a href="#deplacer">Déplacer et mettre en page</a>
+ <a href="#charte">Charte graphique</a>
+ <a href="#publier">Enregistrer et publier</a>
+ <a href="#roles">Rôles</a>
+ <a href="#faq">Questions fréquentes</a>
+</nav>
+<main>
+<h1>Mode d'emploi de Cms-Edm</h1>
+<p class="lead">Mis à jour le 24 novembre 2026</p>
+
+<h2 id="presentation">Présentation</h2>
+<p>Cms-Edm permet de modifier le site de l'EDM directement sur la page, sans compétence technique, puis de le publier sur <a href="https://www.ecole-edm.fr" target="_blank" rel="noopener">www.ecole-edm.fr</a> en un clic. Il peut gérer plusieurs sites, par exemple le site actuel et sa future version remaniée.</p>
+<ol>
+ <li><b>Modifier</b> : on clique sur un texte ou une image de la page et on le change.</li>
+ <li><b>Enregistrer le brouillon</b> : les modifications sont conservées, mais invisibles du public.</li>
+ <li><b>Publier</b> : le site est régénéré et mis en ligne une à deux minutes plus tard.</li>
+</ol>
+<p>Utilisez un navigateur récent sur ordinateur. L'édition sur téléphone est possible, mais peu confortable.</p>
+
+<h2 id="connexion">Se connecter</h2>
+<p>L'accès suppose d'avoir été invité par un administrateur, avec son adresse e-mail.</p>
+<ol>
+ <li><b>Première connexion</b> : cliquez sur « Première connexion ou mot de passe oublié ? », saisissez votre adresse, puis « Recevoir le lien ». Ouvrez l'e-mail envoyé par « Cms-Edm » (noreply@design-mutation.org) et cliquez sur « Choisir mon mot de passe ». Choisissez un mot de passe d'au moins 10 caractères, saisi deux fois.</li>
+ <li><b>Connexions suivantes</b> : adresse e-mail et mot de passe, puis « Se connecter ».</li>
+ <li><b>Mot de passe oublié</b> : même lien qu'à la première connexion.</li>
+ <li><b>Se déconnecter</b> : bouton en haut à droite du tableau de bord.</li>
+</ol>
+<div class="tip">Le lien reçu par e-mail est valable une heure et ne sert qu'une fois. Ouvrez toujours le dernier e-mail reçu, et pensez aux indésirables.</div>
+
+<h2 id="tableau">Le tableau de bord</h2>
+<p>Chaque site auquel vous avez accès apparaît sur une ligne, avec son adresse, son état et la date de la dernière publication. La pastille indique l'état : <b style="color:#1C7A4B">● En ligne</b>, <b style="color:#B7791F">● Mise en ligne en cours</b> ou <b style="color:#C0392B">● Erreur</b>.</p>
+<table>
+ <tr><th>Bouton</th><th>Ce qu'il fait</th><th>Rôle requis</th></tr>
+ <tr><td>Modifier le site</td><td>Ouvre l'éditeur sur la page d'accueil</td><td>Tous</td></tr>
+ <tr><td>Messages</td><td>Messages envoyés par le formulaire de contact du site</td><td>Tous</td></tr>
+ <tr><td>Paramètres</td><td>Nom, domaines, statut, membres et invitations</td><td>Administrateur</td></tr>
+ <tr><td>Nouvelle version</td><td>Copie le site (brouillon compris) pour préparer une refonte sans toucher au site en ligne</td><td>Administrateur</td></tr>
+</table>
+<p><b>Inviter quelqu'un</b> : Paramètres, rubrique Membres, saisissez son adresse, choisissez son rôle, puis « Inviter ». Aucun e-mail d'invitation n'est envoyé : prévenez la personne et renvoyez-la vers la procédure de première connexion.</p>
+
+<h2 id="modifier">Modifier une page</h2>
+<p>Tout se modifie directement sur la page, telle qu'elle apparaîtra en ligne. La barre d'édition, en haut, donne accès aux pages et aux commandes générales.</p>
+<h3>Changer de page ou en créer une</h3>
+<p>La liste déroulante de la barre d'édition choisit la page à modifier. Sa dernière ligne, « + Nouvelle page... », crée une page vide à remplir avec des sections. Une page créée ainsi peut être supprimée par « Supprimer la page ».</p>
+<h3>Textes</h3>
+<ul>
+ <li>Cliquez sur un texte pour le modifier. Pour les paragraphes, une barre de mise en forme apparaît : gras (<kbd>Cmd</kbd>+<kbd>B</kbd>), italique (<kbd>Cmd</kbd>+<kbd>I</kbd>), intertitre, listes, effacement de la mise en forme.</li>
+ <li>Terminez par « ✓ Terminé », la touche <kbd>Échap</kbd> ou un clic à l'extérieur.</li>
+ <li>Deux appuis sur <kbd>Entrée</kbd> créent un nouveau paragraphe.</li>
+</ul>
+<h3>Images et logos</h3>
+<ul>
+ <li>Cliquez sur une image pour la remplacer : bibliothèque du site ou envoi depuis votre ordinateur.</li>
+ <li>Les logos ont des boutons <span class="k">−</span> <span class="k">+</span> pour régler leur taille. « + Partenaire », sous les logos de l'accueil, ajoute un partenaire.</li>
+ <li>Préférez des logos recadrés au plus près, sans marge transparente : ils s'aligneront correctement.</li>
+</ul>
+<h3>Liens, menu et boutons</h3>
+<ul>
+ <li>Le bouton <span class="k">🔗</span> d'un lien, d'un bouton ou d'un sommaire ouvre « Destination du lien » : une page du site, une section d'une page ou une adresse web.</li>
+ <li>Le petit « + » à la fin du menu ajoute un lien.</li>
+</ul>
+<h3>Ajouter une section</h3>
+<p>« + Ajouter une section ici », entre deux sections, puise dans la bibliothèque : texte, texte et image, images, tuiles, cartes, chiffres clés, équipe, citation, sommaire, bandeau d'appel, LinkedIn. Les sections propres au site (formulaire de contact, étapes, témoignages...) se masquent mais ne se suppriment pas.</p>
+<h3>Fil LinkedIn</h3>
+<p>La section LinkedIn affiche automatiquement les dernières publications grâce à un widget SociableKit, dont l'adresse se règle dans l'encadré placé sous le fil.</p>
+
+<h2 id="deplacer">Déplacer et mettre en page</h2>
+<ul>
+ <li><b>Déplacer une section</b> : au survol, une barre apparaît en haut à droite de la section. Saisissez le bouton corail <span class="k">⠿ Déplacer</span> et faites-le glisser ; un trait corail montre où elle sera déposée. Les flèches <span class="k">↑</span> <span class="k">↓</span> font la même chose pas à pas.</li>
+ <li><b>Déplacer un élément</b> (carte, tuile, étape, membre de l'équipe, lien du menu...) : au survol, de petites pastilles apparaissent dans son coin. Faites glisser la pastille <span class="k">⠿</span>. Les étapes se renumérotent d'elles-mêmes.</li>
+ <li><b>Alignement et largeur</b> (sections de la bibliothèque) : dans la barre de la section, <span class="k">⇤</span> / <span class="k">↔</span> / <span class="k">⇥</span> aligne le texte à gauche, au centre ou à droite ; <span class="k">▭</span> / <span class="k">▯</span> / <span class="k">▭▭</span> choisit une largeur normale, étroite ou large. Chaque clic passe au réglage suivant.</li>
+</ul>
+<p>Le haut de l'accueil (« Bienvenue à... », slogan, partenaires) est l'en-tête fixe de la page : ses textes se modifient mais ne se déplacent pas.</p>
+
+<h2 id="charte">Charte graphique</h2>
+<p>Le bouton « Charte » règle pour tout le site :</p>
+<ul>
+ <li>les trois polices (titres, texte, manuscrite) et les quatre couleurs ;</li>
+ <li>les <b>titres en majuscules</b> (charte EDM) ou <b>tels que saisis</b> ;</li>
+ <li>la <b>taille des titres</b> : plus petits, normale ou plus grands.</li>
+</ul>
+<p>« Revenir à la charte de l'EDM » rétablit les réglages d'origine.</p>
+
+<h2 id="publier">Enregistrer, prévisualiser, publier</h2>
+<p>Rien n'est visible du public avant la publication : enregistrez souvent, publiez quand la page est prête.</p>
+<table>
+ <tr><th>Bouton</th><th>Effet</th></tr>
+ <tr><td>Annuler</td><td>Abandonne les modifications non enregistrées</td></tr>
+ <tr><td>Enregistrer le brouillon</td><td>Conserve vos modifications ; les autres membres les voient en ouvrant l'éditeur</td></tr>
+ <tr><td>Aperçu</td><td>Affiche le site tel qu'il sera publié, modifications non enregistrées comprises</td></tr>
+ <tr><td>Publier</td><td>Enregistre une nouvelle version et met le site en ligne en une à deux minutes</td></tr>
+ <tr><td>Soumettre à validation</td><td>Remplace « Publier » pour les rédacteurs : un validateur publiera</td></tr>
+ <tr><td>Historique</td><td>Versions publiées, avec leur note ; « Restaurer » recharge une ancienne version dans le brouillon</td></tr>
+</table>
+<div class="tip">Après une publication malheureuse : Historique, « Restaurer » sur la bonne version, puis Publier. Une courte note de version facilite ensuite la lecture de l'historique.</div>
+
+<h2 id="roles">Rôles</h2>
+<table>
+ <tr><th>Rôle</th><th>Modifier et enregistrer</th><th>Publier</th><th>Membres, domaine, versions</th></tr>
+ <tr><td>Rédacteur</td><td>Oui</td><td>Non : soumet à validation</td><td>Non</td></tr>
+ <tr><td>Validateur</td><td>Oui</td><td>Oui</td><td>Non</td></tr>
+ <tr><td>Administrateur</td><td>Oui</td><td>Oui</td><td>Oui</td></tr>
+</table>
+<p>Le super-administrateur (contact@ecole-edm.fr) accède à tous les sites et peut en créer de nouveaux. Quand plusieurs personnes ouvrent le même site, leurs noms s'affichent dans la barre d'édition. Le brouillon est commun : évitez de modifier la même page en même temps, car le dernier enregistrement l'emporte.</p>
+
+<h2 id="faq">Questions fréquentes</h2>
+<table>
+ <tr><th>Situation</th><th>Que faire</th></tr>
+ <tr><td>J'ai publié, mais le site n'a pas changé</td><td>Attendez deux minutes, puis rechargez avec <kbd>Cmd</kbd>+<kbd>Maj</kbd>+<kbd>R</kbd>. La pastille indique « En ligne » quand c'est terminé.</td></tr>
+ <tr><td>La pastille indique « Erreur »</td><td>Publiez de nouveau ; si l'erreur persiste, prévenez un administrateur.</td></tr>
+ <tr><td>Je ne vois pas le site dans mon tableau de bord</td><td>Demandez à un administrateur de vous inviter avec l'adresse exacte utilisée pour vous connecter.</td></tr>
+ <tr><td>Je ne reçois pas l'e-mail de connexion</td><td>Regardez dans les indésirables, attendez une minute entre deux demandes, vérifiez que votre adresse a bien été invitée.</td></tr>
+ <tr><td>J'ai supprimé une section par erreur</td><td>Avant d'enregistrer : « Annuler ». Après une publication : Historique, puis « Restaurer ».</td></tr>
+ <tr><td>Une nouveauté annoncée n'apparaît pas</td><td>Rechargez la page avec <kbd>Cmd</kbd>+<kbd>Maj</kbd>+<kbd>R</kbd>.</td></tr>
+</table>
+</main>
+</div>
+</body>
+</html>

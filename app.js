@@ -70,6 +70,7 @@ function editBar(pg){
  return `<div class="editbar"><a class="abtn" href="#/" title="Retour à la liste des sites">← Sites</a><b>${esc(SITE.nom)}</b>
   <select id="epage">${EPAGES().map(([k,l])=>`<option value="${k}"${k===pg?' selected':''}>${esc(l)}</option>`).join('')}<option value="__new">+ Nouvelle page...</option></select>${pg.startsWith('page-')?`<button class="abtn" id="eDelPage" title="Supprimer cette page">Supprimer la page</button>`:''}
   <span class="est" id="est">${esc(statusLine())}</span><span id="presence" class="presence"></span>
+  <a class="abtn" href="aide.html" target="_blank" rel="noopener" title="Mode d'emploi (nouvel onglet)">Aide</a>
   <button class="abtn" data-charte="1" title="Polices et couleurs du site">Charte</button>
   <button class="abtn" id="eHist">Historique</button>
   <a class="abtn pri" href="#/apercu/${esc(SITE.slug)}/${esc(pg)}" title="Voir la page telle qu'elle sera publiée (modifications non enregistrées comprises)">Aperçu</a>
@@ -284,7 +285,7 @@ function loginHTML(msg=''){
   <p class="lfirst"><button type="button" class="linkbtn" id="pFirst">Première connexion ou mot de passe oublié ?</button></p>
   <form id="fFirst" hidden><p class="help">Indiquez votre adresse : vous recevrez un e-mail avec un lien pour choisir votre mot de passe.</p><label>Adresse e-mail<input type="email" id="fEmail" required autocomplete="email"></label><button class="abtn pri">Recevoir le lien</button></form>
   <p class="lmsg" id="lMsg">${esc(msg)}</p>
-  <p class="help">L'accès est réservé aux personnes invitées sur au moins un site.</p></div></div>`;
+  <p class="help">L'accès est réservé aux personnes invitées sur au moins un site. <a href="aide.html" target="_blank" rel="noopener">Mode d'emploi</a></p></div></div>`;
 }
 function bindLogin(){
  const msg=t=>$('#lMsg').textContent=t;
@@ -320,7 +321,7 @@ function sitesHTML(){
     ${st?`<span class="st st-${st[0]}"><i></i>${st[1]}</span>`:''}<span>${c.published_at?'Publié le '+fmtDate(c.published_at):'Jamais publié'}</span>${c.draft_status==='en_validation'?'<span class="st st-wait"><i></i>Brouillon à valider</span>':''}</div>
    ${par?`<p class="help">Nouvelle version de « ${esc(par.nom)} »</p>`:''}</div>
    <div class="sc-act"><a class="abtn pri" href="#/site/${esc(s.slug)}/accueil">Modifier le site</a><button class="abtn ghost" data-msg="${s.id}">Messages</button>${s._role==='admin'?`<button class="abtn ghost" data-set="${s.id}">Paramètres</button><button class="abtn ghost" data-dup="${s.id}" title="Copier ce site pour préparer une refonte">Nouvelle version</button>`:''}</div></div>`;};
- return `<div class="topbar">${brand('on-dark')}<span class="sp"></span><span class="help">${esc(ME.email||'')}${ME.is_superadmin?' · super-administrateur':''}</span><button class="abtn" id="bLogout">Se déconnecter</button></div>
+ return `<div class="topbar">${brand('on-dark')}<span class="sp"></span><span class="help">${esc(ME.email||'')}${ME.is_superadmin?' · super-administrateur':''}</span><a class="abtn" href="aide.html" target="_blank" rel="noopener">Mode d'emploi</a><button class="abtn" id="bLogout">Se déconnecter</button></div>
  <div class="dash"><div class="dhead"><h1>Vos sites</h1>${ME.is_superadmin?'<button class="abtn pri" id="bNewSite">+ Nouveau site</button>':''}</div>
  ${act.length?`<div class="sgrid">${act.map(card).join('')}</div>`:'<p class="empty-hint">Vous n\'êtes encore membre d\'aucun site. Demandez à un administrateur de vous inviter avec cette adresse e-mail.</p>'}
  ${arc.length?`<h2 class="help" style="margin-top:30px">Sites archivés</h2><div class="sgrid">${arc.map(card).join('')}</div>`:''}</div>`;
