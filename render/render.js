@@ -194,7 +194,8 @@ function pageMaster(C,m){
  <section class="blk"><div class="wrap"><h2 class="big">Blocs de compétences</h2>${m.blocs.map((b,i)=>`<details class="bloc ei"${EDIT?' open':''}><summary><span>${String(i+1).padStart(2,'0')}</span><span class="bt"${ed([...M('blocs'),i,'titre'])}>${esc(b.titre)}</span></summary><div class="inner"><p><b${ed([...M('blocs'),i,'code'])}>${esc(b.code)}</b></p><p><b>Modules associés :</b><br><span${ed([...M('blocs'),i,'modules'],1)}>${esc(b.modules).replace(/\n/g,'<br>')}</span></p><p><b>Évaluation :</b> <span${ed([...M('blocs'),i,'evaluation'],1)}>${esc(b.evaluation)}</span></p></div>${itools(M('blocs'),i)}</details>`).join('')||(EDIT?'':'<div class="empty-hint">Les blocs de compétences de ce master n\'ont pas encore été saisis.</div>')}${addBtn(M('blocs'),{code:'RNCP38208BC0',titre:'Nouveau bloc',modules:'Module',evaluation:'Modalités d\'évaluation'},'+ Ajouter un bloc de compétences')}</div></section>`+footer(C);
 }
 
-function renderPage(C,route){CURRENT_C=C;return renderPage0(C,route).replace(/(src|href)="img\//g,'$1="'+ASSET_BASE+'img/');}
+const IMG_V='2';// à incrémenter quand une image du thème change, pour forcer son rechargement
+function renderPage(C,route){CURRENT_C=C;return renderPage0(C,route).replace(/(src|href)="img\/([^"?]+)"/g,(m,a,f)=>a+'="'+ASSET_BASE+'img/'+f+'?v='+IMG_V+'"');}
 function renderPage0(C,route){
  if(route.startsWith('master-')) return pageMaster(C,C.masters.find(m=>'master-'+m.slug===route));
  if(route.startsWith('page-')){const sl=route.slice(5).split('--')[0];return pageCustom(C,C.pages.find(p=>p.slug===sl));}
