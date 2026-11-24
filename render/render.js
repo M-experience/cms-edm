@@ -232,10 +232,12 @@ const LOGOS=['img/logo-cnam.png','img/logo-edm.png'];
 
 /* ============ charte graphique (polices et couleurs) ============ */
 const FONTS={titres:['Outfit','Montserrat','Poppins','Lexend','Raleway','Work Sans','DM Sans','Nunito Sans','Playfair Display','Merriweather'],texte:['Outfit','Inter','Nunito Sans','Work Sans','DM Sans','Lexend','Source Sans 3','Raleway','Merriweather'],manuscrite:['Caveat Brush','Kalam','Gochi Hand','Patrick Hand','Permanent Marker','Shadows Into Light','Itim']};
-const CHARTE_DEF={titres:'Outfit',texte:'Outfit',manuscrite:'Caveat Brush',navy:'#13395A',coral:'#FF5A5F',blue:'#5E7CA6',mist:'#C4CED6'};
+const CHARTE_DEF={titres:'Outfit',texte:'Outfit',manuscrite:'Caveat Brush',navy:'#13395A',coral:'#FF5A5F',blue:'#5E7CA6',mist:'#C4CED6',majuscules:'oui',tailleTitres:'1'};
+function charteExtra(k){let x='';if(k.majuscules==='non')x+='.site h1,.site h2,.site h3,.site .pre,.site h2 span,.site h1 small{text-transform:none!important}';if(k.tailleTitres&&k.tailleTitres!=='1')x+=`.site h1,.site h2{zoom:${+k.tailleTitres}}`;return x;}
 function applyCharte(C){const k=Object.assign({},CHARTE_DEF,C&&C.charte||{});const r=document.documentElement.style;
  r.setProperty('--f-title',`"${k.titres}",sans-serif`);r.setProperty('--f-body',`"${k.texte}",system-ui,sans-serif`);r.setProperty('--f-hand',`"${k.manuscrite}",cursive`);
  r.setProperty('--navy',k.navy);r.setProperty('--coral',k.coral);r.setProperty('--blue',k.blue);r.setProperty('--mist',k.mist);
+ let xs=document.getElementById('charteExtra');if(!xs){xs=document.createElement('style');xs.id='charteExtra';document.head.appendChild(xs);}xs.textContent=charteExtra(k);
  const fams=[...new Set([k.titres,k.texte,k.manuscrite])].filter(f=>!['Outfit','Caveat Brush'].includes(f));let l=document.getElementById('charteFonts');
  if(fams.length){if(!l){l=document.createElement('link');l.id='charteFonts';l.rel='stylesheet';document.head.appendChild(l);}const u='https://fonts.googleapis.com/css2?'+fams.map(f=>'family='+f.replace(/ /g,'+')+':wght@400;500;600;700').join('&')+'&display=swap';if(l.href!==u)l.href=u;}
 }
@@ -244,10 +246,11 @@ function openCharte(){DRAFT.charte=Object.assign({},CHARTE_DEF,DRAFT.charte||{})
  const col=(id,l)=>`<label class="ccol"><input type="color" id="${id}" value="${k[id]}"> ${l}</label>`;
  $('#modal').innerHTML=`<div class="modal"><div><h3>Charte graphique</h3><p class="help">Ces réglages s'appliquent à tout le site. Les modifications s'affichent en direct derrière cette fenêtre.</p>
   <div class="cgrid"><div class="fld"><label>Police des titres</label>${sel('titres',FONTS.titres)}</div><div class="fld"><label>Police du texte</label>${sel('texte',FONTS.texte)}</div><div class="fld"><label>Police manuscrite (slogan)</label>${sel('manuscrite',FONTS.manuscrite)}</div></div>
+  <h4>Titres</h4><div class="cgrid"><div class="fld"><label>Titres en majuscules</label><select id="majuscules"><option value="oui"${k.majuscules!=='non'?' selected':''}>Oui (charte EDM)</option><option value="non"${k.majuscules==='non'?' selected':''}>Non : tels que saisis</option></select></div><div class="fld"><label>Taille des titres</label><select id="tailleTitres">${[['0.85','Plus petits'],['1','Normale'],['1.15','Plus grands']].map(([v,l])=>`<option value="${v}"${(k.tailleTitres||'1')===v?' selected':''}>${l}</option>`).join('')}</select></div></div>
   <h4>Couleurs</h4><div class="cgrid">${col('navy','Bleu principal')}${col('blue','Bleu secondaire')}${col('coral','Corail')}${col('mist','Gris bleuté (fonds)')}</div>
   <p class="help">Charte de l'EDM : Graphie (remplacée ici par Outfit, libre de droits), bleu principal #13395a, bleu secondaire #5e7ca6, corail #ff5a5f.</p>
   <div class="actions"><button class="abtn" id="cReset">Revenir à la charte de l'EDM</button><span class="st"></span><button class="abtn pri" id="mCancel">Fermer</button></div></div></div>`;
- const upd=()=>{['titres','texte','manuscrite','navy','blue','coral','mist'].forEach(id=>k[id]=$('#'+id).value);dirty=true;applyCharte(DRAFT);editStatus();};
+ const upd=()=>{['titres','texte','manuscrite','navy','blue','coral','mist','majuscules','tailleTitres'].forEach(id=>k[id]=$('#'+id).value);dirty=true;applyCharte(DRAFT);editStatus();};
  $('#modal').querySelectorAll('select,input').forEach(x=>x.oninput=upd);
  $('#cReset').onclick=()=>{DRAFT.charte=Object.assign({},CHARTE_DEF);dirty=true;applyCharte(DRAFT);openCharte();};
  $('#mCancel').onclick=()=>{$('#modal').innerHTML='';renderEdit();};
@@ -259,6 +262,6 @@ function openCharte(){DRAFT.charte=Object.assign({},CHARTE_DEF,DRAFT.charte||{})
 function sitePages(C){const out=[{route:'accueil',path:'',titre:C.site.nom}];
  C.masters.forEach(m=>out.push({route:'master-'+m.slug,path:(m.chemin||('master'+m.slug)),titre:'Master '+m.titre}));
  (C.pages||[]).forEach(p=>out.push({route:'page-'+p.slug,path:(p.chemin||p.slug),titre:p.titre}));return out;}
-function charteCSS(C){const k=Object.assign({},CHARTE_DEF,C&&C.charte||{});return `:root{--f-title:"${k.titres}",sans-serif;--f-body:"${k.texte}",system-ui,sans-serif;--f-hand:"${k.manuscrite}",cursive;--navy:${k.navy};--coral:${k.coral};--blue:${k.blue};--mist:${k.mist}}`;}
+function charteCSS(C){const k=Object.assign({},CHARTE_DEF,C&&C.charte||{});return `:root{--f-title:"${k.titres}",sans-serif;--f-body:"${k.texte}",system-ui,sans-serif;--f-hand:"${k.manuscrite}",cursive;--navy:${k.navy};--coral:${k.coral};--blue:${k.blue};--mist:${k.mist}}`+charteExtra(k);}
 function charteFontsURL(C){const k=Object.assign({},CHARTE_DEF,C&&C.charte||{});const f=[...new Set(['Outfit','Caveat Brush','Bitter','Russo One',k.titres,k.texte,k.manuscrite])];return 'https://fonts.googleapis.com/css2?'+f.map(x=>'family='+x.replace(/ /g,'+')+':wght@400;500;600;700').join('&').replace('family=Caveat+Brush:wght@400;500;600;700','family=Caveat+Brush').replace('family=Russo+One:wght@400;500;600;700','family=Russo+One').replace('family=Bitter:wght@400;500;600;700','family=Bitter:ital,wght@0,400;1,400')+'&display=swap';}
 if(typeof module!=='undefined')module.exports={renderPage,sitePages,charteCSS,charteFontsURL,norm,setMode:(m,base)=>{MODE=m;ASSET_BASE=base||'';},setOrigin:(raw)=>{ORIGIN_RAW=JSON.parse(JSON.stringify(raw));ORIGIN_PAGES=JSON.parse(JSON.stringify(raw.pages||[]));}};
