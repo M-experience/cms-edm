@@ -225,6 +225,7 @@ function bindEditOnce(){
   if(b.dataset.size){e.preventDefault();const p=JSON.parse(b.dataset.sp);const v=Math.max(12,Math.min(160,(+get(DRAFT,p)||+b.dataset.sdef)+4*(+b.dataset.size)));set(DRAFT,p,v);dirty=true;renderEdit();return;}
   if(b.dataset.charte!==undefined){openCharte();return;}
   if(b.dataset.color){set(DRAFT,JSON.parse(b.dataset.color),b.dataset.c);dirty=true;renderEdit();return;}
+  if(b.dataset.pts){e.preventDefault();if(b.dataset.pts==='off')DRAFT.accueil.etapes_points='non';else delete DRAFT.accueil.etapes_points;dirty=true;renderEdit();return;}
   if(b.dataset.flip){const p=JSON.parse(b.dataset.flip);set(DRAFT,p,get(DRAFT,p)?'':'1');dirty=true;renderEdit();return;}
   if(b.dataset.sec){e.preventDefault();const arr=ensureSections(JSON.parse(b.dataset.sp)),i=+b.dataset.si,a=b.dataset.sec;
    if(a==='up'&&i>0)[arr[i-1],arr[i]]=[arr[i],arr[i-1]];

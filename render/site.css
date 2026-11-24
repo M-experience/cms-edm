@@ -451,3 +451,15 @@ body.dnd,body.dnd *{cursor:grabbing!important;user-select:none}
 .editing .hero{padding-bottom:44px}
 /* poignée de déplacement des sections plus visible */
 .stools .sdrag{background:var(--coral)!important;padding:4px 10px!important}
+
+/* les deux masters : contenus alignés d'une colonne à l'autre */
+@supports (grid-template-rows:subgrid){
+ .duo{grid-template-rows:auto auto auto auto}
+ .duo-p{display:grid;grid-row:span 4;grid-template-rows:subgrid;align-content:start}
+ .duo-p>h2,.duo-p>.duo-acc{align-self:start}
+ .duo-p>.fbtn{align-self:start;justify-self:start}
+}
+.editing .duo-ill{cursor:pointer}.editing .duo-ill:hover{outline:2px dashed var(--coral);outline-offset:4px}
+/* étapes : points décoratifs à côté du titre, texte des réunions dégagé de la bande bleue */
+.steps-head{align-items:center}.steps-dots{position:relative;display:inline-block}.steps-dots img,.steps-head .steps-dots img{width:64px;margin:0;display:block}
+.steps-sec{padding-bottom:190px}
