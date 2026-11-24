@@ -205,8 +205,19 @@ function openLibrary(at,sp){
  $('#modal').querySelectorAll('[data-unhide]').forEach(b=>b.onclick=()=>{const arr=ensureSections(sp);const i=+b.dataset.unhide;const [s]=arr.splice(i,1);delete s.masque;arr.splice(i<at?at-1:at,0,s);$('#modal').innerHTML='';dirty=true;renderEdit();});
 }
 let rtbEl=null,rtbRange=null;
+function richRoot(){const s=getSelection();if(!s.rangeCount)return null;let n=s.anchorNode;if(n&&n.nodeType===3)n=n.parentNode;return n?.closest?.('[data-rich]')||null;}
+function curBlock(){const root=richRoot();if(!root)return null;let n=getSelection().anchorNode;if(n.nodeType===3)n=n.parentNode;
+ while(n&&n.parentNode!==root&&n!==root)n=n.parentNode;return n&&n!==root&&/^(P|DIV|H[1-6]|BLOCKQUOTE)$/.test(n.tagName)?n:null;}
+function setBlockStyle(k){const root=richRoot();if(!root)return;let b=curBlock();
+ if(!b){document.execCommand('formatBlock',false,'<p>');b=curBlock();if(!b)return;}
+ if(b.tagName==='BLOCKQUOTE'){const inner=b.querySelector('p');b.replaceWith(...(inner?[inner]:b.childNodes));b=inner||curBlock();if(!b)return;}
+ const tag=k==='pbig'||k==='psmall'?'p':k,el=document.createElement(tag);
+ if(tag==='p'){if(k!=='p')el.className=k;}else el.className='mdh'+(k==='h2'?' mdh2':k==='h4'?' mdh4':'');
+ while(b.firstChild)el.appendChild(b.firstChild);b.replaceWith(el);
+ const r=document.createRange();r.selectNodeContents(el);r.collapse(false);const s=getSelection();s.removeAllRanges();s.addRange(r);
+ root.dispatchEvent(new Event('input',{bubbles:true}));}
 function rtbShow(el){
- if(!rtbEl){rtbEl=document.createElement('div');rtbEl.className='rtb';rtbEl.innerHTML=`<button data-cmd="bold" title="Gras (Cmd+B)"><b>G</b></button><button data-cmd="italic" title="Italique (Cmd+I)"><i>I</i></button><button data-cmd="link" title="Lien">🔗</button><button data-cmd="mark" title="Mettre en avant (surligné)"><mark style="background:#FFE1D6;padding:0 3px">A</mark></button><button data-cmd="callout" title="Encadré : met le paragraphe dans un encadré">▣ Encadré</button><button data-cmd="h3" title="Intertitre">Intertitre</button><button data-cmd="p" title="Paragraphe normal">¶</button><button data-cmd="insertUnorderedList" title="Liste à puces">• Liste</button><button data-cmd="insertOrderedList" title="Liste numérotée">1. Liste</button><button data-cmd="removeFormat" title="Effacer la mise en forme">✕ Format</button><span class="rtb-link" hidden><input placeholder="https://... ou /candidater/"><label class="rtb-chk"><input type="checkbox" class="rtb-asbtn"> en bouton</label><button data-cmd="linkok">OK</button><button data-cmd="linkno" title="Annuler">✕</button></span><button data-cmd="done" class="rtb-done" title="Terminer la modification (Échap)">✓ Terminé</button>`;
+ if(!rtbEl){rtbEl=document.createElement('div');rtbEl.className='rtb';rtbEl.innerHTML=`<button data-cmd="bold" title="Gras (Cmd+B)"><b>G</b></button><button data-cmd="italic" title="Italique (Cmd+I)"><i>I</i></button><button data-cmd="link" title="Lien">🔗</button><button data-cmd="mark" title="Mettre en avant (surligné)"><mark style="background:#FFE1D6;padding:0 3px">A</mark></button><button data-cmd="callout" title="Encadré : met le paragraphe dans un encadré">▣ Encadré</button><span class="rtb-sty"><button data-cmd="stymenu" title="Style et taille du paragraphe">Style ▾</button><span class="rtb-menu" hidden><button data-sty="h2" class="s-h2">Titre</button><button data-sty="h3" class="s-h3">Intertitre</button><button data-sty="h4" class="s-h4">Petit intertitre</button><button data-sty="pbig" class="s-pbig">Grand texte</button><button data-sty="p" class="s-p">Texte normal</button><button data-sty="psmall" class="s-psmall">Petit texte</button></span></span><button data-cmd="insertUnorderedList" title="Liste à puces">• Liste</button><button data-cmd="insertOrderedList" title="Liste numérotée">1. Liste</button><button data-cmd="removeFormat" title="Effacer la mise en forme">✕ Format</button><span class="rtb-link" hidden><input placeholder="https://... ou /candidater/"><label class="rtb-chk"><input type="checkbox" class="rtb-asbtn"> en bouton</label><button data-cmd="linkok">OK</button><button data-cmd="linkno" title="Annuler">✕</button></span><button data-cmd="done" class="rtb-done" title="Terminer la modification (Échap)">✓ Terminé</button>`;
   document.body.appendChild(rtbEl);
   rtbEl.addEventListener('mousedown',e=>{if(!e.target.closest('input'))e.preventDefault();});
   rtbEl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const c=b.dataset.cmd;const box=rtbEl.querySelector('.rtb-link');
@@ -217,14 +228,15 @@ function rtbShow(el){
    if(c==='mark'){const sel=getSelection();if(!sel.rangeCount||sel.isCollapsed)return;const r=sel.getRangeAt(0);const anc=(r.commonAncestorContainer.nodeType===1?r.commonAncestorContainer:r.commonAncestorContainer.parentElement).closest('mark');if(anc){anc.replaceWith(...anc.childNodes);}else{const m=document.createElement('mark');m.className='hl';try{m.appendChild(r.extractContents());r.insertNode(m);}catch(_){} }(document.activeElement||{}).dispatchEvent?.(new Event('input',{bubbles:true}));return;}
    if(c==='callout'){const cur=document.queryCommandValue('formatBlock');document.execCommand('formatBlock',false,/blockquote/i.test(cur)?'p':'blockquote');return;}
    if(c==='removeFormat'){document.execCommand('removeFormat');document.execCommand('unlink');return;}
-   if(c==='h3'||c==='p'){document.execCommand('formatBlock',false,c);return;}
+   if(c==='stymenu'){const m=rtbEl.querySelector('.rtb-menu');m.hidden=!m.hidden;if(!m.hidden){const cur=curBlock();const k=cur?(cur.tagName==='P'?(cur.classList.contains('pbig')?'pbig':cur.classList.contains('psmall')?'psmall':'p'):cur.tagName.toLowerCase()):'p';m.querySelectorAll('[data-sty]').forEach(x=>x.classList.toggle('on',x.dataset.sty===k));}return;}
+   if(b.dataset.sty){setBlockStyle(b.dataset.sty);rtbEl.querySelector('.rtb-menu').hidden=true;return;}
    document.execCommand(c);});
   rtbEl.querySelector('.rtb-link input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.stopPropagation();rtbEl.querySelector('[data-cmd=linkok]').click();}});
  }
  rtbEl.dataset.for='1';rtbEl.hidden=false;rtbEl.querySelector('.rtb-link').hidden=true;const r=el.getBoundingClientRect();
  rtbEl.style.top=Math.max(96,r.top+scrollY-46)+'px';rtbEl.style.left=Math.max(8,r.left+scrollX)+'px';
 }
-function rtbHide(){if(rtbEl){rtbEl.hidden=true;rtbEl.querySelector('.rtb-link').hidden=true;}}
+function rtbHide(){if(rtbEl){rtbEl.hidden=true;rtbEl.querySelector('.rtb-link').hidden=true;rtbEl.querySelector('.rtb-menu').hidden=true;}}
 function bindEditOnce(){
  const app=$('#app');
  try{document.execCommand('defaultParagraphSeparator',false,'p');}catch(e){}
