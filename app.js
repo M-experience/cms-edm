@@ -176,14 +176,16 @@ function openLibrary(at,sp){
 }
 let rtbEl=null,rtbRange=null;
 function rtbShow(el){
- if(!rtbEl){rtbEl=document.createElement('div');rtbEl.className='rtb';rtbEl.innerHTML=`<button data-cmd="bold" title="Gras (Cmd+B)"><b>G</b></button><button data-cmd="italic" title="Italique (Cmd+I)"><i>I</i></button><button data-cmd="link" title="Lien">🔗</button><button data-cmd="h3" title="Intertitre">Intertitre</button><button data-cmd="p" title="Paragraphe normal">¶</button><button data-cmd="insertUnorderedList" title="Liste à puces">• Liste</button><button data-cmd="insertOrderedList" title="Liste numérotée">1. Liste</button><button data-cmd="removeFormat" title="Effacer la mise en forme">✕ Format</button><span class="rtb-link" hidden><input placeholder="https://..."><button data-cmd="linkok">OK</button><button data-cmd="linkno" title="Annuler">✕</button></span><button data-cmd="done" class="rtb-done" title="Terminer la modification (Échap)">✓ Terminé</button>`;
+ if(!rtbEl){rtbEl=document.createElement('div');rtbEl.className='rtb';rtbEl.innerHTML=`<button data-cmd="bold" title="Gras (Cmd+B)"><b>G</b></button><button data-cmd="italic" title="Italique (Cmd+I)"><i>I</i></button><button data-cmd="link" title="Lien">🔗</button><button data-cmd="mark" title="Mettre en avant (surligné)"><mark style="background:#FFE1D6;padding:0 3px">A</mark></button><button data-cmd="callout" title="Encadré : met le paragraphe dans un encadré">▣ Encadré</button><button data-cmd="h3" title="Intertitre">Intertitre</button><button data-cmd="p" title="Paragraphe normal">¶</button><button data-cmd="insertUnorderedList" title="Liste à puces">• Liste</button><button data-cmd="insertOrderedList" title="Liste numérotée">1. Liste</button><button data-cmd="removeFormat" title="Effacer la mise en forme">✕ Format</button><span class="rtb-link" hidden><input placeholder="https://... ou /candidater/"><label class="rtb-chk"><input type="checkbox" class="rtb-asbtn"> en bouton</label><button data-cmd="linkok">OK</button><button data-cmd="linkno" title="Annuler">✕</button></span><button data-cmd="done" class="rtb-done" title="Terminer la modification (Échap)">✓ Terminé</button>`;
   document.body.appendChild(rtbEl);
   rtbEl.addEventListener('mousedown',e=>{if(!e.target.closest('input'))e.preventDefault();});
   rtbEl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const c=b.dataset.cmd;const box=rtbEl.querySelector('.rtb-link');
-   if(c==='link'){const sel=getSelection();rtbRange=sel.rangeCount?sel.getRangeAt(0).cloneRange():null;box.hidden=false;box.querySelector('input').value='';box.querySelector('input').focus();return;}
+   if(c==='link'){const sel=getSelection();rtbRange=sel.rangeCount?sel.getRangeAt(0).cloneRange():null;box.hidden=false;box.querySelector('input').value='';const cb=box.querySelector('.rtb-asbtn');if(cb)cb.checked=false;box.querySelector('input').focus();return;}
    if(c==='linkno'){box.hidden=true;return;}
    if(c==='done'){rtbHide();document.activeElement?.blur();getSelection().removeAllRanges();return;}
-   if(c==='linkok'){let u=box.querySelector('input').value.trim();box.hidden=true;if(!u||!rtbRange)return;if(!/^(https?:|mailto:|#)/.test(u))u='https://'+u;const sel=getSelection();sel.removeAllRanges();sel.addRange(rtbRange);document.execCommand('createLink',false,u);return;}
+   if(c==='linkok'){let u=box.querySelector('input').value.trim();const asBtn=box.querySelector('.rtb-asbtn')?.checked;box.hidden=true;if(!u||!rtbRange)return;if(!/^(https?:|mailto:|#|\/)/.test(u))u='https://'+u;const sel=getSelection();sel.removeAllRanges();sel.addRange(rtbRange);document.execCommand('createLink',false,u);if(asBtn){const a=(sel.anchorNode&&(sel.anchorNode.nodeType===1?sel.anchorNode:sel.anchorNode.parentElement))?.closest('a');if(a)a.classList.add('mdbtn');}(document.activeElement||{}).dispatchEvent?.(new Event('input',{bubbles:true}));return;}
+   if(c==='mark'){const sel=getSelection();if(!sel.rangeCount||sel.isCollapsed)return;const r=sel.getRangeAt(0);const anc=(r.commonAncestorContainer.nodeType===1?r.commonAncestorContainer:r.commonAncestorContainer.parentElement).closest('mark');if(anc){anc.replaceWith(...anc.childNodes);}else{const m=document.createElement('mark');m.className='hl';try{m.appendChild(r.extractContents());r.insertNode(m);}catch(_){} }(document.activeElement||{}).dispatchEvent?.(new Event('input',{bubbles:true}));return;}
+   if(c==='callout'){const cur=document.queryCommandValue('formatBlock');document.execCommand('formatBlock',false,/blockquote/i.test(cur)?'p':'blockquote');return;}
    if(c==='removeFormat'){document.execCommand('removeFormat');document.execCommand('unlink');return;}
    if(c==='h3'||c==='p'){document.execCommand('formatBlock',false,c);return;}
    document.execCommand(c);});
@@ -232,6 +234,8 @@ function bindEditOnce(){
    if(a==='down'&&i<arr.length-1)[arr[i+1],arr[i]]=[arr[i],arr[i+1]];
    if(a==='hide')arr[i].masque=true; if(a==='show')delete arr[i].masque;
    if(a==='del')arr.splice(i,1);
+   if(a==='fond'){const n={'':'gris',gris:'bleu',bleu:'corail',corail:''};arr[i].fond=n[arr[i].fond||''];if(!arr[i].fond)delete arr[i].fond;}
+   if(a==='encadre'){if(arr[i].encadre)delete arr[i].encadre;else arr[i].encadre=1;}
    if(a==='align'){const n={'':'center',center:'right',right:''};arr[i].align=n[arr[i].align||''];if(!arr[i].align)delete arr[i].align;}
    if(a==='width'){const n={'':'etroit',etroit:'large',large:''};arr[i].largeur=n[arr[i].largeur||''];if(!arr[i].largeur)delete arr[i].largeur;}
    dirty=true;renderEdit();return;}

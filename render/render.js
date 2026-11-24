@@ -2,8 +2,9 @@ let ORIGIN_PAGES=[];
 /* ============ utilitaires ============ */
 const $=(s,r=document)=>r.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const inl=x=>esc(x).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g,'$1<em>$2</em>').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,(m,a,u)=>/^(https?:|mailto:|#|\/)/.test(u)?`<a href="${u}">${a}</a>`:a);
+const inl=x=>esc(x).replace(/==(.+?)==/g,'<mark class="hl">$1</mark>').replace(/\[([^\]]+)\]\(([^)\s]+)\)\{bouton\}/g,(m,a,u)=>/^(https?:|mailto:|#|\/)/.test(u)?`<a class="mdbtn" href="${u}">${a}</a>`:a).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/(^|[^*])\*(?!\s)(.+?)\*/g,'$1<em>$2</em>').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,(m,a,u)=>/^(https?:|mailto:|#|\/)/.test(u)?`<a href="${u}">${a}</a>`:a);
 function md(t){return String(t||'').split(/\n\s*\n/).filter(b=>b.trim()).map(b=>{const L=b.trim().split('\n');
+ if(L.every(l=>/^\s*>/.test(l)))return '<blockquote class="callout"><p>'+L.map(l=>inl(l.replace(/^\s*>\s?/,''))).join('<br>')+'</p></blockquote>';
  if(L.every(l=>/^\s*[-•]\s+/.test(l)))return '<ul>'+L.map(l=>'<li>'+inl(l.replace(/^\s*[-•]\s+/,''))+'</li>').join('')+'</ul>';
  if(L.every(l=>/^\s*\d+[.)]\s+/.test(l)))return '<ol>'+L.map(l=>'<li>'+inl(l.replace(/^\s*\d+[.)]\s+/,''))+'</li>').join('')+'</ol>';
  if(/^#{2,3}\s/.test(L[0])){const h='<h3 class="mdh">'+inl(L[0].replace(/^#+\s*/,''))+'</h3>';return L.length>1?h+'<p>'+L.slice(1).map(inl).join('<br>')+'</p>':h;}
@@ -13,12 +14,14 @@ const rich=md,paras=md;
 function toMd(root){const blocks=[];let cur='';const flush=()=>{if(cur.trim())blocks.push(cur.trim());cur='';};
  const il=n=>{if(n.nodeType===3)return n.nodeValue.replace(/ /g,' ');if(n.nodeType!==1)return '';const t=n.tagName,c=[...n.childNodes].map(il).join('');
   if(t==='BR')return '\n';if(t==='B'||t==='STRONG')return c.trim()?'**'+c.trim()+'**'+(/\s$/.test(c)?' ':''):c;if(t==='I'||t==='EM')return c.trim()?'*'+c.trim()+'*'+(/\s$/.test(c)?' ':''):c;
-  if(t==='A')return '['+c+']('+(n.getAttribute('href')||'')+')';if(t==='UL'||t==='OL')return '\n\n'+lst(n)+'\n\n';return c;};
+  if(t==='MARK')return c.trim()?'=='+c.trim()+'=='+(/\s$/.test(c)?' ':''):c;
+  if(t==='A')return '['+c+']('+(n.getAttribute('href')||'')+')'+(n.classList.contains('mdbtn')?'{bouton}':'');if(t==='UL'||t==='OL')return '\n\n'+lst(n)+'\n\n';return c;};
  const lst=n=>[...n.children].map((li,i)=>(n.tagName==='UL'?'- ':(i+1)+'. ')+il(li).replace(/\n+/g,' ').trim()).join('\n');
  for(const n of root.childNodes){const t=n.nodeType===1?n.tagName:'';
   if(t==='UL'||t==='OL'){flush();blocks.push(lst(n));}
   else if(/^H[1-6]$/.test(t)){flush();const v=il(n).replace(/\n+/g,' ').trim();if(v)blocks.push('## '+v);}
-  else if(/^(P|DIV|BLOCKQUOTE)$/.test(t)){flush();const v=il(n).replace(/\n{3,}/g,'\n\n').trim();if(v)blocks.push(v);}
+  else if(t==='BLOCKQUOTE'){flush();const v=il(n).replace(/\n{2,}/g,'\n').trim();if(v)blocks.push(v.split('\n').map(l=>'> '+l).join('\n'));}
+  else if(/^(P|DIV)$/.test(t)){flush();const v=il(n).replace(/\n{3,}/g,'\n\n').trim();if(v)blocks.push(v);}
   else cur+=il(n);}
  flush();return blocks.join('\n\n').replace(/\n{3,}/g,'\n\n');}
 const clone=o=>JSON.parse(JSON.stringify(o));
@@ -147,12 +150,13 @@ function renderSections(C,secs,sp){
   const label=s.type==='fixe'?FIXED[s.id]?.label:LIB[s.type]?.label;
   let html='';
   if(!s.masque) html=s.type==='fixe'?(FIXED[s.id]?FIXED[s.id].r(C):''):(LIB[s.type]?LIB[s.type].r(s,p):'');
-  const lay=s.type!=='fixe'?((s.align?' al-'+s.align:'')+(s.largeur?' w-'+s.largeur:'')):'';
+  const lay=s.type!=='fixe'?((s.align?' al-'+s.align:'')+(s.largeur?' w-'+s.largeur:'')+(s.fond?' bg-'+s.fond:'')+(s.encadre?' boxed':'')):'';
   if(html) html=`<div id="s-${esc(s.type==='fixe'?s.id:s.id||('bloc'+i))}"${lay?` class="${lay.trim()}"`:''}>${html}</div>`;
   if(!EDIT) return html;
   const d=`data-si="${i}" data-sp="${J(sp)}"`;
   const AL={'':'Aligné à gauche',center:'Centré',right:'Aligné à droite'},WL={'':'Largeur normale',etroit:'Étroit',large:'Large'};
-  const lay2=s.type!=='fixe'?`<button data-sec="align" ${d} title="${AL[s.align||'']} : cliquer pour changer">${s.align==='center'?'↔':s.align==='right'?'⇥':'⇤'}</button><button data-sec="width" ${d} title="${WL[s.largeur||'']} : cliquer pour changer">${s.largeur==='etroit'?'▯':s.largeur==='large'?'▭▭':'▭'}</button>`:'';
+  const FL={'':'Fond blanc',gris:'Fond gris',bleu:'Fond bleu marine',corail:'Fond corail clair'};
+  const lay2=s.type!=='fixe'?`<button data-sec="fond" ${d} title="${FL[s.fond||'']} : cliquer pour changer">Fond</button><button data-sec="encadre" ${d} title="${s.encadre?'Encadré : oui':'Encadré : non'} (cliquer pour changer)">${s.encadre?'▣':'□'}</button><button data-sec="align" ${d} title="${AL[s.align||'']} : cliquer pour changer">${s.align==='center'?'↔':s.align==='right'?'⇥':'⇤'}</button><button data-sec="width" ${d} title="${WL[s.largeur||'']} : cliquer pour changer">${s.largeur==='etroit'?'▯':s.largeur==='large'?'▭▭':'▭'}</button>`:'';
   const tools=`<div class="stools"><button class="sdrag" data-secdrag="1" ${d} title="Glisser pour déplacer la section">⠿ Déplacer</button><span>${esc(label||'Section')}</span>${lay2}<button data-sec="up" ${d} title="Monter">↑</button><button data-sec="down" ${d} title="Descendre">↓</button>${s.type==='fixe'?`<button data-sec="${s.masque?'show':'hide'}" ${d}>${s.masque?'Afficher':'Masquer'}</button>`:`<button data-sec="del" ${d}>Supprimer</button>`}</div>`;
   return `<div class="esec${s.masque?' masked':''}" ${d}>${tools}${s.masque?`<div class="maskedbar">Section masquée : ${esc(label)}</div>`:html}</div>`+ins(i+1);
  }).join('');
