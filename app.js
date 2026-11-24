@@ -156,11 +156,11 @@ function ensureSections(sp){if(!sp||sp[0]==='accueil'){if(!DRAFT.accueil.section
 async function openImagePicker(p,logos){const LIST=logos?[...LOGOS,...IMAGES]:IMAGES;
  const cur=get(DRAFT,p);
  $('#modal').innerHTML=`<div class="modal"><div><h3>Choisir une image</h3>
-  <div class="upl"><label class="abtn pri">Envoyer une image depuis l'ordinateur<input type="file" accept="image/*" id="upF" hidden></label><span class="help" id="upS">JPG, PNG, SVG ou WebP, 20 Mo maximum.</span></div>
+  <div class="upl"><label class="abtn pri">Envoyer une image depuis l'ordinateur<input type="file" accept="image/*" id="upF" hidden></label><span class="help" id="upS">JPG, PNG, SVG ou WebP, 20 Mo maximum. Vous pouvez aussi glisser le fichier dans cette fenêtre.</span></div>
   <div id="upList"></div>
   <h4>Images du thème</h4><div class="picker${logos?' logos':''}">${LIST.map(s=>`<img src="${esc(asset(s))}" data-pick="${esc(s)}" class="${cur===s?'on':''}" alt="">`).join('')}</div>
   <div class="actions"><span class="st"></span><button class="abtn" id="mCancel">Fermer</button></div></div></div>`;
- const pick=v=>{set(DRAFT,p,v);$('#modal').innerHTML='';dirty=true;renderEdit();};
+ const pick=v=>{set(DRAFT,p,v);$('#modal').innerHTML='';dirty=true;renderEdit();};PICKER_PICK=pick;
  $('#mCancel').onclick=()=>$('#modal').innerHTML='';
  $('#modal').querySelectorAll('[data-pick]').forEach(im=>im.onclick=()=>pick(im.dataset.pick));
  try{const {data}=await sb.storage.from('medias').list(SITE.id,{limit:200,sortBy:{column:'created_at',order:'desc'}});
@@ -179,12 +179,13 @@ async function uploadMedia(f){
  const {error}=await sb.storage.from('medias').upload(SITE.id+'/'+name,f,{cacheControl:'31536000',upsert:false});
  if(error)throw error;return sb.storage.from('medias').getPublicUrl(SITE.id+'/'+name).data.publicUrl;}
 function dropTarget(el){
+ if(el?.closest&&$('#upF')&&el.closest('#modal')){const m=el.closest('#modal').querySelector('.modal')||el.closest('#modal');return {el:m,kind:'picker'};}
  if(!el||!el.closest||!el.closest('.site.editing'))return null;
  const im=el.closest('[data-imgp]');if(im)return {el:im,kind:'img',p:JSON.parse(im.dataset.imgp)};
  const ins=el.closest('.inserter');if(ins){const b=ins.querySelector('[data-ins]');return {el:ins,kind:'sec',at:+b.dataset.ins,sp:JSON.parse(b.dataset.sp)};}
  const s=el.closest('.esec');if(s)return {el:s,kind:'sec',at:+s.dataset.si+1,sp:JSON.parse(s.dataset.sp)};
  return null;}
-let DROP_EL=null;
+let DROP_EL=null,PICKER_PICK=null;
 const hasFiles=ev=>[...(ev.dataTransfer?.types||[])].includes('Files');
 document.addEventListener('dragover',ev=>{if(!hasFiles(ev)||!document.querySelector('.site.editing'))return;ev.preventDefault();
  const d=dropTarget(ev.target);const el=d?.el||null;if(el!==DROP_EL){DROP_EL?.classList.remove('dropok');el?.classList.add('dropok');DROP_EL=el;}
@@ -196,9 +197,10 @@ document.addEventListener('drop',async ev=>{if(!hasFiles(ev)||!document.querySel
  const d=dropTarget(ev.target);
  if(!files.length){toast('Seules les images peuvent être déposées');return;}
  if(!d){toast('Déposez l\'image sur une image existante, ou sur une section pour en ajouter une après elle');return;}
- if(files.some(f=>f.size>8e6)){toast('Image trop lourde (8 Mo maximum)');return;}
+ if(files.some(f=>f.size>20e6)){toast('Image trop lourde (20 Mo maximum)');return;}
  toast(files.length>1?'Envoi de '+files.length+' images...':'Envoi de l\'image...');
  try{const urls=[];for(const f of files)urls.push(await uploadMedia(f));
+  if(d.kind==='picker'){PICKER_PICK&&PICKER_PICK(urls[0]);toast('Image envoyée');return;}
   if(d.kind==='img'){set(DRAFT,d.p,urls[0]);toast('Image remplacée');}
   else{const arr=ensureSections(d.sp);arr.splice(d.at,0,{type:'galerie',id:'bloc'+Date.now().toString(36),titre:'',items:urls.map(u=>({image:u,legende:''}))});toast(urls.length>1?'Images ajoutées':'Image ajoutée');}
   dirty=true;renderEdit();}

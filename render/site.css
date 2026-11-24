@@ -502,3 +502,4 @@ a.mdbtn:hover{filter:brightness(.93)}
 .editing [data-busy]{outline:2px solid #7B5CFF!important;outline-offset:3px;position:relative}
 .editing [data-busy]::after{content:attr(data-busy);position:absolute;left:0;top:-24px;background:#7B5CFF;color:#fff;font:600 11px/1 var(--f-body);padding:5px 8px;border-radius:4px;white-space:nowrap;pointer-events:none;z-index:8;text-transform:none;letter-spacing:0;zoom:1}
 .esec.esec-busy{outline:2px dashed rgba(123,92,255,.5)}
+#modal .modal.dropok{outline:3px dashed var(--coral);outline-offset:-8px;background:#fff6f4}
