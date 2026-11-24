@@ -56,3 +56,5 @@ a.abtn{text-decoration:none;display:inline-block}
 .abtn.ghost{background:transparent;border-color:transparent;color:var(--navy)}.abtn.ghost:hover{background:var(--soft);border-color:var(--line)}
 .dhead .abtn{white-space:nowrap}
 .brand.on-dark{color:#fff}.brand.on-dark .bword i{color:#9DB3D6}
+
+.tmp-badge{background:#FFF4E5;color:#B7791F;border-radius:10px;padding:1px 8px;font-size:12px;font-weight:600}

@@ -272,7 +272,8 @@ function statusLine(){
  if(draftMeta&&draftMeta.at)return (draftMeta.statut==='en_validation'?'Soumis à validation le ':'Brouillon enregistré le ')+fmtDate(draftMeta.at);
  return CONTENT&&CONTENT.published_at?'Publié le '+fmtDate(CONTENT.published_at):'Jamais publié';
 }
-function siteURL(s){return s.domaine?('https://'+s.domaine.replace(/^https?:\/\//,'').replace(/\/$/,'')):(s.url_apercu||'');}
+const PREVIEW_HOST='apercu.ecole-edm.fr';
+function siteURL(s){return s.domaine&&s.dossier_ftp?('https://'+s.domaine.replace(/^https?:\/\//,'').replace(/\/$/,'')):('https://'+PREVIEW_HOST+'/'+s.slug+'/');}
 function previewURL(pg){const base=siteURL(SITE);if(!base)return '#';MODE='static';const p=routePath(pg);MODE='spa';return base+p;}
 function goEdit(pg){location.hash='#/site/'+SITE.slug+'/'+pg;}
 
@@ -322,12 +323,12 @@ function sitesHTML(){
  const card=s=>{const c=(s.contents&&s.contents[0])||s.contents||{};const b=lastBuild(s);const par=SITES.find(x=>x.id===s.parent_id);const st=b?ST[b.status]:null;
   return `<div class="scard"><div class="sc-main">
    <div class="sc-title"><h3>${esc(s.nom)}</h3><span class="badge">${esc(ROLES[s._role]||'')}</span></div>
-   <div class="sc-meta">${s.domaine?`<a href="${esc(siteURL(s))}" target="_blank" rel="noopener">${esc(s.domaine)} ↗</a>`:'<i>Aucun domaine</i>'}
+   <div class="sc-meta">${s.dossier_ftp&&s.domaine?`<a href="${esc(siteURL(s))}" target="_blank" rel="noopener">${esc(s.domaine)} ↗</a>`:`<a href="${esc(siteURL(s))}" target="_blank" rel="noopener" title="Adresse temporaire, mise à jour à chaque publication">${PREVIEW_HOST}/${esc(s.slug)} ↗</a><span class="tmp-badge">en ligne temporaire</span>${s.domaine?`<span title="Le branchement sur ce domaine est fait par le super-administrateur">domaine demandé : ${esc(s.domaine)}</span>`:''}`}
     ${st?`<span class="st st-${st[0]}"><i></i>${st[1]}</span>`:''}<span>${c.published_at?'Publié le '+fmtDate(c.published_at):'Jamais publié'}</span>${c.draft_status==='en_validation'?'<span class="st st-wait"><i></i>Brouillon à valider</span>':''}</div>
    ${par?`<p class="help">Nouvelle version de « ${esc(par.nom)} »</p>`:''}</div>
    <div class="sc-act"><a class="abtn pri" href="#/site/${esc(s.slug)}/accueil">Modifier le site</a><button class="abtn ghost" data-msg="${s.id}">Messages</button>${s._role==='admin'?`<button class="abtn ghost" data-set="${s.id}">Paramètres</button><button class="abtn ghost" data-dup="${s.id}" title="Copier ce site pour préparer une refonte">Nouvelle version</button>`:''}</div></div>`;};
  return `<div class="topbar">${brand('on-dark')}<span class="sp"></span><span class="help">${esc(ME.email||'')}${ME.is_superadmin?' · super-administrateur':''}</span><a class="abtn" href="aide.html" target="_blank" rel="noopener">Mode d'emploi</a><button class="abtn" id="bLogout">Se déconnecter</button></div>
- <div class="dash"><div class="dhead"><h1>Vos sites</h1>${ME.is_superadmin?'<button class="abtn pri" id="bNewSite">+ Nouveau site</button>':''}</div>
+ <div class="dash"><div class="dhead"><h1>Vos sites</h1>${ME.is_superadmin||SITES.some(x=>x._role==='admin')?'<button class="abtn pri" id="bNewSite">+ Nouveau site</button>':''}</div>
  ${act.length?`<div class="sgrid">${act.map(card).join('')}</div>`:'<p class="empty-hint">Vous n\'êtes encore membre d\'aucun site. Demandez à un administrateur de vous inviter avec cette adresse e-mail.</p>'}
  ${arc.length?`<h2 class="help" style="margin-top:30px">Sites archivés</h2><div class="sgrid">${arc.map(card).join('')}</div>`:''}</div>`;
 }
@@ -342,7 +343,7 @@ function bindSites(){
 function openNewSite(fromId){
  const src=fromId&&SITES.find(s=>s.id===fromId);
  $('#modal').innerHTML=`<div class="modal"><div><h3>${src?'Nouvelle version de « '+esc(src.nom)+' »':'Nouveau site'}</h3>
-  ${src?'<p class="help">Le nouveau site part d\'une copie du contenu actuel (brouillon compris). Vous pourrez le remanier librement, puis lui attribuer le nom de domaine du site d\'origine le moment venu.</p>':'<p class="help">Le nouveau site part du contenu du thème EDM, que vous remaniez ensuite.</p>'}
+  ${src?'<p class="help">Le nouveau site part d\'une copie du contenu actuel (brouillon compris). Vous pourrez le remanier librement, puis lui attribuer le nom de domaine du site d\'origine le moment venu.</p>':'<p class="help">Le nouveau site part du contenu du thème EDM, que vous remaniez ensuite.</p>'}<p class="help">Dès sa première publication, il sera visible à une adresse temporaire : <b>${PREVIEW_HOST}/identifiant</b>. Sa mise en ligne sur un nom de domaine définitif est faite ensuite par le super-administrateur.</p>
   <div class="fld"><label>Nom du site</label><input id="nsNom" value="${src?esc(src.nom)+' (nouvelle version)':''}"></div>
   <div class="fld"><label>Identifiant (lettres, chiffres, tirets)</label><input id="nsSlug" value="${src?esc(src.slug)+'-v2':''}"></div>
   <div class="fld"><label>Nom de domaine (facultatif, modifiable plus tard)</label><input id="nsDom" placeholder="ex. nouveau.ecole-edm.fr"></div>

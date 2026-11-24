@@ -2,6 +2,7 @@
 // Variables : SUPABASE_URL, SUPABASE_SERVICE_KEY, FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, SITE (facultatif : identifiant d'un site)
 const fs=require('fs'),path=require('path');
 const ASSET_V=require('crypto').createHash('md5').update(require('fs').readFileSync(require('path').join(__dirname,'../render/site.css'))+require('fs').readFileSync(require('path').join(__dirname,'../render/site.js'))).digest('hex').slice(0,8);
+const PREVIEW_HOST='apercu.ecole-edm.fr',PREVIEW_DIR='/public_html/apercu';
 const R=require('../render/render.js');
 const URL_=process.env.SUPABASE_URL||'https://gtletlvgbjqqjnmhjdfd.supabase.co';
 const KEY=process.env.SUPABASE_SERVICE_KEY;
@@ -37,18 +38,21 @@ async function buildSite(site,content){
  R.setOrigin(raw);R.setMode('static','/');
  const C=R.norm(JSON.parse(JSON.stringify(content||raw)));
  const out=path.join(ROOT,'dist',site.slug);fs.rmSync(out,{recursive:true,force:true});fs.mkdirSync(out,{recursive:true});
- const base=site.domaine?'https://'+site.domaine.replace(/^https?:\/\//,'').replace(/\/$/,'')+'/':'/';
+ const preview=!site.dossier_ftp;const prefix=preview?'/'+site.slug+'/':'/';
+ const base=preview?'https://'+PREVIEW_HOST+prefix:(site.domaine?'https://'+site.domaine.replace(/^https?:\/\//,'').replace(/\/$/,'')+'/':'/');
+ const fix=h=>preview?h.replace(/(href|src|action)="\/(?!\/)/g,'$1="'+prefix).replace('<head>','<head><meta name="robots" content="noindex">'):h;
  const pages=R.sitePages(C);
- for(const pg of pages){const dir=pg.path?path.join(out,pg.path):out;fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'index.html'),shell(C,site,pg,R.renderPage(C,pg.route),base));}
+ for(const pg of pages){const dir=pg.path?path.join(out,pg.path):out;fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'index.html'),fix(shell(C,site,pg,R.renderPage(C,pg.route),base)));}
  // ressources
  fs.cpSync(path.join(ROOT,'themes',theme,'img'),path.join(out,'img'),{recursive:true});
  fs.copyFileSync(path.join(ROOT,'render','site.css'),path.join(out,'site.css'));
  fs.copyFileSync(path.join(ROOT,'render','site.js'),path.join(out,'site.js'));
  // 404, plan du site, robots, .htaccess (Hostinger / Apache)
- fs.writeFileSync(path.join(out,'404.html'),shell(C,site,{route:'accueil',titre:'Page introuvable',path:''},`<section class="blk"><div class="wrap"><h1>Page introuvable</h1><p>Cette page n'existe pas ou a été déplacée.</p><p><a class="btn" href="/">Retour à l'accueil</a></p></div></section>`,base));
+ fs.writeFileSync(path.join(out,'404.html'),fix(shell(C,site,{route:'accueil',titre:'Page introuvable',path:''},`<section class="blk"><div class="wrap"><h1>Page introuvable</h1><p>Cette page n'existe pas ou a été déplacée.</p><p><a class="btn" href="/">Retour à l'accueil</a></p></div></section>`,base)));
  fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p=>`<url><loc>${base}${p.path?p.path+'/':''}</loc></url>`).join('\n')}\n</urlset>\n`);
- fs.writeFileSync(path.join(out,'robots.txt'),`User-agent: *\nAllow: /\nSitemap: ${base}sitemap.xml\n`);
+ fs.writeFileSync(path.join(out,'robots.txt'),preview?'User-agent: *\nDisallow: /\n':`User-agent: *\nAllow: /\nSitemap: ${base}sitemap.xml\n`);
  const sec=(site.domaines_secondaires||[]).filter(Boolean);
+ if(preview){fs.writeFileSync(path.join(out,'.htaccess'),`ErrorDocument 404 ${prefix}404.html\nOptions -Indexes\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\n`);return out;}
  fs.writeFileSync(path.join(out,'.htaccess'),`ErrorDocument 404 /404.html
 Options -Indexes
 RewriteEngine On
@@ -73,13 +77,13 @@ ExpiresByType application/javascript "access plus 1 day"
 
 async function deploy(site,dir){
  const {FTP_SERVER,FTP_USERNAME,FTP_PASSWORD}=process.env;
- if(!site.dossier_ftp){return 'généré, non déposé : aucun dossier d\'hébergement configuré';}
+ const target=site.dossier_ftp||(PREVIEW_DIR+'/'+site.slug);
  if(!FTP_SERVER||!FTP_USERNAME||!FTP_PASSWORD){return 'généré, non déposé : identifiants FTP absents des secrets GitHub';}
  const ftp=require('basic-ftp');let c=new ftp.Client(60000);
  try{const host=FTP_SERVER.replace(/^ftps?:\/\//,'').replace(/\/.*$/,'').trim();
   try{await c.access({host,user:FTP_USERNAME,password:FTP_PASSWORD,secure:true,secureOptions:{rejectUnauthorized:false}});}
   catch(e){console.log('FTPS indisponible ('+e.message+'), connexion FTP simple');c.close();c=new ftp.Client(60000);await c.access({host,user:FTP_USERNAME,password:FTP_PASSWORD,secure:false});}
-  await c.ensureDir(site.dossier_ftp);await c.uploadFromDir(dir);return 'déposé dans '+site.dossier_ftp;}
+  await c.ensureDir(target);await c.uploadFromDir(dir);return site.dossier_ftp?'déposé dans '+target:'en ligne temporaire : https://'+PREVIEW_HOST+'/'+site.slug+'/';}
  finally{c.close();}
 }
 
