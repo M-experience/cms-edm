@@ -483,3 +483,5 @@ a.mdbtn:hover{filter:brightness(.93)}
 .bcomp-ed{border-left:3px solid var(--mist);padding-left:10px}
 
 .lead p{margin:0 0 .6em}.lead p:last-child{margin-bottom:0}
+.editing .dropok{outline:3px dashed var(--coral)!important;outline-offset:-3px;background:rgba(255,90,95,.08)}
+.editing .inserter.dropok{height:60px;outline-offset:0}

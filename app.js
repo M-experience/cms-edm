@@ -79,7 +79,7 @@ function editBar(pg){
   <button class="abtn" id="eSave" ${!dirty?'disabled':''}>Enregistrer le brouillon</button>
   ${!canPublish()?`<button class="abtn cor" id="eSubmit">Soumettre à validation</button>`:`<button class="abtn pri" id="ePub">Publier</button>`}
  </div>
- <div class="ehelp">Cliquez sur un texte pour le modifier, sur une image pour la changer. Survolez un élément pour le déplacer ou le supprimer.${pg==='accueil'||pg.startsWith('page-')||pg.startsWith('master-')?' « + Ajouter une section » puise dans la bibliothèque.':''}</div>`;
+ <div class="ehelp">Cliquez sur un texte pour le modifier, sur une image pour la changer. Survolez un élément pour le déplacer ou le supprimer. Glissez une image depuis votre ordinateur sur une image pour la remplacer, ou sur une section pour l\'ajouter après elle.${pg==='accueil'||pg.startsWith('page-')||pg.startsWith('master-')?' « + Ajouter une section » puise dans la bibliothèque.':''}</div>`;
 }
 /* ============ glisser-déposer des sections et des éléments ============ */
 function startDnD(ev,btn){
@@ -163,6 +163,36 @@ async function openImagePicker(p,logos){const LIST=logos?[...LOGOS,...IMAGES]:IM
   if(error){st.textContent='Envoi refusé : '+error.message;return;}
   pick(sb.storage.from('medias').getPublicUrl(SITE.id+'/'+name).data.publicUrl);toast('Image envoyée');};
 }
+/* --- glisser-déposer de fichiers image depuis l'ordinateur --- */
+async function uploadMedia(f){
+ const name=Date.now().toString(36)+Math.random().toString(36).slice(2,5)+'-'+slugify(f.name.replace(/\.[^.]+$/,''))+(f.name.match(/\.[^.]+$/)||[''])[0].toLowerCase();
+ const {error}=await sb.storage.from('medias').upload(SITE.id+'/'+name,f,{cacheControl:'31536000',upsert:false});
+ if(error)throw error;return sb.storage.from('medias').getPublicUrl(SITE.id+'/'+name).data.publicUrl;}
+function dropTarget(el){
+ if(!el||!el.closest||!el.closest('.site.editing'))return null;
+ const im=el.closest('[data-imgp]');if(im)return {el:im,kind:'img',p:JSON.parse(im.dataset.imgp)};
+ const ins=el.closest('.inserter');if(ins){const b=ins.querySelector('[data-ins]');return {el:ins,kind:'sec',at:+b.dataset.ins,sp:JSON.parse(b.dataset.sp)};}
+ const s=el.closest('.esec');if(s)return {el:s,kind:'sec',at:+s.dataset.si+1,sp:JSON.parse(s.dataset.sp)};
+ return null;}
+let DROP_EL=null;
+const hasFiles=ev=>[...(ev.dataTransfer?.types||[])].includes('Files');
+document.addEventListener('dragover',ev=>{if(!hasFiles(ev)||!document.querySelector('.site.editing'))return;ev.preventDefault();
+ const d=dropTarget(ev.target);const el=d?.el||null;if(el!==DROP_EL){DROP_EL?.classList.remove('dropok');el?.classList.add('dropok');DROP_EL=el;}
+ ev.dataTransfer.dropEffect=d?'copy':'none';});
+document.addEventListener('dragleave',ev=>{if(!ev.relatedTarget){DROP_EL?.classList.remove('dropok');DROP_EL=null;}});
+document.addEventListener('drop',async ev=>{if(!hasFiles(ev)||!document.querySelector('.site.editing'))return;ev.preventDefault();
+ DROP_EL?.classList.remove('dropok');DROP_EL=null;
+ const files=[...ev.dataTransfer.files].filter(f=>f.type.startsWith('image/'));
+ const d=dropTarget(ev.target);
+ if(!files.length){toast('Seules les images peuvent être déposées');return;}
+ if(!d){toast('Déposez l\'image sur une image existante, ou sur une section pour en ajouter une après elle');return;}
+ if(files.some(f=>f.size>8e6)){toast('Image trop lourde (8 Mo maximum)');return;}
+ toast(files.length>1?'Envoi de '+files.length+' images...':'Envoi de l\'image...');
+ try{const urls=[];for(const f of files)urls.push(await uploadMedia(f));
+  if(d.kind==='img'){set(DRAFT,d.p,urls[0]);toast('Image remplacée');}
+  else{const arr=ensureSections(d.sp);arr.splice(d.at,0,{type:'galerie',id:'bloc'+Date.now().toString(36),titre:'',items:urls.map(u=>({image:u,legende:''}))});toast(urls.length>1?'Images ajoutées':'Image ajoutée');}
+  dirty=true;renderEdit();}
+ catch(err){toast('Envoi refusé : '+(err.message||err));}});
 function openLibrary(at,sp){
  const secs=ensureSections(sp);
  const hidden=secs.map((s,i)=>[s,i]).filter(([s])=>s.masque);
