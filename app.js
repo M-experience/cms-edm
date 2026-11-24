@@ -261,18 +261,21 @@ function lastBuild(s){const b=(s.builds||[]).slice().sort((a,b)=>a.created_at<b.
 const BSTAT={en_attente:'génération en attente',en_cours:'génération en cours',ok:'en ligne',erreur:'erreur de génération'};
 function sitesHTML(){
  const act=SITES.filter(s=>s.statut==='actif'),arc=SITES.filter(s=>s.statut!=='actif');
- const card=s=>{const c=(s.contents&&s.contents[0])||s.contents||{};const b=lastBuild(s);const par=SITES.find(x=>x.id===s.parent_id);
-  return `<div class="scard"><div class="sc-top"><h3>${esc(s.nom)}</h3><span class="badge">${esc(ROLES[s._role]||'')}</span></div>
-   <p class="sc-dom">${s.domaine?`<a href="${esc(siteURL(s))}" target="_blank" rel="noopener">${esc(s.domaine)}</a>`:'<i>Aucun domaine configuré</i>'}</p>
-   ${par?`<p class="help">Nouvelle version de « ${esc(par.nom)} »</p>`:''}
-   <p class="help">${c.published_at?'Publié le '+fmtDate(c.published_at):'Jamais publié'}${b?` · <span class="bst b-${b.status}">${BSTAT[b.status]}</span>`:''}${c.draft_status==='en_validation'?' · <b>brouillon à valider</b>':''}</p>
-   <div class="sc-act"><a class="abtn pri" href="#/site/${esc(s.slug)}/accueil">Modifier le site</a>${s._role==='admin'?`<button class="abtn" data-set="${s.id}">Paramètres et domaine</button><button class="abtn" data-dup="${s.id}">Créer une nouvelle version</button>`:''}<button class="abtn" data-msg="${s.id}">Messages reçus</button></div></div>`;};
+ const ST={ok:['ok','En ligne'],en_attente:['wait','Mise en ligne en attente'],en_cours:['wait','Mise en ligne en cours'],erreur:['err','Erreur de mise en ligne']};
+ const card=s=>{const c=(s.contents&&s.contents[0])||s.contents||{};const b=lastBuild(s);const par=SITES.find(x=>x.id===s.parent_id);const st=b?ST[b.status]:null;
+  return `<div class="scard"><div class="sc-main">
+   <div class="sc-title"><h3>${esc(s.nom)}</h3><span class="badge">${esc(ROLES[s._role]||'')}</span></div>
+   <div class="sc-meta">${s.domaine?`<a href="${esc(siteURL(s))}" target="_blank" rel="noopener">${esc(s.domaine)} ↗</a>`:'<i>Aucun domaine</i>'}
+    ${st?`<span class="st st-${st[0]}"><i></i>${st[1]}</span>`:''}<span>${c.published_at?'Publié le '+fmtDate(c.published_at):'Jamais publié'}</span>${c.draft_status==='en_validation'?'<span class="st st-wait"><i></i>Brouillon à valider</span>':''}</div>
+   ${par?`<p class="help">Nouvelle version de « ${esc(par.nom)} »</p>`:''}</div>
+   <div class="sc-act"><a class="abtn pri" href="#/site/${esc(s.slug)}/accueil">Modifier le site</a><button class="abtn ghost" data-msg="${s.id}">Messages</button>${s._role==='admin'?`<button class="abtn ghost" data-set="${s.id}">Paramètres</button><button class="abtn ghost" data-dup="${s.id}" title="Copier ce site pour préparer une refonte">Nouvelle version</button>`:''}</div></div>`;};
  return `<div class="topbar"><b>Cms-Edm</b><span class="sp"></span><span class="help">${esc(ME.email||'')}${ME.is_superadmin?' · super-administrateur':''}</span><button class="abtn" id="bLogout">Se déconnecter</button></div>
  <div class="dash"><div class="dhead"><h1>Vos sites</h1>${ME.is_superadmin?'<button class="abtn pri" id="bNewSite">+ Nouveau site</button>':''}</div>
  ${act.length?`<div class="sgrid">${act.map(card).join('')}</div>`:'<p class="empty-hint">Vous n\'êtes encore membre d\'aucun site. Demandez à un administrateur de vous inviter avec cette adresse e-mail.</p>'}
  ${arc.length?`<h2 class="help" style="margin-top:30px">Sites archivés</h2><div class="sgrid">${arc.map(card).join('')}</div>`:''}</div>`;
 }
 function bindSites(){
+ clearTimeout(window.__poll);if(SITES.some(x=>{const b=lastBuild(x);return b&&(b.status==='en_attente'||b.status==='en_cours');}))window.__poll=setTimeout(async()=>{if(VIEW!=='sites')return;await loadSites();if(VIEW==='sites')render();},5000);
  $('#bLogout').onclick=async()=>{await sb.auth.signOut();};
  $('#bNewSite')?.addEventListener('click',()=>openNewSite(null));
  document.querySelectorAll('[data-dup]').forEach(b=>b.onclick=()=>openNewSite(b.dataset.dup));
