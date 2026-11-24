@@ -75,7 +75,8 @@ function editBar(pg){
   <button class="abtn" id="eHist">Historique</button>
   <a class="abtn pri" href="#/apercu/${esc(SITE.slug)}/${esc(pg)}" title="Voir la page telle qu'elle sera publiée (modifications non enregistrées comprises)">Aperçu</a>
   ${SITE.domaine?`<a class="abtn" href="${esc(previewURL(pg))}" target="_blank" rel="noopener" title="Adresse publique du site. Tant que le DNS n'est pas modifié, elle affiche encore l'ancien site (Wix).">${esc(SITE.domaine)} ↗</a>`:''}
-  <button class="abtn" id="eUndo" ${dirty?'':'disabled'}>Annuler</button>
+  <button class="abtn" data-hist="undo" title="Annuler la dernière modification (Cmd+Z)">↶</button><button class="abtn" data-hist="redo" title="Rétablir (Cmd+Maj+Z)">↷</button>
+  <button class="abtn" id="eUndo" ${dirty?'':'disabled'} title="Revenir au dernier brouillon enregistré">Tout annuler</button>
   <button class="abtn" id="eSave" ${!dirty?'disabled':''}>Enregistrer le brouillon</button>
   ${!canPublish()?`<button class="abtn cor" id="eSubmit">Soumettre à validation</button>`:`<button class="abtn pri" id="ePub">Publier</button>`}
  </div>
@@ -129,6 +130,13 @@ function bindDeco(){
  if(DECO_SEL>=0)decoToolbar();
  document.addEventListener('pointerdown',ev=>{if(DECO_SEL>=0&&!ev.target.closest('.deco-ed,.deco-tb')){DECO_SEL=-1;decoToolbar();}},{once:true,capture:true});
 }
+/* --- historique pas à pas (annuler / rétablir) --- */
+let HIST=[],FUT=[],SNAP=null,histT=null;
+function histReset(){HIST=[];FUT=[];SNAP=null;clearTimeout(histT);}
+function histCommit(){clearTimeout(histT);if(!DRAFT)return;const s=JSON.stringify(DRAFT);if(SNAP===null){SNAP=s;}else if(s!==SNAP){HIST.push(SNAP);if(HIST.length>200)HIST.shift();FUT=[];SNAP=s;}histBtns();}
+function histBtns(){const n=HIST.length,m=FUT.length;document.querySelectorAll('[data-hist=undo]').forEach(b=>b.disabled=!n);document.querySelectorAll('[data-hist=redo]').forEach(b=>b.disabled=!m);}
+function histGo(dir){histCommit();const from=dir<0?HIST:FUT,to=dir<0?FUT:HIST;if(!from.length){toast(dir<0?'Rien à annuler':'Rien à rétablir');return;}
+ to.push(SNAP);SNAP=from.pop();DRAFT=JSON.parse(SNAP);dirty=true;rtbHide();applyCharte(DRAFT);renderEdit();toast(dir<0?'Modification annulée':'Modification rétablie');}
 function renderEdit(){
  const pg=EDIT_PAGE||'accueil';
  section=pg;
@@ -139,6 +147,7 @@ function renderEdit(){
  $('#app').innerHTML=editBar(pg)+`<div class="site editing">${html}</div>`;
  scrollTo(0,y);
  bindDeco();
+ histCommit();
 }
 function editStatus(){const s=$('#est');if(s)s.textContent=statusLine();const a=$('#eSave');if(a)a.disabled=!dirty;const u=$('#eUndo');if(u)u.disabled=!dirty;}
 const isEditRoute=()=>VIEW==='edit';
@@ -217,10 +226,10 @@ function setBlockStyle(k){const root=richRoot();if(!root)return;let b=curBlock()
  const r=document.createRange();r.selectNodeContents(el);r.collapse(false);const s=getSelection();s.removeAllRanges();s.addRange(r);
  root.dispatchEvent(new Event('input',{bubbles:true}));}
 function rtbShow(el){
- if(!rtbEl){rtbEl=document.createElement('div');rtbEl.className='rtb';rtbEl.innerHTML=`<button data-cmd="bold" title="Gras (Cmd+B)"><b>G</b></button><button data-cmd="italic" title="Italique (Cmd+I)"><i>I</i></button><button data-cmd="link" title="Lien">🔗</button><button data-cmd="mark" title="Mettre en avant (surligné)"><mark style="background:#FFE1D6;padding:0 3px">A</mark></button><button data-cmd="callout" title="Encadré : met le paragraphe dans un encadré">▣ Encadré</button><span class="rtb-sty"><button data-cmd="stymenu" title="Style et taille du paragraphe">Style ▾</button><span class="rtb-menu" hidden><button data-sty="h2" class="s-h2">Titre</button><button data-sty="h3" class="s-h3">Intertitre</button><button data-sty="h4" class="s-h4">Petit intertitre</button><button data-sty="pbig" class="s-pbig">Grand texte</button><button data-sty="p" class="s-p">Texte normal</button><button data-sty="psmall" class="s-psmall">Petit texte</button></span></span><button data-cmd="insertUnorderedList" title="Liste à puces">• Liste</button><button data-cmd="insertOrderedList" title="Liste numérotée">1. Liste</button><button data-cmd="removeFormat" title="Effacer la mise en forme">✕ Format</button><span class="rtb-link" hidden><input placeholder="https://... ou /candidater/"><label class="rtb-chk"><input type="checkbox" class="rtb-asbtn"> en bouton</label><button data-cmd="linkok">OK</button><button data-cmd="linkno" title="Annuler">✕</button></span><button data-cmd="done" class="rtb-done" title="Terminer la modification (Échap)">✓ Terminé</button>`;
+ if(!rtbEl){rtbEl=document.createElement('div');rtbEl.className='rtb';rtbEl.innerHTML=`<button data-hist="undo" title="Annuler (Cmd+Z)">↶</button><button data-hist="redo" title="Rétablir (Cmd+Maj+Z)">↷</button><span class="rtb-sep"></span><button data-cmd="bold" title="Gras (Cmd+B)"><b>G</b></button><button data-cmd="italic" title="Italique (Cmd+I)"><i>I</i></button><button data-cmd="link" title="Lien">🔗</button><button data-cmd="mark" title="Mettre en avant (surligné)"><mark style="background:#FFE1D6;padding:0 3px">A</mark></button><button data-cmd="callout" title="Encadré : met le paragraphe dans un encadré">▣ Encadré</button><span class="rtb-sty"><button data-cmd="stymenu" title="Style et taille du paragraphe">Style ▾</button><span class="rtb-menu" hidden><button data-sty="h2" class="s-h2">Titre</button><button data-sty="h3" class="s-h3">Intertitre</button><button data-sty="h4" class="s-h4">Petit intertitre</button><button data-sty="pbig" class="s-pbig">Grand texte</button><button data-sty="p" class="s-p">Texte normal</button><button data-sty="psmall" class="s-psmall">Petit texte</button></span></span><button data-cmd="insertUnorderedList" title="Liste à puces">• Liste</button><button data-cmd="insertOrderedList" title="Liste numérotée">1. Liste</button><button data-cmd="removeFormat" title="Effacer la mise en forme">✕ Format</button><span class="rtb-link" hidden><input placeholder="https://... ou /candidater/"><label class="rtb-chk"><input type="checkbox" class="rtb-asbtn"> en bouton</label><button data-cmd="linkok">OK</button><button data-cmd="linkno" title="Annuler">✕</button></span><button data-cmd="done" class="rtb-done" title="Terminer la modification (Échap)">✓ Terminé</button>`;
   document.body.appendChild(rtbEl);
   rtbEl.addEventListener('mousedown',e=>{if(!e.target.closest('input'))e.preventDefault();});
-  rtbEl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const c=b.dataset.cmd;const box=rtbEl.querySelector('.rtb-link');
+  rtbEl.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.hist){histGo(b.dataset.hist==='undo'?-1:1);return;}const c=b.dataset.cmd;const box=rtbEl.querySelector('.rtb-link');
    if(c==='link'){const sel=getSelection();rtbRange=sel.rangeCount?sel.getRangeAt(0).cloneRange():null;box.hidden=false;box.querySelector('input').value='';const cb=box.querySelector('.rtb-asbtn');if(cb)cb.checked=false;box.querySelector('input').focus();return;}
    if(c==='linkno'){box.hidden=true;return;}
    if(c==='done'){rtbHide();document.activeElement?.blur();getSelection().removeAllRanges();return;}
@@ -233,7 +242,7 @@ function rtbShow(el){
    document.execCommand(c);});
   rtbEl.querySelector('.rtb-link input').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();e.stopPropagation();rtbEl.querySelector('[data-cmd=linkok]').click();}});
  }
- rtbEl.dataset.for='1';rtbEl.hidden=false;rtbEl.querySelector('.rtb-link').hidden=true;const r=el.getBoundingClientRect();
+ rtbEl.dataset.for='1';rtbEl.hidden=false;histBtns();rtbEl.querySelector('.rtb-link').hidden=true;const r=el.getBoundingClientRect();
  rtbEl.style.top=Math.max(96,r.top+scrollY-46)+'px';rtbEl.style.left=Math.max(8,r.left+scrollX)+'px';
 }
 function rtbHide(){if(rtbEl){rtbEl.hidden=true;rtbEl.querySelector('.rtb-link').hidden=true;rtbEl.querySelector('.rtb-menu').hidden=true;}}
@@ -247,7 +256,7 @@ function bindEditOnce(){
   if(!isEditRoute())return;const el=e.target.closest('[data-e]');if(!el)return;
   let v=el.dataset.rich?toMd(el):(el.dataset.para?el.innerText:el.textContent).replace(/\u00a0/g,' ');
   v=el.dataset.para?v.replace(/\n{3,}/g,'\n\n').trim():v.replace(/\s*\n\s*/g,' ').trim();
-  set(DRAFT,JSON.parse(el.dataset.e),v);dirty=true;editStatus();
+  set(DRAFT,JSON.parse(el.dataset.e),v);dirty=true;editStatus();clearTimeout(histT);histT=setTimeout(histCommit,700);
  });
  app.addEventListener('keydown',e=>{if(!isEditRoute())return;const el=e.target.closest('[data-e]');if(el&&e.key==='Enter'&&!el.dataset.para){e.preventDefault();el.blur();}});
  app.addEventListener('paste',e=>{if(!isEditRoute())return;const el=e.target.closest('[data-e]');if(!el)return;e.preventDefault();document.execCommand('insertText',false,(e.clipboardData||window.clipboardData).getData('text/plain'));});
@@ -257,11 +266,12 @@ function bindEditOnce(){
   if(t.closest('.editing a')&&!t.closest('button'))e.preventDefault();
   if(t.closest('.editing summary'))e.preventDefault();
   const b=t.closest('button,[data-imgp]');if(!b)return;
+  if(b.dataset.hist&&!b.closest('.rtb')){histGo(b.dataset.hist==='undo'?-1:1);return;}
   if(b.id==='eSave'){saveDraft('brouillon');return;}
   if(b.id==='eSubmit'){saveDraft('en_validation');return;}
   if(b.id==='ePub'){openPublish();return;}
   if(b.id==='eHist'){openHistory();return;}
-  if(b.id==='eUndo'){DRAFT=norm(clone(CONTENT.draft||CONTENT.published||ORIGIN_RAW));dirty=false;applyCharte(DRAFT);renderEdit();toast('Modifications annulées');return;}
+  if(b.id==='eUndo'){histReset();DRAFT=norm(clone(CONTENT.draft||CONTENT.published||ORIGIN_RAW));dirty=false;applyCharte(DRAFT);renderEdit();toast('Modifications annulées');return;}
   if(b.dataset.link){e.preventDefault();openLinkChooser(JSON.parse(b.dataset.link));return;}
   if(b.dataset.imgp){openImagePicker(JSON.parse(b.dataset.imgp),b.dataset.logos);return;}
   if(b.dataset.ins){openLibrary(+b.dataset.ins,JSON.parse(b.dataset.sp));return;}
@@ -453,7 +463,7 @@ async function openSite(slug,pg){
   if(error){toast('Erreur : '+error.message);return false;}
   CONTENT=data;
   draftMeta=data.draft?{at:data.draft_at,by:data.draft_by,statut:data.draft_status}:null;
-  DRAFT=norm(clone(data.draft||data.published||ORIGIN_RAW));dirty=false;
+  histReset();DRAFT=norm(clone(data.draft||data.published||ORIGIN_RAW));dirty=false;
   joinPresence();
  }
  EDIT_PAGE=pg||'accueil';return true;
@@ -537,7 +547,7 @@ async function route(){
  if(m){if(dirty&&SITE&&SITE.slug!==m[1]&&!confirmLeave())return;if(await openSite(m[1],decodeURIComponent(m[2]||'accueil'))){VIEW='edit';section=EDIT_PAGE;render();}return;}
  if(VIEW==='edit'&&dirty){if(!confirmLeave()){history.replaceState(null,'','#/site/'+SITE.slug+'/'+EDIT_PAGE);return;}}
  if(presenceCh){sb.removeChannel(presenceCh);presenceCh=null;}
- SITE=null;CONTENT=null;DRAFT=null;dirty=false;
+ SITE=null;CONTENT=null;DRAFT=null;dirty=false;histReset();
  VIEW='sites';await loadSites();render();
 }
 function confirmLeave(){return window.confirm('Des modifications ne sont pas enregistrées. Quitter quand même ?');}
@@ -553,6 +563,7 @@ document.addEventListener('click',e=>{
 });
 document.addEventListener('submit',e=>{if(e.target.matches('[data-contact]')){e.preventDefault();toast('Formulaire désactivé dans l\'éditeur');}});
 addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#modal').innerHTML){$('#modal').innerHTML='';return;}
+ if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'&&isEditRoute()&&!$('#modal').innerHTML&&!document.activeElement?.closest('[data-e],input,textarea')){e.preventDefault();histGo(e.shiftKey?1:-1);return;}
  if(e.key==='Escape'&&document.activeElement?.closest('[data-e],.rtb')){rtbHide();document.activeElement.blur();getSelection().removeAllRanges();}});
 document.getElementById('modal').addEventListener('click',e=>{if(e.target.classList.contains('modal')&&!$('#mGo')?.disabled)$('#modal').innerHTML='';});
 

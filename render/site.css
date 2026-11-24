@@ -492,3 +492,5 @@ a.mdbtn:hover{filter:brightness(.93)}
 .rtb-menu{position:absolute;top:100%;left:0;margin-top:6px;display:flex;flex-direction:column;background:var(--ink);padding:4px;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.25);min-width:170px;z-index:61}
 .rtb-menu button{text-align:left;white-space:nowrap}.rtb-menu button.on{background:rgba(255,255,255,.22)}
 .rtb-menu .s-h2{font-size:17px}.rtb-menu .s-h3{font-size:15px}.rtb-menu .s-h4{font-size:12px;text-transform:uppercase}.rtb-menu .s-pbig{font-weight:500;font-size:15px}.rtb-menu .s-p{font-weight:400}.rtb-menu .s-psmall{font-weight:400;font-size:11px}
+.rtb button:disabled{opacity:.35;cursor:default}.rtb-sep{width:1px;background:rgba(255,255,255,.25);margin:4px 4px}
+.editbar [data-hist]{font-size:16px;padding-left:10px;padding-right:10px}.editbar [data-hist]:disabled{opacity:.4}
