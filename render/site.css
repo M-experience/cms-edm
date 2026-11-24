@@ -466,8 +466,8 @@ body.dnd,body.dnd *{cursor:grabbing!important;user-select:none}
 
 /* mises en forme accessibles aux rédacteurs */
 mark.hl{background:#FFE1D6;color:inherit;padding:0 .15em;border-radius:3px}
-.callout{margin:18px 0;padding:16px 22px;border-left:5px solid var(--coral);background:#FFF4F1;border-radius:0 8px 8px 0}
-.callout p{margin:0}
+.callout,[data-rich] blockquote{margin:18px 0;padding:16px 22px;border-left:5px solid var(--coral);background:#FFF4F1;border-radius:0 8px 8px 0}
+.callout p,[data-rich] blockquote p{margin:0}
 a.mdbtn{display:inline-block;background:var(--coral);color:#fff!important;text-decoration:none!important;font-weight:600;padding:10px 20px;border-radius:4px;margin:4px 0}
 a.mdbtn:hover{filter:brightness(.93)}
 /* fond et encadré des sections */
