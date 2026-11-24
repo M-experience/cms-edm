@@ -447,7 +447,7 @@ body.dnd,body.dnd *{cursor:grabbing!important;user-select:none}
 .progs>*,.prog-b>*{min-width:0}.ptabs{flex-wrap:wrap}
 @media(max-width:1240px){.prog-b{grid-template-columns:1fr}.prog-img{height:240px}}
 /* bloc « En partenariat avec » : le bouton d'ajout ne décale plus les logos dans l'éditeur */
-.editing .partner .plogos{position:relative}
-.editing .partner .plogos>.eadd{position:absolute;right:0;top:calc(100% + 8px);font-size:12px;padding:4px 9px;white-space:nowrap}
+.editing .partner .plogos>.eadd{order:99;flex:0 0 100%;max-width:max-content;margin-left:auto;font-size:12px;padding:4px 9px;white-space:nowrap;position:relative;z-index:6}
+.editing .hero{padding-bottom:44px}
 /* poignée de déplacement des sections plus visible */
 .stools .sdrag{background:var(--coral)!important;padding:4px 10px!important}
