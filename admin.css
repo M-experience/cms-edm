@@ -55,3 +55,4 @@ a.abtn{text-decoration:none;display:inline-block}
 .sc-act{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .abtn.ghost{background:transparent;border-color:transparent;color:var(--navy)}.abtn.ghost:hover{background:var(--soft);border-color:var(--line)}
 .dhead .abtn{white-space:nowrap}
+.brand.on-dark{color:#fff}.brand.on-dark .bword i{color:#9DB3D6}

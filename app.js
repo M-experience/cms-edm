@@ -269,7 +269,7 @@ function sitesHTML(){
     ${st?`<span class="st st-${st[0]}"><i></i>${st[1]}</span>`:''}<span>${c.published_at?'Publié le '+fmtDate(c.published_at):'Jamais publié'}</span>${c.draft_status==='en_validation'?'<span class="st st-wait"><i></i>Brouillon à valider</span>':''}</div>
    ${par?`<p class="help">Nouvelle version de « ${esc(par.nom)} »</p>`:''}</div>
    <div class="sc-act"><a class="abtn pri" href="#/site/${esc(s.slug)}/accueil">Modifier le site</a><button class="abtn ghost" data-msg="${s.id}">Messages</button>${s._role==='admin'?`<button class="abtn ghost" data-set="${s.id}">Paramètres</button><button class="abtn ghost" data-dup="${s.id}" title="Copier ce site pour préparer une refonte">Nouvelle version</button>`:''}</div></div>`;};
- return `<div class="topbar"><b>Cms-Edm</b><span class="sp"></span><span class="help">${esc(ME.email||'')}${ME.is_superadmin?' · super-administrateur':''}</span><button class="abtn" id="bLogout">Se déconnecter</button></div>
+ return `<div class="topbar">${brand('on-dark')}<span class="sp"></span><span class="help">${esc(ME.email||'')}${ME.is_superadmin?' · super-administrateur':''}</span><button class="abtn" id="bLogout">Se déconnecter</button></div>
  <div class="dash"><div class="dhead"><h1>Vos sites</h1>${ME.is_superadmin?'<button class="abtn pri" id="bNewSite">+ Nouveau site</button>':''}</div>
  ${act.length?`<div class="sgrid">${act.map(card).join('')}</div>`:'<p class="empty-hint">Vous n\'êtes encore membre d\'aucun site. Demandez à un administrateur de vous inviter avec cette adresse e-mail.</p>'}
  ${arc.length?`<h2 class="help" style="margin-top:30px">Sites archivés</h2><div class="sgrid">${arc.map(card).join('')}</div>`:''}</div>`;
