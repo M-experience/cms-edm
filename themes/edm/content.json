@@ -178,11 +178,69 @@
     }
    ],
    "indicateurs_note": "Taux de réussite à l'examen : disponible en 2027. Taux d'insertion et de poursuite d'études : disponibles en 2028. Source : CFA SACEF, session 2025-2027.",
-   "blocs": [],
+   "blocs": [
+    {
+     "titre": "Valoriser ses compétences numériques dans un portfolio professionnel",
+     "code": "RNCP38208BC01 - Mettre en œuvre les usages avancés et spécialisés des outils numériques",
+     "competences": "Identifier les usages numériques et les impacts de leur évolution sur le ou les domaines concernés par la mention\nSe servir de façon autonome des outils numériques avancés pour un ou plusieurs métiers ou secteurs de recherche du domaine",
+     "modules": "CCE238 - Portfolio créatif (6 ECTS)",
+     "evaluation": "L’évaluation porte sur la conception et la mise en ligne d’un portfolio créatif professionnel. Elle apprécie la pertinence des réalisations, la qualité graphique et éditoriale, la maîtrise des outils numériques, l’ergonomie, l’accessibilité, le respect des droits et la capacité à justifier ses choix."
+    },
+    {
+     "titre": "Conduire une recherche appliquée en information-communication",
+     "code": "RNCP38208BC02 - Mobiliser et produire des savoirs hautement spécialisés",
+     "competences": "Mobiliser des savoirs hautement spécialisés, dont certains sont à l’avant-garde du savoir dans un domaine de travail ou d’études, comme base d’une pensée originale\nDévelopper une conscience critique des savoirs dans un domaine et/ou à l’interface de plusieurs domaines\nRésoudre des problèmes pour développer de nouveaux savoirs et de nouvelles procédures et intégrer les savoirs de différents domaines\nApporter des contributions novatrices dans le cadre d’échanges de haut niveau, et dans des contextes internationaux\nConduire une analyse réflexive et distanciée prenant en compte les enjeux, les problématiques et la complexité d’une demande ou d’une situation afin de proposer des solutions adaptées et/ou innovantes en respect des évolutions de la réglementation",
+     "modules": "CCE200 - Théories de la communication (4 ECTS)\nCCE203 - Fondamentaux de l'organisation des connaissances (4 ECTS)\nCCE205 - Anthropologie des connaissances : pratiques et techniques (4 ECTS)\nCCE206 - Coopération et organisation : principes et outils (4 ECTS)\nCCE204 - Sémiotique des interfaces : signes, usages et interactions (4 ECTS)\nUA3205 - Mémoire entretien (10 ECTS)",
+     "evaluation": "L’évaluation repose sur un dossier de synthèse transposant les enseignements au contexte professionnel, ainsi que sur l’entretien d’un professionnel donnant lieu à une analyse de son activité et de son organisation. Le mémoire évalue la capacité à construire une problématique, mobiliser des références, analyser un terrain et défendre des préconisations à l’écrit et à l’oral."
+    },
+    {
+     "titre": "Analyser sa pratique professionnelle pour communiquer en contexte international",
+     "code": "RNCP38208BC03 - Mettre en œuvre une communication spécialisée pour le transfert de connaissances",
+     "competences": "Identifier, sélectionner et analyser avec esprit critique diverses ressources spécialisées pour documenter un sujet et synthétiser ces données en vue de leur exploitation\nCommuniquer à des fins de formation ou de transfert de connaissances, par oral et par écrit, en français et dans au moins une langue étrangère",
+     "modules": "PUGB01 - Anglais (4 ECTS)\nUA3206 - Stage ou mission professionnelle (8 ECTS)",
+     "evaluation": "L’évaluation repose sur un rapport et une soutenance présentant les missions confiées, les responsabilités exercées et leur contribution à l’innovation ou à la transformation de l’organisation. L’étudiant démontre également sa maîtrise de l’anglais professionnel à travers une production écrite et une présentation orale liées à ses missions."
+    },
+    {
+     "titre": "Co-design et transition : concepts et mise en œuvre",
+     "code": "RNCP38208BC04 - Contribuer à la transformation en contexte professionnel",
+     "competences": "Gérer des contextes professionnels ou d’études complexes, imprévisibles et qui nécessitent des approches stratégiques nouvelles\nConduire un projet (conception, pilotage, coordination d’équipe, mise en œuvre et gestion, évaluation, diffusion) pouvant mobiliser des compétences pluridisciplinaires dans un cadre collaboratif\nRespecter les principes d’éthique, de déontologie et de responsabilité sociale et environnementale\nConcevoir des sessions de résolution de problèmes collaboratives pour mettre en œuvre l'innovation en relation avec les parties prenantes\nOrganiser et animer des ateliers d'innovations collaboratives en utilisant les démarches du design (design thinking, prototypage...)\nMettre en place un dispositif d'innovation collaborative en mobilisant les ressources organisationnelles en lien avec les orientations stratégiques (par exemple, laboratoire d'innovation)",
+     "modules": "CCE207 - Médiation par le prototypage pour la co-création (4 ECTS)\nCCE208 - Conception et facilitation d'ateliers collaboratifs (4 ECTS)\nCCE209 - Création d'un dispositif d'innovation participative (4 ECTS)",
+     "evaluation": "L’évaluation repose sur la mise en œuvre d’un projet réel d’innovation collaborative et sa soutenance. Le candidat démontre sa capacité à piloter un projet complexe, mobiliser les parties prenantes, animer des ateliers de design, prototyper des solutions et intégrer les enjeux éthiques, sociaux et environnementaux."
+    },
+    {
+     "titre": "Concevoir des stratégies numériques collaboratives",
+     "code": "RNCP38208BC05 - Concevoir des politiques et stratégies d'information-communication",
+     "competences": "Appréhender les contextes socio-professionnels, culturels, nationaux et internationaux des acteurs et des organisations en information-communication\nMobiliser les fondements théoriques en information-communication\nIdentifier les stratégies d’alliance, de partenariat et de recommandation\nDévelopper une réflexion stratégique de communication globale\nConcevoir ou piloter une recommandation stratégique et, ou opérationnelle à l'attention d'un commanditaire dans le champ de l’information-communication",
+     "modules": "CCE212 - Théories de l'activité collective et enjeux du collaboratif (4 ECTS)\nCCE210 - Technologies participatives et économies de la convivialité (4 ECTS)\nCCE211 - Communication et éditorialisation (4 ECTS)\nCCE217 - Sémiotique avancée et design numérique (4 ECTS)\nCCE216 - Management, travail et organisation en contexte numérique (4 ECTS)",
+     "evaluation": "L’évaluation repose sur un dossier de synthèse démontrant l’assimilation des enseignements et leur transposition dans le contexte professionnel de l’étudiant. Celui-ci analyse une situation liée au travail collaboratif, aux technologies participatives, à l’éditorialisation, au design numérique ou au management, puis formule des préconisations argumentées."
+    },
+    {
+     "titre": "Piloter une étude en information-communication avec des méthodes scientifiques",
+     "code": "RNCP38208BC06 - Piloter des diagnostics en information-communication à des fins d'études ou de recherche",
+     "competences": "Piloter une étude en information-communication : formulation de la problématique, définition du périmètre, élaboration des hypothèses et choix des méthodes d’enquête.\nArticuler des méthodes qualitatives et quantitatives : entretiens, observations, questionnaires et analyses documentaires ou de réseaux.\nÉlaborer un cadre théorique fondé sur une revue de littérature et une bibliographie conforme aux normes académiques.\nAnalyser les données en distinguant résultats, interprétations et limites de l’étude.\nRestituer les résultats aux parties prenantes et formuler des recommandations opérationnelles argumentées.",
+     "modules": "UA3201 - Mémoire d'études et de recherche M2 (12 ECTS)",
+     "evaluation": "L’évaluation repose sur une étude appliquée à un projet réel, mobilisant recherche utilisateur, co-conception, parcours d’usage, prototypage et tests. L’étudiant démontre sa capacité à piloter une démarche de design centrée utilisateur et à défendre une solution responsable et durable devant un jury professionnel."
+    },
+    {
+     "titre": "Design d'expérience utilisateur intégrée et de services",
+     "code": "RNCP38208BC07 - Conduire un projet en information-communication",
+     "competences": "Analyser les usages et les contextes d’expérience utilisateur en mobilisant les méthodes de recherche utilisateur issues des SHS et du design, afin d’identifier les besoins, pratiques et contraintes des utilisateurs.\nConcevoir une expérience utilisateur intégrant interfaces numériques et services en traduisant les besoins identifiés en parcours, scénarios d’usage, personas et spécifications, afin d’assurer la cohérence de l’expérience proposée.\nPrototyper des interfaces et des services à l’aide de méthodes de conception créative, de maquettage et de wireframing, afin d’expérimenter et d’évaluer les solutions avec les utilisateurs.\nPiloter un projet de design d’expérience et de service en mobilisant les démarches de conception centrée utilisateur, de design thinking, d’agilité et de design collaboratif, afin d’organiser et coordonner le processus de conception.\nFaciliter la co-conception avec les utilisateurs et les parties prenantes en mobilisant des techniques d’animation, de représentation et de prototypage, afin d’articuler les expertises et de favoriser la conception de services responsables et durables.",
+     "modules": "CCE247 - Conduite de projet agile pour le design d'expérience et de service (6 ECTS)\nCCE248 - Démarches créatives de preuve de concept et de prototypage pour l'UX design et le design de service (6 ECTS)\nCCE249 - Méthodes de recherche utilisateur pour le design d'expérience et de service (UX research) (6 ECTS)",
+     "evaluation": "L’évaluation repose sur une étude appliquée à un projet réel, mobilisant recherche utilisateur, co-conception, parcours d’usage, prototypage et tests. L’étudiant démontre sa capacité à piloter une démarche de design centrée utilisateur et à défendre une solution responsable et durable devant un jury professionnel."
+    },
+    {
+     "titre": "Enquêter et modéliser les dispositifs numériques de terrain",
+     "code": "RNCP38208BC08 - Sélectionner les dispositifs, outils et techniques dans le domaine de l'information-communication",
+     "competences": "Analyser de manière réflexive les dispositifs numériques rencontrés dans son organisation, en tenant compte des usages, des acteurs et du contexte.\nEnquêter sur les pratiques professionnelles afin d’identifier les besoins, les contraintes et les transformations liées au numérique.\nSélectionner et justifier les techniques de communication et d’éditorialisation adaptées aux objectifs, aux publics et aux supports.\nRéaliser ou superviser la production de supports écrits, graphiques, audiovisuels et numériques dans le respect des exigences professionnelles.\nÉvaluer les productions et sa propre pratique afin de formuler des recommandations d’amélioration adaptées à l’organisation.",
+     "modules": "UA3204 - Stage ou mission professionnelle de M2 (10 ECTS)",
+     "evaluation": "L’évaluation repose sur l’analyse d’un projet réel de communication dont l’étudiant a assuré la conduite ou la supervision. Elle apprécie la pertinence des choix éditoriaux et des supports, la qualité des productions ainsi que leur contribution à l’innovation ou à la transformation de l’organisation."
+    }
+   ],
    "annee1": "MAÎTRISER LES FONDAMENTAUX DE L'INFO-COMMUNICATION\n\n- Théories de la communication\n- Organisation des connaissances\n- Sémiotique\n- Coopération et organisation\n- Anglais professionnel\n\nAPPRENDRE À CO-CRÉER\n\n- Médiation par le prototypage pour la co-création\n- Conception et facilitation d'ateliers collaboratifs\n- Création d'un dispositif d'innovation participative\n- Mission ou stage tutoré en entreprise\n- etc.",
    "annee2": "APPROFONDIR LA COMMUNICATION NUMÉRIQUE\n\n- Technologies participatives et économies de la convivialité\n- Communication et éditorialisation\n- Théories de l'activité collective et enjeux du collaboratif\n- Management, travail et organisation en contexte numérique\n- Sémiotique avancée et design numérique\n\nCONDUIRE DES PROJETS AGILES ET CRÉATIFS\n\n- Conduite de projet agile pour le design d'expérience et de service\n- Atelier immersif\n- Mémoire d'étude et de recherche\n- etc.",
    "prog_image": "img/prog-tnr.jpg",
-   "chemin": "mastertnr"
+   "chemin": "mastertnr",
+   "blocs_intro": "La certification est délivrée lorsque les huit blocs de compétences sont acquis. Les modalités de validation et de capitalisation des blocs, les éventuelles équivalences et passerelles et les modalités de jury sont définies par le Cnam, établissement délivrant le diplôme. Les modules associés et les modalités d'évaluation sont détaillés dans les blocs de compétences ci-dessous.\n\nLes modalités d'évaluation comprennent notamment :\n\n- la conception et la mise en ligne d’un portfolio créatif professionnel ;\n- deux mémoires de synthèse (en Master 1 puis Master 2) transposant les enseignements de plusieurs modules au contexte professionnel ;\n- l’entretien d’un professionnel donnant lieu à une analyse de son activité et de son organisation ;\n- un rapport et une soutenance présentant les missions confiées, les responsabilités exercées et leur contribution à l’innovation ou à la transformation de l’organisation ;\n- la mise en œuvre d’un projet réel d’innovation collaborative et sa soutenance ;\n- la réalisation et la soutenance d’un mémoire de recherche en information-communication ;\n- une étude appliquée à un projet réel, mobilisant recherche utilisateur, co-conception, parcours d’usage, prototypage et tests ;\n- l’analyse d’un projet réel de communication dont l’étudiant a assuré la conduite ou la supervision."
   },
   {
    "slug": "cime",

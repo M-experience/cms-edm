@@ -478,3 +478,6 @@ a.mdbtn:hover{filter:brightness(.93)}
 .boxed>section>.wrap{border:2px solid var(--blue);border-radius:14px;padding:32px 36px!important}
 .bg-bleu.boxed>section>.wrap{border-color:rgba(255,255,255,.5)}
 .rtb-chk{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#fff;margin:0 6px;white-space:nowrap}
+
+.blocs-intro{max-width:860px;margin-bottom:36px}.bcomp{margin:6px 0 14px;padding-left:20px}.bcomp li{margin:3px 0}
+.bcomp-ed{border-left:3px solid var(--mist);padding-left:10px}
