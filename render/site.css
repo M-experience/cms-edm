@@ -446,3 +446,8 @@ body.dnd,body.dnd *{cursor:grabbing!important;user-select:none}
 /* programmes : pas de débordement horizontal sur les écrans moyens */
 .progs>*,.prog-b>*{min-width:0}.ptabs{flex-wrap:wrap}
 @media(max-width:1240px){.prog-b{grid-template-columns:1fr}.prog-img{height:240px}}
+/* bloc « En partenariat avec » : le bouton d'ajout ne décale plus les logos dans l'éditeur */
+.editing .partner .plogos{position:relative}
+.editing .partner .plogos>.eadd{position:absolute;right:0;top:calc(100% + 8px);font-size:12px;padding:4px 9px;white-space:nowrap}
+/* poignée de déplacement des sections plus visible */
+.stools .sdrag{background:var(--coral)!important;padding:4px 10px!important}
