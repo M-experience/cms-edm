@@ -1,6 +1,7 @@
 // Cms-Edm : génération statique des sites publiés et dépôt sur l'hébergement.
 // Variables : SUPABASE_URL, SUPABASE_SERVICE_KEY, FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, SITE (facultatif : identifiant d'un site)
 const fs=require('fs'),path=require('path');
+const ASSET_V=require('crypto').createHash('md5').update(require('fs').readFileSync(require('path').join(__dirname,'../render/site.css'))+require('fs').readFileSync(require('path').join(__dirname,'../render/site.js'))).digest('hex').slice(0,8);
 const R=require('../render/render.js');
 const URL_=process.env.SUPABASE_URL||'https://gtletlvgbjqqjnmhjdfd.supabase.co';
 const KEY=process.env.SUPABASE_SERVICE_KEY;
@@ -23,10 +24,10 @@ function shell(C,site,pg,html,base){
 <title>${esc(t)}</title><meta name="description" content="${esc(desc.replace(/\n/g,' ').slice(0,200))}">
 <link rel="canonical" href="${esc(url)}"><meta property="og:type" content="website"><meta property="og:title" content="${esc(t)}"><meta property="og:description" content="${esc(desc.replace(/\n/g,' ').slice(0,200))}"><meta property="og:url" content="${esc(url)}">${og?`<meta property="og:image" content="${esc(abs(og))}">`:''}
 <link rel="icon" href="/img/dots.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="${esc(R.charteFontsURL(C))}" rel="stylesheet">
-<link rel="stylesheet" href="/site.css"><style>${R.charteCSS(C)}</style>
+<link rel="stylesheet" href="/site.css?v=${ASSET_V}"><style>${R.charteCSS(C)}</style>
 </head><body class="site">
 ${html}
-<script>window.CMS={url:${JSON.stringify(URL_)},key:${JSON.stringify(PUBLISHABLE)},site:${JSON.stringify(site.slug)}};</script><script src="/site.js" defer></script>
+<script>window.CMS={url:${JSON.stringify(URL_)},key:${JSON.stringify(PUBLISHABLE)},site:${JSON.stringify(site.slug)}};</script><script src="/site.js?v=${ASSET_V}" defer></script>
 </body></html>`;
 }
 
