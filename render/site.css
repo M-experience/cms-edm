@@ -513,3 +513,4 @@ a.mdbtn:hover{filter:brightness(.93)}
 .site nav{flex-wrap:nowrap;align-items:stretch}
 .site nav a{display:flex;align-items:center;max-width:9.5em;line-height:1.15;white-space:normal}
 @media(max-width:820px){.site nav{flex-wrap:wrap}.site nav a{max-width:none}}
+.serp{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0;font-family:Arial,sans-serif}.serp small{display:block;color:#888;font-size:11px;text-transform:uppercase;margin-bottom:6px}.serp b{display:block;color:#1a0dab;font-size:18px;font-weight:400}.serp .u{color:#006621;font-size:13px}.serp p{color:#4d5156;font-size:14px;margin:4px 0 0}.cnt{font-weight:400;color:#888;font-size:12px;margin-left:6px}

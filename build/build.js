@@ -14,15 +14,16 @@ const ROOT=path.join(__dirname,'..');
 const PUBLISHABLE='sb_publishable_1BYm4PUC-4xmylhcinXznA_2u-F5zEp';
 
 function shell(C,site,pg,html,base){
- const t=pg.route==='accueil'?C.site.nom:(pg.titre+' | '+C.site.nom);
+ const seo=(C.seo&&C.seo[pg.route])||{};
+ const t=seo.titre||(pg.route==='accueil'?C.site.nom:(pg.titre+' | '+C.site.nom));
  const plain=html.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
- const desc=(pg.route==='accueil'?C.site.slogan:'')||plain.slice(0,180);
+ const desc=seo.description||(pg.route==='accueil'?C.site.slogan:'')||plain.slice(0,180);
  const og=(html.match(/<img[^>]+src="([^"]+\.(?:jpg|jpeg|webp))"/i)||[])[1];
  const abs=u=>!u?'':(/^https?:/.test(u)?u:base+u.replace(/^\//,''));
  const url=base+(pg.path?pg.path+'/':'');
  return `<!DOCTYPE html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(t)}</title><meta name="description" content="${esc(desc.replace(/\n/g,' ').slice(0,200))}">
+<title>${esc(t)}</title><meta name="description" content="${esc(desc.replace(/\n/g,' ').slice(0,300))}">
 <link rel="canonical" href="${esc(url)}"><meta property="og:type" content="website"><meta property="og:title" content="${esc(t)}"><meta property="og:description" content="${esc(desc.replace(/\n/g,' ').slice(0,200))}"><meta property="og:url" content="${esc(url)}">${og?`<meta property="og:image" content="${esc(abs(og))}">`:''}
 <link rel="icon" href="/img/dots.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link href="${esc(R.charteFontsURL(C))}" rel="stylesheet">
 <link rel="stylesheet" href="/site.css?v=${ASSET_V}"><style>${R.charteCSS(C)}</style>
@@ -49,7 +50,7 @@ async function buildSite(site,content){
  fs.copyFileSync(path.join(ROOT,'render','site.js'),path.join(out,'site.js'));
  // 404, plan du site, robots, .htaccess (Hostinger / Apache)
  fs.writeFileSync(path.join(out,'404.html'),fix(shell(C,site,{route:'accueil',titre:'Page introuvable',path:''},`<section class="blk"><div class="wrap"><h1>Page introuvable</h1><p>Cette page n'existe pas ou a été déplacée.</p><p><a class="btn" href="/">Retour à l'accueil</a></p></div></section>`,base)));
- fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p=>`<url><loc>${base}${p.path?p.path+'/':''}</loc></url>`).join('\n')}\n</urlset>\n`);
+ fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p=>`<url><loc>${base}${p.path?p.path+'/':''}</loc><lastmod>${new Date().toISOString().slice(0,10)}</lastmod><priority>${!p.path?'1.0':/^master/.test(p.route)?'0.9':/legales|conditions|confidentialite/.test(p.path)?'0.2':'0.7'}</priority></url>`).join('\n')}\n</urlset>\n`);
  fs.writeFileSync(path.join(out,'robots.txt'),preview?'User-agent: *\nDisallow: /\n':`User-agent: *\nAllow: /\nSitemap: ${base}sitemap.xml\n`);
  const sec=(site.domaines_secondaires||[]).filter(Boolean);
  if(preview){fs.writeFileSync(path.join(out,'.htaccess'),`ErrorDocument 404 ${prefix}404.html\nOptions -Indexes\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\n`);return out;}

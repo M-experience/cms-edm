@@ -72,6 +72,7 @@ function editBar(pg){
   <span class="est" id="est">${esc(statusLine())}</span><span id="presence" class="presence"></span>
   <a class="abtn" href="aide.html" target="_blank" rel="noopener" title="Mode d'emploi (nouvel onglet)">Aide</a>
   <button class="abtn" data-charte="1" title="Polices et couleurs du site">Charte</button>
+  <button class="abtn" id="eSeo" title="Titre et description de cette page dans Google">Google</button>
   <button class="abtn" id="eHist">Historique</button>
   <a class="abtn pri" href="#/apercu/${esc(SITE.slug)}/${esc(pg)}" title="Voir la page telle qu'elle sera publiée (modifications non enregistrées comprises)">Aperçu</a>
   ${SITE.domaine?`<a class="abtn" href="${esc(previewURL(pg))}" target="_blank" rel="noopener" title="Adresse publique du site. Tant que le DNS n'est pas modifié, elle affiche encore l'ancien site (Wix).">${esc(SITE.domaine)} ↗</a>`:''}
@@ -205,6 +206,19 @@ document.addEventListener('drop',async ev=>{if(!hasFiles(ev)||!document.querySel
   else{const arr=ensureSections(d.sp);arr.splice(d.at,0,{type:'galerie',id:'bloc'+Date.now().toString(36),titre:'',items:urls.map(u=>({image:u,legende:''}))});toast(urls.length>1?'Images ajoutées':'Image ajoutée');}
   dirty=true;renderEdit();}
  catch(err){toast('Envoi refusé : '+(err.message||err));}});
+function openSeo(){const pg=EDIT_PAGE||'accueil';const lab=(EPAGES().find(x=>x[0]===pg)||[,pg])[1];const cur=(DRAFT.seo&&DRAFT.seo[pg])||{};
+ const defT=pg==='accueil'?DRAFT.site.nom:lab.replace(/^Master /,'Master ')+' | '+DRAFT.site.nom;
+ $('#modal').innerHTML=`<div class="modal"><div><h3>Référencement Google : ${esc(lab)}</h3>
+  <p class="help">Ce que Google affiche dans ses résultats pour cette page. Laissez vide pour la valeur automatique.</p>
+  <div class="fld"><label>Titre (60 caractères environ) <span class="cnt" id="seoTc"></span></label><input id="seoT" value="${esc(cur.titre||'')}" placeholder="${esc(defT)}"></div>
+  <div class="fld"><label>Description (120 à 160 caractères) <span class="cnt" id="seoDc"></span></label><textarea id="seoD" rows="4" placeholder="Une ou deux phrases qui donnent envie de cliquer, avec les mots que les visiteurs cherchent.">${esc(cur.description||'')}</textarea></div>
+  <div class="serp"><small>Aperçu</small><b id="seoPT"></b><span class="u">${esc((SITE.domaine||'')+'')}</span><p id="seoPD"></p></div>
+  <div class="actions"><span class="st"></span><button class="abtn" id="mCancel">Annuler</button><button class="abtn pri" id="mOk">Valider</button></div></div></div>`;
+ const upd=()=>{const T=$('#seoT').value,D=$('#seoD').value;$('#seoTc').textContent=T.length+' car.';$('#seoDc').textContent=D.length+' car.';$('#seoDc').style.color=D.length&&(D.length<110||D.length>165)?'#c0392b':'';$('#seoPT').textContent=T||defT;$('#seoPD').textContent=D||'(description automatique : début du texte de la page)';};
+ $('#seoT').oninput=$('#seoD').oninput=upd;upd();
+ $('#mCancel').onclick=()=>$('#modal').innerHTML='';
+ $('#mOk').onclick=()=>{const T=$('#seoT').value.trim(),D=$('#seoD').value.trim().replace(/\s+/g,' ');DRAFT.seo=DRAFT.seo||{};if(T||D)DRAFT.seo[pg]={...(T?{titre:T}:{}),...(D?{description:D}:{})};else delete DRAFT.seo[pg];
+  $('#modal').innerHTML='';dirty=true;editStatus();histCommit();toast('Référencement mis à jour (pris en compte à la publication)');};}
 function openLibrary(at,sp){
  const secs=ensureSections(sp);
  const hidden=secs.map((s,i)=>[s,i]).filter(([s])=>s.masque);
@@ -280,6 +294,7 @@ function bindEditOnce(){
   if(b.id==='eSubmit'){saveDraft('en_validation');return;}
   if(b.id==='ePub'){openPublish();return;}
   if(b.id==='eHist'){openHistory();return;}
+  if(b.id==='eSeo'){openSeo();return;}
   if(b.id==='eUndo'){histReset();DRAFT=norm(clone(CONTENT.draft||CONTENT.published||ORIGIN_RAW));dirty=false;applyCharte(DRAFT);renderEdit();toast('Modifications annulées');return;}
   if(b.dataset.link){e.preventDefault();openLinkChooser(JSON.parse(b.dataset.link));return;}
   if(b.dataset.imgp){openImagePicker(JSON.parse(b.dataset.imgp),b.dataset.logos);return;}
