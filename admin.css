@@ -37,3 +37,9 @@ a.abtn{text-decoration:none;display:inline-block}
 .pvbar{position:sticky;top:0;z-index:50;display:flex;gap:12px;align-items:center;padding:10px 18px;background:var(--coral);color:#fff;font-family:var(--f-body);font-size:14px}.pvbar .help{color:#fff;opacity:.85}.pvbar .sp{flex:1}.pvbar .abtn{background:#fff;color:var(--ink);border-color:#fff}
 .lfirst{margin:2px 0 0;text-align:center}
 #fFirst{border-top:1px solid #e3e8f0;padding-top:14px}
+/* logo Cms-Edm */
+.brand{display:inline-flex;align-items:center;gap:8px;font:700 18px var(--f-body);color:var(--navy);text-decoration:none}
+.brand .lgmark{width:30px;height:30px;flex:none}
+.brand .bword i{font-style:normal;color:var(--blue)}.brand .bword em{font-style:normal;color:#EC5A64}
+.brand.big{font-size:32px;gap:12px}.brand.big .lgmark{width:56px;height:56px}
+.lhead{display:grid;gap:6px;justify-items:start}

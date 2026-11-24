@@ -199,6 +199,10 @@ const SUPABASE_URL='https://gtletlvgbjqqjnmhjdfd.supabase.co';
 const SUPABASE_KEY='sb_publishable_1BYm4PUC-4xmylhcinXznA_2u-F5zEp';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,detectSessionInUrl:true}});
 
+/* ============ identité visuelle ============ */
+const LOGO=`<svg class="lgmark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="15" fill="#144162"/><path d="M18 12h19l11 11v27a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z" fill="#fff"/><path d="M37 12v8a3 3 0 0 0 3 3h8z" fill="#EC5A64"/><rect x="20" y="28" width="22" height="4.5" rx="2.25" fill="#144162"/><rect x="20" y="36" width="15" height="4.5" rx="2.25" fill="#617CA9"/><circle cx="44" cy="46" r="9" fill="#EC5A64" stroke="#fff" stroke-width="3"/><path d="M40 46.5l2.8 2.8 5.4-5.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const brand=(cls='')=>`<span class="brand ${cls}">${LOGO}<span class="bword">cms<i>-</i><em>edm</em></span></span>`;
+
 /* ============ état ============ */
 let SESSION=null,ME=null,SITES=[],SITE=null,ROLE=null,CONTENT=null,ORIGIN=null;
 let DRAFT=null,draftMeta=null,dirty=false,section='accueil',VIEW='loading',EDIT_PAGE='accueil';
@@ -223,7 +227,7 @@ async function loadTheme(theme){
 
 /* ============ connexion ============ */
 function loginHTML(msg=''){
- return `<div class="login"><div class="lbox"><img src="themes/edm/img/logo-edm.png" alt="" class="llogo"><h1>Cms-Edm</h1><p class="help">Gestion des sites de l'École du Design des Mutations</p>
+ return `<div class="login"><div class="lbox"><div class="lhead">${brand('big')}<p class="help">Gestion des sites de l'École du Design des Mutations</p></div>
   <form id="fPwd"><label>Adresse e-mail<input type="email" id="pEmail" required autocomplete="email"></label><label>Mot de passe<input type="password" id="pPwd" required autocomplete="current-password"></label>
    <button class="abtn pri">Se connecter</button></form>
   <p class="lfirst"><button type="button" class="linkbtn" id="pFirst">Première connexion ou mot de passe oublié ?</button></p>
@@ -239,9 +243,11 @@ function bindLogin(){
  $('#fFirst').onsubmit=async e=>{e.preventDefault();const email=$('#fEmail').value.trim().toLowerCase();msg('Envoi en cours...');
   let invited=false;try{const r=await sb.rpc('peut_creer_compte',{p_email:email});invited=!!r.data;}catch(_){}
   const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:base+'?mdp=1',shouldCreateUser:invited}});
-  msg(error?(/signups? not allowed|not found|otp_disabled/i.test(error.message)?'Cette adresse n\'a pas été invitée. Demandez à un administrateur de vous ajouter.':'Erreur : '+error.message):'E-mail envoyé. Ouvrez le lien qu\'il contient pour choisir votre mot de passe (pensez aux indésirables).');};
+  // message identique que l'adresse soit invitée ou non : on ne révèle pas qui a accès
+  const neutral='Si cette adresse a été invitée, un e-mail vient de lui être envoyé. Ouvrez le lien qu\'il contient pour choisir votre mot de passe (pensez aux indésirables).';
+  msg(error&&!/signups? not allowed|not found|otp_disabled/i.test(error.message)?(/rate|seconds/i.test(error.message)?'Trop de demandes : patientez une minute avant de réessayer.':'Erreur : '+error.message):neutral);};
 }
-function newPasswordHTML(){return `<div class="login"><div class="lbox"><h1>Choisissez votre mot de passe</h1><p class="help">Il vous servira pour vos prochaines connexions, avec votre adresse e-mail.</p><form id="fNew"><label>Mot de passe (8 caractères minimum)<input type="password" id="nPwd" minlength="8" required autocomplete="new-password"></label><button class="abtn pri">Enregistrer</button></form><p class="lmsg" id="lMsg"></p></div></div>`;}
+function newPasswordHTML(){return `<div class="login"><div class="lbox"><h1>Choisissez votre mot de passe</h1><p class="help">Il vous servira pour vos prochaines connexions, avec votre adresse e-mail.</p><form id="fNew"><label>Mot de passe (10 caractères minimum)<input type="password" id="nPwd" minlength="10" required autocomplete="new-password"></label><label>Confirmez le mot de passe<input type="password" id="nPwd2" minlength="10" required autocomplete="new-password"></label><button class="abtn pri">Enregistrer</button></form><p class="lmsg" id="lMsg"></p></div></div>`;}
 
 /* ============ liste des sites ============ */
 async function loadSites(){
@@ -411,7 +417,7 @@ function renderPreview(){
 function render(){
  const app=$('#app');
  if(VIEW==='login'){app.className='';app.innerHTML=loginHTML();bindLogin();return;}
- if(VIEW==='newpwd'){app.className='';app.innerHTML=newPasswordHTML();$('#fNew').onsubmit=async e=>{e.preventDefault();const {error}=await sb.auth.updateUser({password:$('#nPwd').value});$('#lMsg').textContent=error?'Erreur : '+error.message:'Mot de passe enregistré.';if(!error){history.replaceState(null,'',location.pathname+'#/');setTimeout(()=>{VIEW='';route();},800);}};return;}
+ if(VIEW==='newpwd'){app.className='';app.innerHTML=newPasswordHTML();$('#fNew').onsubmit=async e=>{e.preventDefault();if($('#nPwd').value!==$('#nPwd2').value){$('#lMsg').textContent='Les deux mots de passe ne sont pas identiques.';return;}const {error}=await sb.auth.updateUser({password:$('#nPwd').value});$('#lMsg').textContent=error?'Erreur : '+error.message:'Mot de passe enregistré.';if(!error){history.replaceState(null,'',location.pathname+'#/');setTimeout(()=>{VIEW='';route();},800);}};return;}
  if(VIEW==='sites'){app.className='';app.innerHTML=sitesHTML();bindSites();return;}
  if(VIEW==='preview'){renderPreview();return;}
  if(VIEW==='edit'){renderEdit();applyCharte(DRAFT);presenceCh&&presenceCh.track({email:ME.email,page:EDIT_PAGE});return;}
