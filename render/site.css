@@ -510,3 +510,6 @@ a.mdbtn:hover{filter:brightness(.93)}
 .site .navcta a{font-size:clamp(14px,1.25vw,18px);padding:18px 28px;letter-spacing:.03em}
 @media(max-width:1240px){.site nav a{padding:8px 12px}.site .navcta a{padding:13px 16px}}
 @media(max-width:820px){.site header.top .wrap{height:auto}}
+.site nav{flex-wrap:nowrap;align-items:stretch}
+.site nav a{display:flex;align-items:center;max-width:9.5em;line-height:1.15;white-space:normal}
+@media(max-width:820px){.site nav{flex-wrap:wrap}.site nav a{max-width:none}}
