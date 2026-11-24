@@ -79,7 +79,7 @@ function editBar(pg){
   <button class="abtn" id="eSave" ${!dirty?'disabled':''}>Enregistrer le brouillon</button>
   ${!canPublish()?`<button class="abtn cor" id="eSubmit">Soumettre à validation</button>`:`<button class="abtn pri" id="ePub">Publier</button>`}
  </div>
- <div class="ehelp">Cliquez sur un texte pour le modifier, sur une image pour la changer. Survolez un élément pour le déplacer ou le supprimer.${pg==='accueil'||pg.startsWith('page-')?' « + Ajouter une section » puise dans la bibliothèque.':''}</div>`;
+ <div class="ehelp">Cliquez sur un texte pour le modifier, sur une image pour la changer. Survolez un élément pour le déplacer ou le supprimer.${pg==='accueil'||pg.startsWith('page-')||pg.startsWith('master-')?' « + Ajouter une section » puise dans la bibliothèque.':''}</div>`;
 }
 /* ============ glisser-déposer des sections et des éléments ============ */
 function startDnD(ev,btn){
@@ -142,7 +142,7 @@ function renderEdit(){
 }
 function editStatus(){const s=$('#est');if(s)s.textContent=statusLine();const a=$('#eSave');if(a)a.disabled=!dirty;const u=$('#eUndo');if(u)u.disabled=!dirty;}
 const isEditRoute=()=>VIEW==='edit';
-function ensureSections(sp){if(!sp||sp[0]==='accueil'){if(!DRAFT.accueil.sections)DRAFT.accueil.sections=clone(sectionsOf(DRAFT));return DRAFT.accueil.sections;}return get(DRAFT,sp);}
+function ensureSections(sp){if(!sp||sp[0]==='accueil'){if(!DRAFT.accueil.sections)DRAFT.accueil.sections=clone(sectionsOf(DRAFT));return DRAFT.accueil.sections;}let a=get(DRAFT,sp);if(!a){a=[];set(DRAFT,sp,a);}return a;}
 async function openImagePicker(p,logos){const LIST=logos?[...LOGOS,...IMAGES]:IMAGES;
  const cur=get(DRAFT,p);
  $('#modal').innerHTML=`<div class="modal"><div><h3>Choisir une image</h3>

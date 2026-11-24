@@ -481,3 +481,5 @@ a.mdbtn:hover{filter:brightness(.93)}
 
 .blocs-intro{max-width:860px;margin-bottom:36px}.bcomp{margin:6px 0 14px;padding-left:20px}.bcomp li{margin:3px 0}
 .bcomp-ed{border-left:3px solid var(--mist);padding-left:10px}
+
+.lead p{margin:0 0 .6em}.lead p:last-child{margin-bottom:0}
