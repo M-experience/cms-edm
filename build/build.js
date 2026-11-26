@@ -64,6 +64,13 @@ ${site.domaine?sec.map(d=>`RewriteCond %{HTTP_HOST} ^${d.replace(/\./g,'\\.')}$ 
 RewriteRule ^mentions-l[^e/]+gales/?$ /mentions-legales/ [L,R=301]
 RewriteRule ^politique-de-confidentialit[^e/]+/?$ /politique-de-confidentialite/ [L,R=301]
 RewriteRule ^vie-des-masters/?$ /vie-masters/ [L,R=301]
+# restes de l'ancien site Wix signalés par Google Search Console
+RewriteRule ^politique-de-cookies/?$ /politique-de-confidentialite/ [L,R=301]
+RewriteRule ^profile/ /ecole/#s-equipe [L,R=301,NE]
+RewriteRule ^post/ /vie-masters/ [L,R=301]
+RewriteRule ^service-page/ / [L,R=301]
+RewriteRule ^book-online/?$ /contact/ [L,R=301]
+RewriteRule ^(copie-de-accueil|backup-id|pricing-plans|_api/) - [G,L]
 # anciennes pages de design-mutation.org (domaine redirigé vers ce site)
 RewriteRule ^master-transition-numerique-responsable-codesign/?$ /mastertnr/ [L,R=301]
 RewriteRule ^master-communication-innovation-mediations-etudes/?$ /mastercime/ [L,R=301]
