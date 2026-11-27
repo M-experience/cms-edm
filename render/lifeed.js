@@ -22,8 +22,11 @@ function card(p,edit,hidden){
 async function init(el){
  if(el.dataset.ready)return;el.dataset.ready='1';
  const id=el.dataset.sk,edit=!!el.closest('.editing');let masques=[];try{masques=JSON.parse(el.dataset.masques||'[]');}catch(e){}
- let data=null;try{const r=await fetch(FEED+id+'.json?nocache='+Math.floor(Date.now()/600000));data=r.ok?await r.json():null;}catch(e){}
- if(!data||!Array.isArray(data.posts)){el.innerHTML='<p class="lin-empty">Les publications LinkedIn ne peuvent pas être affichées pour le moment.</p>';return;}
+ // plusieurs fils possibles (fil actuel puis anciens fils servant d'archive) : fusionnés et dédoublonnés
+ const ids=String(id).split(/[^0-9]+/).filter(Boolean);let all=[];
+ await Promise.all(ids.map(async(x,i)=>{try{const r=await fetch(FEED+x+'.json?nocache='+Math.floor(Date.now()/600000));const d=r.ok?await r.json():null;if(d&&Array.isArray(d.posts))all[i]=d.posts;}catch(e){}}));
+ const data={posts:[].concat(...all.filter(Boolean))};
+ if(!data.posts.length){el.innerHTML='<p class="lin-empty">Les publications LinkedIn ne peuvent pas être affichées pour le moment.</p>';return;}
  let posts=prep(data.posts);if(!edit)posts=posts.filter(p=>!masques.includes(String(p.id)));
  const years=[...new Set(posts.map(p=>String(p.post_date_time).slice(0,4)))].filter(Boolean);
  let cur=el.dataset.year&&years.includes(el.dataset.year)?el.dataset.year:years[0];
