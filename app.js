@@ -151,6 +151,7 @@ function renderEdit(){
  bindDeco();
  histCommit();
  markBusy();
+ window.liFeedInit&&window.liFeedInit($('#app'));
 }
 function editStatus(){const s=$('#est');if(s)s.textContent=statusLine();const a=$('#eSave');if(a)a.disabled=!dirty;const u=$('#eUndo');if(u)u.disabled=!dirty;}
 const isEditRoute=()=>VIEW==='edit';
@@ -290,7 +291,8 @@ function bindEditOnce(){
   if(t.closest('.editing a')&&!t.closest('button'))e.preventDefault();
   if(t.closest('.editing summary'))e.preventDefault();
   const b=t.closest('button,[data-imgp]');if(!b)return;
-  if(b.dataset.hist&&!b.closest('.rtb')){histGo(b.dataset.hist==='undo'?-1:1);return;}
+  if(b.dataset.limask){const box=b.closest('.li-native');const sp=JSON.parse(box.dataset.sp);let m=(get(DRAFT,sp)||[]).map(String);const id=b.dataset.limask;m=m.includes(id)?m.filter(x=>x!==id):[...m,id];set(DRAFT,sp,m);dirty=true;editStatus();histCommit();box.dataset.masques=JSON.stringify(m);delete box.dataset.ready;window.liFeedInit(box.parentNode);toast(m.includes(id)?'Post masqué (pris en compte à la publication)':'Post de nouveau affiché');return;}
+ if(b.dataset.hist&&!b.closest('.rtb')){histGo(b.dataset.hist==='undo'?-1:1);return;}
   if(b.id==='eSave'){saveDraft('brouillon');return;}
   if(b.id==='eSubmit'){saveDraft('en_validation');return;}
   if(b.id==='ePub'){openPublish();return;}

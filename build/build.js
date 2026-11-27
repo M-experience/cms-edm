@@ -1,7 +1,7 @@
 // Cms-Edm : génération statique des sites publiés et dépôt sur l'hébergement.
 // Variables : SUPABASE_URL, SUPABASE_SERVICE_KEY, FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, SITE (facultatif : identifiant d'un site)
 const fs=require('fs'),path=require('path');
-const ASSET_V=require('crypto').createHash('md5').update(require('fs').readFileSync(require('path').join(__dirname,'../render/site.css'))+require('fs').readFileSync(require('path').join(__dirname,'../render/site.js'))).digest('hex').slice(0,8);
+const ASSET_V=require('crypto').createHash('md5').update(require('fs').readFileSync(require('path').join(__dirname,'../render/site.css'))+require('fs').readFileSync(require('path').join(__dirname,'../render/lifeed.js'))+require('fs').readFileSync(require('path').join(__dirname,'../render/site.js'))).digest('hex').slice(0,8);
 const PREVIEW_HOST='apercu.ecole-edm.fr',PREVIEW_DIR='/public_html/apercu';
 const R=require('../render/render.js');
 const URL_=process.env.SUPABASE_URL||'https://gtletlvgbjqqjnmhjdfd.supabase.co';
@@ -29,7 +29,7 @@ function shell(C,site,pg,html,base){
 <link rel="stylesheet" href="/site.css?v=${ASSET_V}"><style>${R.charteCSS(C)}</style>
 </head><body class="site">
 ${html}
-<script>window.CMS={url:${JSON.stringify(URL_)},key:${JSON.stringify(PUBLISHABLE)},site:${JSON.stringify(site.slug)}};</script><script src="/site.js?v=${ASSET_V}" defer></script>
+<script>window.CMS={url:${JSON.stringify(URL_)},key:${JSON.stringify(PUBLISHABLE)},site:${JSON.stringify(site.slug)}};</script><script src="/site.js?v=${ASSET_V}" defer></script><script src="/lifeed.js?v=${ASSET_V}" defer></script>
 </body></html>`;
 }
 
@@ -47,7 +47,7 @@ async function buildSite(site,content){
  // ressources
  fs.cpSync(path.join(ROOT,'themes',theme,'img'),path.join(out,'img'),{recursive:true});
  fs.copyFileSync(path.join(ROOT,'render','site.css'),path.join(out,'site.css'));
- fs.copyFileSync(path.join(ROOT,'render','site.js'),path.join(out,'site.js'));
+ fs.copyFileSync(path.join(ROOT,'render','site.js'),path.join(out,'site.js'));fs.copyFileSync(path.join(ROOT,'render','lifeed.js'),path.join(out,'lifeed.js'));
  // 404, plan du site, robots, .htaccess (Hostinger / Apache)
  fs.writeFileSync(path.join(out,'404.html'),fix(shell(C,site,{route:'accueil',titre:'Page introuvable',path:''},`<section class="blk"><div class="wrap"><h1>Page introuvable</h1><p>Cette page n'existe pas ou a été déplacée.</p><p><a class="btn" href="/">Retour à l'accueil</a></p></div></section>`,base)));
  fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p=>`<url><loc>${base}${p.path?p.path+'/':''}</loc><lastmod>${new Date().toISOString().slice(0,10)}</lastmod><priority>${!p.path?'1.0':/^master/.test(p.route)?'0.9':/legales|conditions|confidentialite/.test(p.path)?'0.2':'0.7'}</priority></url>`).join('\n')}\n</urlset>\n`);
