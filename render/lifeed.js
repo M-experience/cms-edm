@@ -15,7 +15,7 @@ function card(p,edit,hidden){
  const img=p.thumbnail_url||p.thumbnail||'';
  return `<article class="lin-card${hidden?' lin-hidden':''}" data-id="${E(p.id)}">
   ${img?`<a class="lin-img" href="${E(p.post_url)}" target="_blank" rel="noopener"><img src="${E(img)}" alt="" loading="lazy"></a>`:''}
-  <div class="lin-body"><div class="lin-meta"><span class="li-mark">in</span><time>${fdate(p.post_date_time)}</time>${p.reposted==='1'?'<span class="lin-rep">Republication</span>':''}</div>
+  <div class="lin-body"><div class="lin-meta"><span class="li-mark">in</span><span class="lin-who">${E(p.profile_name||'')}</span><time>${fdate(p.post_date_time)}</time>${p.reposted==='1'?'<span class="lin-rep">Republication</span>':''}</div>
   <p>${E(short).replace(/\n/g,'<br>')}</p>
   <div class="lin-foot"><a href="${E(p.post_url)}" target="_blank" rel="noopener">Lire sur LinkedIn →</a><span>${+p.likes_count?'♥ '+E(p.likes_count):''}${+p.comments_count?' · 💬 '+E(p.comments_count):''}</span></div>
   ${edit?`<button type="button" class="lin-mask" data-limask="${E(p.id)}">${hidden?'Afficher sur le site':'Masquer sur le site'}</button>`:''}</div></article>`;}
